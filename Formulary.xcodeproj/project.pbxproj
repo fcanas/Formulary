@@ -19,6 +19,8 @@
 		E75D08F71A6975AE00DF5561 /* ExemplaryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75D08F61A6975AE00DF5561 /* ExemplaryTests.swift */; };
 		E75D09041A6977E300DF5561 /* Formulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75D08B91A696A9D00DF5561 /* Formulary.framework */; };
 		E75D09051A6977E300DF5561 /* Formulary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E75D08B91A696A9D00DF5561 /* Formulary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */; };
+		E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95D1A69A34700FD8294 /* Form.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		E75D08F01A6975AE00DF5561 /* ExemplaryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExemplaryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75D08F51A6975AE00DF5561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E75D08F61A6975AE00DF5561 /* ExemplaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExemplaryTests.swift; sourceTree = "<group>"; };
+		E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
+		E7F1A95D1A69A34700FD8294 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +178,8 @@
 			isa = PBXGroup;
 			children = (
 				E75D08D61A696D5400DF5561 /* FormViewController.swift */,
+				E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */,
+				E7F1A95D1A69A34700FD8294 /* Form.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -387,7 +393,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */,
 				E75D08D71A696D5400DF5561 /* FormViewController.swift in Sources */,
+				E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -683,6 +691,7 @@
 				E75D08D11A696A9D00DF5561 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E75D08D21A696A9D00DF5561 /* Build configuration list for PBXNativeTarget "FormularyTests" */ = {
 			isa = XCConfigurationList;
@@ -691,6 +700,7 @@
 				E75D08D41A696A9D00DF5561 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E75D08F81A6975AE00DF5561 /* Build configuration list for PBXNativeTarget "Exemplary" */ = {
 			isa = XCConfigurationList;
@@ -699,6 +709,7 @@
 				E75D08FA1A6975AE00DF5561 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E75D08FB1A6975AE00DF5561 /* Build configuration list for PBXNativeTarget "ExemplaryTests" */ = {
 			isa = XCConfigurationList;
@@ -707,6 +718,7 @@
 				E75D08FD1A6975AE00DF5561 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

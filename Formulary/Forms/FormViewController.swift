@@ -8,29 +8,6 @@
 
 import UIKit
 
-public struct Form {
-    public let sections: [FormSection]
-    public init(sections: [FormSection]) {
-        self.sections = sections
-    }
-}
-
-public struct FormSection {
-    public let name: String
-    public let rows: [FormRow]
-    public init(name: String, rows: [FormRow]) {
-        self.name = name
-        self.rows = rows
-    }
-}
-
-public struct FormRow {
-    public let name: String
-    public init(name: String) {
-        self.name = name
-    }
-}
-
 extension FormRow {
     func identifier() -> String {
         return "FormRow"
@@ -98,39 +75,5 @@ public class FormViewController: UIViewController {
             tableView.dataSource = dataSource
         }
     }
-    
 }
-
-class FormDataSource: NSObject, UITableViewDataSource {
-    let form: Form
-    
-    init(form: Form, tableView: UITableView) {
-        self.form = form
-        for row in form.allRows() {
-            tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: row.identifier())
-        }
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        println("sec:\(form.sections)")
-        return countElements(form.sections)
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("sec:\(form.sections[section])")
-        return countElements(form.sections[section].rows)
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let row = form.rowForIndexPath(indexPath)
-        let cell = tableView.dequeueReusableCellWithIdentifier(row.identifier()) as UITableViewCell
-        cell.textLabel?.text = row.name
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return form.sections[section].name
-    }
-}
-
 
