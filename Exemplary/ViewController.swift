@@ -13,8 +13,15 @@ class ViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.form = Form(sections: [FormSection(rows: [FormRow(name:"A"), FormRow(name:"B"), FormRow(name:"C")], name:"Letters"),
-                                    FormSection(rows: [FormRow(name:"á"), FormRow(name:"é"), FormRow(name:"í")], name:"Vówels", footerName: "Fín")])
+        self.form = Form(sections: [FormSection(rows: [FormRow(name:"A"),
+                                                       FormRow(name:"B"),
+                                                       FormRow(name:"C")],
+                                                name:"Letters"),
+                                    FormSection(rows: [FormRow(name:"á"),
+                                                       FormRow(name:"é"),
+                                                       FormRow(name:"í", type: .Switch)],
+                                                name:"Vówels",
+                                                footerName: "Fín")])
     }
     
 }

@@ -6,6 +6,29 @@
 //  Copyright (c) 2015 Fabian Canas. All rights reserved.
 //
 
+public enum FormRowType: String {
+    case Plain = "Plain";
+    case Switch = "Switch";
+}
+
+//func cellClassForType(type: FormRowType) -> 
+
+
+//func cellBuilderForType(type: FormRowType) -> (FormRow) -> UITableViewCell {
+//    switch type {
+//    case .Plain:
+//        return { row in
+//            UITableViewCell()
+//        }
+//    case .Switch:
+//        return { row in
+//            let cell = UITableViewCell()
+//            
+//            return cell
+//        }
+//    }
+//}
+
 public struct Form {
     public let sections: [FormSection]
     public init(sections: [FormSection]) {
@@ -26,7 +49,9 @@ public struct FormSection {
 
 public struct FormRow {
     public let name: String
-    public init(name: String) {
+    public let type: FormRowType
+    public init(name: String, type: FormRowType = .Plain) {
         self.name = name
+        self.type = type
     }
 }

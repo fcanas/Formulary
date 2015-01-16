@@ -67,6 +67,7 @@ public class FormViewController: UIViewController {
             view.addSubview(tableView)
         }
         
+        tableView.registerFormCellClasses()
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 44
         

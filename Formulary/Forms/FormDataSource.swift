@@ -31,7 +31,7 @@ class FormDataSource: NSObject, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let row = form.rowForIndexPath(indexPath)
         let cell = tableView.dequeueReusableCellWithIdentifier(row.identifier()) as UITableViewCell
-        cell.textLabel?.text = row.name
+        configureCell(cell, row)
         return cell
     }
     
