@@ -8,16 +8,27 @@
 
 import UIKit
 
-struct Form {
-    let sections: [FormSection]
+public struct Form {
+    public let sections: [FormSection]
+    public init(sections: [FormSection]) {
+        self.sections = sections
+    }
 }
 
-struct FormSection {
-    let rows: [FormRow]
+public struct FormSection {
+    public let name: String
+    public let rows: [FormRow]
+    public init(name: String, rows: [FormRow]) {
+        self.name = name
+        self.rows = rows
+    }
 }
 
-struct FormRow {
-    
+public struct FormRow {
+    public let name: String
+    public init(name: String) {
+        self.name = name
+    }
 }
 
 extension FormRow {
@@ -30,18 +41,25 @@ extension Form {
     func rowForIndexPath(indexPath: NSIndexPath) -> FormRow {
         return sections[indexPath.section].rows[indexPath.row]
     }
+    func allRows() -> [FormRow] {
+        return sections.reduce(Array<FormRow>(), combine: { (rows, section) -> Array<FormRow> in
+            return rows + section.rows
+        })
+    }
 }
 
 public class FormViewController: UIViewController {
     
-    var form :Form! {
+    var dataSource: FormDataSource?
+    
+    public var form :Form! {
         didSet {
             if form != nil {
-                tableView?.dataSource = FormDataSource(form: form, tableView: tableView)
+                dataSource = FormDataSource(form: form, tableView: tableView)
+                tableView?.dataSource = dataSource
             } else {
                 tableView?.dataSource = nil
             }
-            tableView?.reloadData()
         }
     }
     var tableView: UITableView!
@@ -54,6 +72,11 @@ public class FormViewController: UIViewController {
     
     required public init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+    }
+    
+    func link(form: Form, table: UITableView) {
+        dataSource = FormDataSource(form: form, tableView: tableView)
+        tableView.dataSource = dataSource
     }
     
     override public func viewDidLoad() {
@@ -71,7 +94,8 @@ public class FormViewController: UIViewController {
         tableView.estimatedRowHeight = 44
         
         if form != nil {
-            tableView.dataSource = FormDataSource(form: form, tableView: tableView)
+            dataSource = FormDataSource(form: form, tableView: tableView)
+            tableView.dataSource = dataSource
         }
     }
     
@@ -82,19 +106,30 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     init(form: Form, tableView: UITableView) {
         self.form = form
+        for row in form.allRows() {
+            tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: row.identifier())
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        println("sec:\(form.sections)")
         return countElements(form.sections)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        println("sec:\(form.sections[section])")
         return countElements(form.sections[section].rows)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(form.rowForIndexPath(indexPath).identifier()) as UITableViewCell
+        let row = form.rowForIndexPath(indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(row.identifier()) as UITableViewCell
+        cell.textLabel?.text = row.name
         return cell
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return form.sections[section].name
     }
 }
 
