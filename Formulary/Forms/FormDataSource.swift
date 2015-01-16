@@ -18,13 +18,13 @@ class FormDataSource: NSObject, UITableViewDataSource {
         }
     }
     
+    // MARK: Data
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        println("sec:\(form.sections)")
         return countElements(form.sections)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("sec:\(form.sections[section])")
         return countElements(form.sections[section].rows)
     }
     
@@ -35,7 +35,13 @@ class FormDataSource: NSObject, UITableViewDataSource {
         return cell
     }
     
+    // MARK: Headers and Footers
+    
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return form.sections[section].name
+    }
+    
+    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        return form.sections[section].footerName
     }
 }

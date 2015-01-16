@@ -14,12 +14,14 @@ public struct Form {
 }
 
 public struct FormSection {
-    public let name: String
+    public let name: String?
     public let rows: [FormRow]
-    public init(name: String, rows: [FormRow]) {
+    public init(rows: [FormRow], name: String? = nil, footerName :String? = nil) {
         self.name = name
         self.rows = rows
+        self.footerName = footerName
     }
+    public var footerName: String?
 }
 
 public struct FormRow {
