@@ -52,7 +52,8 @@ public class FormViewController: UIViewController {
         
         tableView.registerFormCellClasses()
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 44
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = 60
         
         if form != nil {
             dataSource = FormDataSource(form: form, tableView: tableView)

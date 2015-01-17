@@ -15,13 +15,13 @@ class ViewController: FormViewController {
         super.viewDidLoad()
         self.form = ConcreteForm(sections: [ConcreteFormSection(rows: [ConcreteFormRow(name:"A", tag: "a"),
                                                                        ConcreteFormRow(name:"B", tag: "b"),
-                                                                       ConcreteFormRow(name:"C", tag: "c")],
-                                                name:"Letters"),
-                                            ConcreteFormSection(rows: [ConcreteFormRow(name:"á", tag: "á"),
+                                                                       ConcreteFormRow(name:"C", tag: "c", value: "Character", type: .Text)],
+                                                                name:"Letters"),
+                                            ConcreteFormSection(rows: [ConcreteFormRow(name:"á", tag: "á", value: nil, type: .Text),
                                                                        ConcreteFormRow(name:"é", tag: "é", value: false, type: .Switch),
                                                                        ConcreteFormRow(name:"í", tag: "í", value: true, type: .Switch)],
-                                                name:"Vówels",
-                                                footerName: "Fín")])
+                                                                name:"Vówels",
+                                                                footerName: "Fín")])
     }
     
 }

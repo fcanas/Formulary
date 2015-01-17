@@ -7,8 +7,9 @@
 //
 
 public enum FormRowType: String {
-    case Plain = "Plain";
-    case Switch = "Switch";
+    case Plain  = "Plain"
+    case Switch = "Switch"
+    case Text   = "Text"
 }
 
 // MARK: Protocols
