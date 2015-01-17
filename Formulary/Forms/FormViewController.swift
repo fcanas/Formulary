@@ -8,23 +8,6 @@
 
 import UIKit
 
-extension FormRow {
-    func identifier() -> String {
-        return "FormRow"
-    }
-}
-
-extension Form {
-    func rowForIndexPath(indexPath: NSIndexPath) -> FormRow {
-        return sections[indexPath.section].rows[indexPath.row]
-    }
-    func allRows() -> [FormRow] {
-        return sections.reduce(Array<FormRow>(), combine: { (rows, section) -> Array<FormRow> in
-            return rows + section.rows
-        })
-    }
-}
-
 public class FormViewController: UIViewController {
     
     var dataSource: FormDataSource?

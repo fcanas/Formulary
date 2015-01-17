@@ -13,13 +13,13 @@ class ViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.form = Form(sections: [FormSection(rows: [FormRow(name:"A", tag: "a"),
-                                                       FormRow(name:"B", tag: "b"),
-                                                       FormRow(name:"C", tag: "c")],
+        self.form = ConcreteForm(sections: [ConcreteFormSection(rows: [ConcreteFormRow(name:"A", tag: "a"),
+                                                                       ConcreteFormRow(name:"B", tag: "b"),
+                                                                       ConcreteFormRow(name:"C", tag: "c")],
                                                 name:"Letters"),
-                                    FormSection(rows: [FormRow(name:"á", tag: "á"),
-                                                       FormRow(name:"é", tag: "é", value: false, type: .Switch),
-                                                       FormRow(name:"í", tag: "í", value: true, type: .Switch)],
+                                            ConcreteFormSection(rows: [ConcreteFormRow(name:"á", tag: "á"),
+                                                                       ConcreteFormRow(name:"é", tag: "é", value: false, type: .Switch),
+                                                                       ConcreteFormRow(name:"í", tag: "í", value: true, type: .Switch)],
                                                 name:"Vówels",
                                                 footerName: "Fín")])
     }

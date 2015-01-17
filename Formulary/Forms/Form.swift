@@ -11,82 +11,58 @@ public enum FormRowType: String {
     case Switch = "Switch";
 }
 
-//func cellClassForType(type: FormRowType) -> 
+// MARK: Protocols
 
-
-//func cellBuilderForType(type: FormRowType) -> (FormRow) -> UITableViewCell {
-//    switch type {
-//    case .Plain:
-//        return { row in
-//            UITableViewCell()
-//        }
-//    case .Switch:
-//        return { row in
-//            let cell = UITableViewCell()
-//            
-//            return cell
-//        }
-//    }
-//}
-
-public struct Form {
-    public let sections: [FormSection]
-    public init(sections: [FormSection]) {
-        self.sections = sections
-    }
+public protocol Form {
+    var sections: [FormSection] { get }
 }
 
-public struct FormSection {
-    public let name: String?
-    public let rows: [FormRow]
-    public init(rows: [FormRow], name: String? = nil, footerName :String? = nil) {
-        self.name = name
-        self.rows = rows
-        self.footerName = footerName
-    }
-    public var footerName: String?
+public protocol FormSection {
+    var name: String? { get }
+    var rows: [FormRow] { get }
+    var footerName: String? { get set }
 }
 
-public struct FormRow {
-    public let name: String
-    public let type: FormRowType
+public protocol FormRow {
+    var name: String { get }
+    var type: FormRowType { get }
     
-    var tag: String
-    var value: AnyObject?
+    var tag: String { get set }
+    var value: AnyObject? { get set }
     
-    public init(name: String, tag: String! = nil, value: AnyObject? = nil, type: FormRowType = .Plain) {
-        self.name = name
-        self.type = type
-        self.value = value
-        self.tag = tag ?? name
-    }
+    func identifier() -> String
+}
+
+// MARK: Rows
+
+func rowForIndexPath(indexPath: NSIndexPath, form: Form) -> FormRow {
+    return form.sections[indexPath.section].rows[indexPath.row]
+}
+
+func allRows(form: Form) -> [FormRow] {
+    return form.sections.reduce(Array<FormRow>(), combine: { (rows, section) -> Array<FormRow> in
+        return rows + section.rows
+    })
 }
 
 // MARK: Values
 
-extension Form {
-    func values() -> [String: AnyObject] {
-        return sections.reduce(Dictionary<String, AnyObject>(), combine: {vs, section in
-            var mvs = vs
-            for (k, v) in section.values() {
-                mvs[k] = v
-            }
-            return mvs
-        })
-    }
+func values(form: Form) -> [String: AnyObject] {
+    return form.sections.reduce(Dictionary<String, AnyObject>(), combine: {vs, section in
+        var mvs = vs
+        for (k, v) in values(section) {
+            mvs[k] = v
+        }
+        return mvs
+    })
 }
 
-extension FormSection {
-    func values() -> [String: AnyObject] {
-        return rows.reduce(Dictionary<String, AnyObject>(), combine: {vs, row in
-            var mvs = vs
-            if let v: AnyObject = row.value {
-                mvs[row.tag] = v
-            }
-            return mvs
-        })
-    }
+func values(section: FormSection) -> [String: AnyObject] {
+    return section.rows.reduce(Dictionary<String, AnyObject>(), combine: {vs, row in
+        var mvs = vs
+        if let v: AnyObject = row.value {
+            mvs[row.tag] = v
+        }
+        return mvs
+    })
 }
-
-
-
