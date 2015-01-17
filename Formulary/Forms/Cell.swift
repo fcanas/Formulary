@@ -23,5 +23,8 @@ func configureCell(cell: UITableViewCell, row: FormRow) {
     case .Switch:
         let s = UISwitch()
         cell.accessoryView = s
+        if let enabled = row.value as? Bool {
+            s.on = enabled
+        }
     }
 }

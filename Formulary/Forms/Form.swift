@@ -50,8 +50,43 @@ public struct FormSection {
 public struct FormRow {
     public let name: String
     public let type: FormRowType
-    public init(name: String, type: FormRowType = .Plain) {
+    
+    var tag: String
+    var value: AnyObject?
+    
+    public init(name: String, tag: String! = nil, value: AnyObject? = nil, type: FormRowType = .Plain) {
         self.name = name
         self.type = type
+        self.value = value
+        self.tag = tag ?? name
     }
 }
+
+// MARK: Values
+
+extension Form {
+    func values() -> [String: AnyObject] {
+        return sections.reduce(Dictionary<String, AnyObject>(), combine: {vs, section in
+            var mvs = vs
+            for (k, v) in section.values() {
+                mvs[k] = v
+            }
+            return mvs
+        })
+    }
+}
+
+extension FormSection {
+    func values() -> [String: AnyObject] {
+        return rows.reduce(Dictionary<String, AnyObject>(), combine: {vs, row in
+            var mvs = vs
+            if let v: AnyObject = row.value {
+                mvs[row.tag] = v
+            }
+            return mvs
+        })
+    }
+}
+
+
+
