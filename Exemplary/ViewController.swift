@@ -13,15 +13,24 @@ class ViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.form = ConcreteForm(sections: [ConcreteFormSection(rows: [ConcreteFormRow(name:"A", tag: "a"),
-                                                                       ConcreteFormRow(name:"B", tag: "b", value: nil, type: .Number),
-                                                                       ConcreteFormRow(name:"C", tag: "c", value: "Character", type: .Text)],
-                                                                name:"Letters"),
-                                            ConcreteFormSection(rows: [ConcreteFormRow(name:"á", tag: "á", value: nil, type: .Text),
-                                                                       ConcreteFormRow(name:"é", tag: "é", value: false, type: .Switch),
-                                                                       ConcreteFormRow(name:"í", tag: "í", value: true, type: .Switch)],
-                                                                name:"Vówels",
-                                                                footerName: "Fín")])
+        self.form = ConcreteForm(sections: [ConcreteFormSection(rows: [ConcreteFormRow(name:"Name", tag: "name", type: .Text),
+                                                                       ConcreteFormRow(name:"Email", tag: "email", type: .Text),
+                                                                       ConcreteFormRow(name:"Age", tag: "age", type: .Number)],
+                                                                name:"Profile"),
+                                            ConcreteFormSection(rows: [ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal),
+                                                                       ConcreteFormRow(name:"Ice Cream?", tag: "wantsIceCream", value: false, type: .Switch),
+                                                                       ConcreteFormRow(name:"Beer?", tag: "wantsBeer", value: true, type: .Switch)],
+                                                                name:"Preferences",
+                                                                footerName: "Fin"),
+            ConcreteFormSection(rows: [ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
+                
+                let data = NSJSONSerialization.dataWithJSONObject(values(self.form) as NSDictionary, options: nil, error: nil)!
+                let s = NSString(data: data, encoding: NSUTF8StringEncoding)
+                
+                let alert = UIAlertController(title: "Form Values", message: s, preferredStyle: .Alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                self.presentViewController(alert, animated: true, completion: nil)
+            })])])
     }
     
 }

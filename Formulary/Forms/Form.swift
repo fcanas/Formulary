@@ -8,6 +8,8 @@
 
 // MARK: Protocols
 
+public typealias ActionClosure = (AnyObject?) -> Void
+
 public protocol Form {
     var sections: [FormSection] { get }
 }
@@ -24,6 +26,8 @@ public protocol FormRow {
     
     var tag: String { get set }
     var value: AnyObject? { get set }
+    
+    var action: ActionClosure? { get set }
     
     func identifier() -> String
 }
@@ -42,7 +46,7 @@ func allRows(form: Form) -> [FormRow] {
 
 // MARK: Values
 
-func values(form: Form) -> [String: AnyObject] {
+public func values(form: Form) -> [String: AnyObject] {
     return form.sections.reduce(Dictionary<String, AnyObject>(), combine: {vs, section in
         var mvs = vs
         for (k, v) in values(section) {
