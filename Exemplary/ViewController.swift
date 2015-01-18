@@ -14,7 +14,7 @@ class ViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.form = ConcreteForm(sections: [ConcreteFormSection(rows: [ConcreteFormRow(name:"A", tag: "a"),
-                                                                       ConcreteFormRow(name:"B", tag: "b"),
+                                                                       ConcreteFormRow(name:"B", tag: "b", value: nil, type: .Number),
                                                                        ConcreteFormRow(name:"C", tag: "c", value: "Character", type: .Text)],
                                                                 name:"Letters"),
                                             ConcreteFormSection(rows: [ConcreteFormRow(name:"á", tag: "á", value: nil, type: .Text),

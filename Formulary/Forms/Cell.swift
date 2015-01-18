@@ -8,10 +8,21 @@
 
 import UIKit
 
+public enum FormRowType: String {
+    case Plain   = "Plain"
+    case Switch  = "Switch"
+    case Text    = "Text"
+    case Number  = "Number"
+    case Decimal = "Decimal"
+}
+
 extension UITableView {
     func registerFormCellClasses() {
         self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Plain.rawValue)
         self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
+        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Text.rawValue)
+        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Number.rawValue)
+        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Decimal.rawValue)
     }
 }
 
@@ -33,22 +44,29 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
             s.on = enabled
         }
     case .Text:
-        let textField = NamedTextField(frame: cell.contentView.bounds)
-        textField.setTranslatesAutoresizingMaskIntoConstraints(false)
-        textField.text = row.value as? String
-        textField.placeholder = row.name
-        
-        cell.contentView.addSubview(textField)
-        
-        cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: nil, metrics: nil, views: ["textField":textField]))
-        
-        ActionTarget(control: textField, controlEvents: .EditingChanged, action: { _ in
-            row.value = textField.text
-        })
-        
-        break
+        configureTextCell(cell, &row).keyboardType = .Default
+    case .Number:
+        configureTextCell(cell, &row).keyboardType = .NumberPad
+    case .Decimal:
+        configureTextCell(cell, &row).keyboardType = .DecimalPad
     }
     cell.selectionStyle = .None
+}
+
+func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField {
+    let textField = NamedTextField(frame: cell.contentView.bounds)
+    textField.setTranslatesAutoresizingMaskIntoConstraints(false)
+    textField.text = row.value as? String
+    textField.placeholder = row.name
+    
+    cell.contentView.addSubview(textField)
+    
+    cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: nil, metrics: nil, views: ["textField":textField]))
+    
+    ActionTarget(control: textField, controlEvents: .EditingChanged, action: { _ in
+        row.value = textField.text
+    })
+    return textField
 }
 
 let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()

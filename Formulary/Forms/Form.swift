@@ -6,12 +6,6 @@
 //  Copyright (c) 2015 Fabian Canas. All rights reserved.
 //
 
-public enum FormRowType: String {
-    case Plain  = "Plain"
-    case Switch = "Switch"
-    case Text   = "Text"
-}
-
 // MARK: Protocols
 
 public protocol Form {
