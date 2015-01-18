@@ -33,7 +33,7 @@ public struct ConcreteFormSection: FormSection {
 
 // MARK: Row
 
-public struct ConcreteFormRow : FormRow {
+public class ConcreteFormRow : FormRow {
     public let name: String
     public let type: FormRowType
     
