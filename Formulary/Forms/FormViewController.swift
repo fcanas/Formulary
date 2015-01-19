@@ -61,7 +61,65 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    public func scrollViewDidScroll(scrollView: UIScrollView) {
+    public override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    public override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        let cell = tableView.firstResponder()?.containingCell()
+        if let cell = cell {
+            if let selectedIndexPath = tableView.indexPathForCell(cell) {
+                let keyboardInfo = KeyboardNotification(notification)
+                var keyboardEndFrame = keyboardInfo.screenFrameEnd
+                keyboardEndFrame = view.window!.convertRect(keyboardEndFrame, toView: view)
+                
+                var contentInset = tableView.contentInset
+                var scrollIndicatorInsets = tableView.scrollIndicatorInsets
+                
+                contentInset.bottom = tableView.frame.origin.y + self.tableView.frame.size.height - keyboardEndFrame.origin.y
+                scrollIndicatorInsets.bottom = tableView.frame.origin.y + self.tableView.frame.size.height - keyboardEndFrame.origin.y
+                
+                UIView.beginAnimations("keyboardAnimation", context: nil)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: keyboardInfo.animationCurve) ?? .EaseInOut)
+                UIView.setAnimationDuration(keyboardInfo.animationDuration)
+                
+                tableView.contentInset = contentInset
+                tableView.scrollIndicatorInsets = scrollIndicatorInsets
+                
+                tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+                
+                UIView.commitAnimations()
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        let keyboardInfo = KeyboardNotification(notification)
+        
+        var contentInset = tableView.contentInset
+        var scrollIndicatorInsets = tableView.scrollIndicatorInsets
+        
+        contentInset.bottom = 0
+        scrollIndicatorInsets.bottom = 0
+        
+        UIView.beginAnimations("keyboardAnimation", context: nil)
+        UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: keyboardInfo.animationCurve) ?? .EaseInOut)
+        UIView.setAnimationDuration(keyboardInfo.animationDuration)
+        
+        tableView.contentInset = contentInset
+        tableView.scrollIndicatorInsets = scrollIndicatorInsets
+        
+        UIView.commitAnimations()
+    }
+    
+    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         tableView.firstResponder()?.resignFirstResponder()
     }
 }
@@ -77,5 +135,11 @@ extension UIView {
             }
         }
         return nil
+    }
+    func containingCell() -> UITableViewCell? {
+        if let c = self as? UITableViewCell {
+            return c
+        }
+        return superview?.containingCell()
     }
 }

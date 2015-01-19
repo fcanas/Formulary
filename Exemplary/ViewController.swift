@@ -19,7 +19,8 @@ class ViewController: FormViewController {
                                                                 name:"Profile"),
                                             ConcreteFormSection(rows: [ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal),
                                                                        ConcreteFormRow(name:"Ice Cream?", tag: "wantsIceCream", value: false, type: .Switch),
-                                                                       ConcreteFormRow(name:"Beer?", tag: "wantsBeer", value: true, type: .Switch)],
+                                                                       ConcreteFormRow(name:"Beer?", tag: "wantsBeer", value: true, type: .Switch),
+                                                                       ConcreteFormRow(name:"Other Thoughts?", tag: "thoughts", type: .Text),],
                                                                 name:"Preferences",
                                                                 footerName: "Fin"),
             ConcreteFormSection(rows: [ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
