@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class FormViewController: UIViewController {
+public class FormViewController: UIViewController, UITableViewDelegate {
     
     var dataSource: FormDataSource?
     
@@ -54,11 +54,29 @@ public class FormViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = 60
+        tableView.delegate = self
         
         if form != nil {
             dataSource = FormDataSource(form: form, tableView: tableView)
             tableView.dataSource = dataSource
         }
     }
+    
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+        tableView.firstResponder()?.resignFirstResponder()
+    }
 }
 
+extension UIView {
+    func firstResponder() -> UIView? {
+        if isFirstResponder() {
+            return self
+        }
+        for subview in (subviews as [UIView]) {
+            if let responder = subview.firstResponder() {
+                return responder
+            }
+        }
+        return nil
+    }
+}
