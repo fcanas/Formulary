@@ -28,8 +28,6 @@ public protocol FormRow {
     var value: AnyObject? { get set }
     
     var action: ActionClosure? { get set }
-    
-    func identifier() -> String
 }
 
 // MARK: Rows
@@ -42,6 +40,10 @@ func allRows(form: Form) -> [FormRow] {
     return form.sections.reduce(Array<FormRow>(), combine: { (rows, section) -> Array<FormRow> in
         return rows + section.rows
     })
+}
+
+func identifier(row: FormRow) -> String {
+    return row.type.rawValue
 }
 
 // MARK: Values

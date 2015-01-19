@@ -21,16 +21,23 @@ public enum FormRowType: String {
 
 extension UITableView {
     func registerFormCellClasses() {
-        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Plain.rawValue)
-        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
-        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
-        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Text.rawValue)
-        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Number.rawValue)
-        self.registerClass(UITableViewCell.self, forCellReuseIdentifier: FormRowType.Decimal.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Plain.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Text.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Number.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Decimal.rawValue)
     }
 }
 
 func configureCell(cell: UITableViewCell, inout row: FormRow) {
+    
+    if let c = cell as? FormTableViewCell {
+        if c.configured {
+            return
+        }
+        c.configured = true
+    }
     
     switch row.type {
     case .Plain:
@@ -85,6 +92,10 @@ func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField
         row.value = textField.text
     })
     return textField
+}
+
+private class FormTableViewCell: UITableViewCell {
+    var configured: Bool = false
 }
 
 let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()

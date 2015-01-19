@@ -49,8 +49,4 @@ public class ConcreteFormRow : FormRow {
         self.tag = tag ?? name
         self.action = action
     }
-    
-    public func identifier() -> String {
-        return "RowIdentifier"
-    }
 }

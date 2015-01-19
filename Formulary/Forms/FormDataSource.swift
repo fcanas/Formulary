@@ -13,9 +13,7 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     init(form: Form, tableView: UITableView) {
         self.form = form
-        for row in allRows(form) {
-            tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: row.identifier())
-        }
+        tableView.registerFormCellClasses()
     }
     
     // MARK: Data
@@ -30,7 +28,7 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var row = rowForIndexPath(indexPath, form)
-        let cell = tableView.dequeueReusableCellWithIdentifier(row.identifier()) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier(row)) as UITableViewCell
         configureCell(cell, &row)
         return cell
     }
