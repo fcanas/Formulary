@@ -19,6 +19,11 @@ class NamedTextField: UITextField {
     }
     
     var topMargin :CGFloat = 4
+    var contentInset :CGFloat {
+        get {
+            return text.isEmpty ? 0 : 4
+        }
+    }
     
     override var placeholder :String? {
         didSet {
@@ -59,14 +64,14 @@ class NamedTextField: UITextField {
     override func textRectForBounds(bounds:CGRect) -> CGRect {
         var r = super.textRectForBounds(bounds)
         var top = ceil(nameLabel.font.lineHeight)
-        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin, 0.0, 0.0, 0.0))
+        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + contentInset, 0.0, 0.0, 0.0))
         return CGRectIntegral(r)
     }
     
     override func editingRectForBounds(bounds:CGRect) -> CGRect {
         var r = super.editingRectForBounds(bounds)
         var top = ceil(nameLabel.font.lineHeight)
-        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin, 0.0, 0.0, 0.0))
+        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + contentInset, 0.0, 0.0, 0.0))
         return CGRectIntegral(r)
     }
     
