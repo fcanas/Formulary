@@ -119,7 +119,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         UIView.commitAnimations()
     }
     
-    public func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         tableView.firstResponder()?.resignFirstResponder()
     }
 }
