@@ -28,6 +28,8 @@ public protocol FormRow {
     var value: AnyObject? { get set }
     
     var action: ActionClosure? { get set }
+    
+    var required: Bool { get set }
 }
 
 // MARK: Rows

@@ -84,6 +84,20 @@ func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField
     textField.text = row.value as? String
     textField.placeholder = row.name
     
+    if row.required {
+        textField.validation = { text in
+            if text == nil {
+                return (false, "\(row.name) can't be empty")
+            }
+            
+            if text!.isEmpty {
+                return (false, "\(row.name) can't be empty")
+            }
+            
+            return (true, "")
+        }
+    }
+    
     cell.contentView.addSubview(textField)
     
     cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: nil, metrics: nil, views: ["textField":textField]))

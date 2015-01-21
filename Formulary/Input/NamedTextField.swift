@@ -15,6 +15,7 @@ class NamedTextField: UITextField {
     var nameFont :UIFont = UIFont.systemFontOfSize(12) {
         didSet {
             nameLabel.font = nameFont
+            validationLabel.font = nameFont
         }
     }
     
@@ -32,32 +33,77 @@ class NamedTextField: UITextField {
         }
     }
     
+    // MARK: Validation
+    
+    var hasEverResignedFirstResponder = false
+    
+    override func resignFirstResponder() -> Bool {
+        hasEverResignedFirstResponder = true
+        return super.resignFirstResponder()
+    }
+    
+    let validationLabel = UILabel()
+    
+    var validationColor: UIColor = UIColor.redColor() {
+        didSet {
+            validationLabel.textColor = validationColor
+        }
+    }
+    
+    var validation: (String?) -> (Bool, String) = { _ in (true, "") }
+    
+    private func validate() {
+        let (valid, errorString) = validation(text)
+        validationLabel.text = errorString
+        validationLabel.sizeToFit()
+        if text.isEmpty {
+            hideNameLabel(isFirstResponder())
+            if hasEverResignedFirstResponder && !valid {
+                showLabel(true, label: validationLabel)
+            } else {
+                hideLabel(isFirstResponder(), label: validationLabel)
+            }
+        } else {
+            if !valid {
+                showLabel(isFirstResponder(), label: validationLabel)
+                hideLabel(isFirstResponder(), label: nameLabel)
+            } else {
+                showLabel(isFirstResponder(), label: nameLabel)
+                hideLabel(isFirstResponder(), label: validationLabel)
+            }
+        }
+    }
+    
     // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        if text.isEmpty {
-            hideNameLabel(isFirstResponder())
-        } else {
-            showNameLabel(isFirstResponder())
-        }
+        validate()
     }
     
     private func showNameLabel(animated: Bool) {
+        showLabel(animated, label: nameLabel)
+    }
+    
+    private func showLabel(animated: Bool, label: UILabel) {
         UIView.animateWithDuration(animated ? 0.25 : 0, animations: { () -> Void in
-            var f = self.nameLabel.frame
+            var f = label.frame
             f.origin.y = 3
-            self.nameLabel.frame = f
-            self.nameLabel.alpha = 1.0
+            label.frame = f
+            label.alpha = 1.0
         })
     }
     
     private func hideNameLabel(animated: Bool) {
+        hideLabel(animated, label: nameLabel)
+    }
+    
+    private func hideLabel(animated: Bool, label: UILabel) {
         UIView.animateWithDuration(animated ? 0.25 : 0, animations: { () -> Void in
-            var f = self.nameLabel.frame
+            var f = label.frame
             f.origin.y = self.nameLabel.font.lineHeight
-            self.nameLabel.frame = f
-            self.nameLabel.alpha = 0.0
+            label.frame = f
+            label.alpha = 0.0
         })
     }
     
@@ -98,7 +144,13 @@ class NamedTextField: UITextField {
         nameLabel.alpha = 0
         nameLabel.textColor = tintColor
         nameLabel.font = nameFont
+        
+        validationLabel.alpha = 0
+        validationLabel.textColor = validationColor
+        validationLabel.font = nameFont
+        
         addSubview(nameLabel)
+        addSubview(validationLabel)
     }
     
 }

@@ -15,7 +15,7 @@ class ViewController: FormViewController {
         super.viewDidLoad()
         self.form = Formulary.ConcreteForm(sections: [
             Formulary.ConcreteFormSection(rows: [
-                Formulary.ConcreteFormRow(name:"Name", tag: "name", type: .Text),
+                Formulary.ConcreteFormRow(name:"Name", tag: "name", type: .Text, required: true),
                 Formulary.ConcreteFormRow(name:"Email", tag: "email", type: .Text),
                 Formulary.ConcreteFormRow(name:"Age", tag: "age", type: .Number)],
                 name:"Profile"),

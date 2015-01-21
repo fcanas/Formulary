@@ -42,11 +42,14 @@ public class ConcreteFormRow : FormRow {
     
     public var action: ((AnyObject?) -> Void)?
     
-    public init(name: String, tag: String! = nil, value: AnyObject? = nil, type: FormRowType = .Plain, action: ActionClosure? = nil) {
+    public var required: Bool
+    
+    public init(name: String, tag: String! = nil, value: AnyObject? = nil, type: FormRowType = .Plain, required: Bool = false, action: ActionClosure? = nil) {
         self.name = name
         self.type = type
         self.value = value
         self.tag = tag ?? name
+        self.required = required
         self.action = action
     }
 }

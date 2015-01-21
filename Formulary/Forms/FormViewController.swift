@@ -93,7 +93,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
                 tableView.contentInset = contentInset
                 tableView.scrollIndicatorInsets = scrollIndicatorInsets
                 
-                tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+                tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: .None, animated: true)
                 
                 UIView.commitAnimations()
             }
