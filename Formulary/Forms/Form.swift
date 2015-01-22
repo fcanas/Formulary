@@ -48,6 +48,24 @@ func identifier(row: FormRow) -> String {
     return row.type.rawValue
 }
 
+// MARK: Validity
+
+public func valid(form: Form) -> Bool {
+    return form.sections.reduce(true, combine: { valid, section in
+        valid && isValid(section)
+    })
+}
+
+public func isValid(section: FormSection) -> Bool {
+    return section.rows.reduce(true, combine: { valid, row in
+        return (valid && isValid(row))
+    })
+}
+
+public func isValid(row: FormRow) -> Bool {
+    return row.validation(row.value as? String).valid
+}
+
 // MARK: Values
 
 public func values(form: Form) -> [String: AnyObject] {
