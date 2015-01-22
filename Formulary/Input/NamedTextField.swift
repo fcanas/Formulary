@@ -64,9 +64,9 @@ class NamedTextField: UITextField {
                 hideLabel(isFirstResponder(), label: validationLabel)
             }
         } else {
-            if !valid {
-                showLabel(isFirstResponder(), label: validationLabel)
-                hideLabel(isFirstResponder(), label: nameLabel)
+            if hasEverResignedFirstResponder && !valid {
+                showLabel(true, label: validationLabel)
+                hideLabel(true, label: nameLabel)
             } else {
                 showLabel(isFirstResponder(), label: nameLabel)
                 hideLabel(isFirstResponder(), label: validationLabel)
