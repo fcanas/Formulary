@@ -24,6 +24,8 @@ public struct ConcreteFormSection: FormSection {
     public let rows: [FormRow]
     public var footerName: String?
     
+    public var valueOverride: ((Void) -> [String: AnyObject])? = nil
+    
     public init(rows: [FormRow], name: String? = nil, footerName :String? = nil) {
         self.name = name
         self.rows = rows

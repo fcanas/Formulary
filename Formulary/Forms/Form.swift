@@ -18,6 +18,11 @@ public protocol FormSection {
     var name: String? { get }
     var rows: [FormRow] { get }
     var footerName: String? { get set }
+    
+    /// Implementers of the FormSection protocol may provide an explicit value
+    /// function. Otherwise, a section's value as determined by `value(section:)`
+    /// is the Dictionary of all the section's row's values.
+    var valueOverride: ((Void) -> [String: AnyObject])? { get }
 }
 
 public protocol FormRow {
@@ -79,6 +84,10 @@ public func values(form: Form) -> [String: AnyObject] {
 }
 
 func values(section: FormSection) -> [String: AnyObject] {
+    if let v = section.valueOverride {
+        return v()
+    }
+    
     return section.rows.reduce(Dictionary<String, AnyObject>(), combine: {vs, row in
         var mvs = vs
         if let v: AnyObject = row.value {

@@ -9,17 +9,18 @@
 import UIKit
 
 public enum FormRowType: String {
-    case Plain   = "Plain"
-    case Switch  = "Switch"
-    case Button  = "Button"
+    case Plain   = "Formulary.Plain"
+    case Switch  = "Formulary.Switch"
+    case Button  = "Formulary.Button"
+    case Toggle  = "Formulary.Toggle"
     
     // Text
-    case Text    = "Text"
-    case Number  = "Number"
-    case Decimal = "Decimal"
-    case Email   = "Email"
-    case Twitter = "Twitter"
-    case URL     = "URL"
+    case Text    = "Formulary.Text"
+    case Number  = "Formulary.Number"
+    case Decimal = "Formulary.Decimal"
+    case Email   = "Formulary.Email"
+    case Twitter = "Formulary.Twitter"
+    case URL     = "Formulary.URL"
 }
 
 extension UITableView {
@@ -27,6 +28,8 @@ extension UITableView {
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Plain.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Toggle.rawValue)
+        
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Text.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Number.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Decimal.rawValue)
@@ -39,6 +42,7 @@ extension UITableView {
 func configureCell(cell: UITableViewCell, inout row: FormRow) {
     
     if let c = cell as? FormTableViewCell {
+        c.formRow = row
         if c.configured {
             return
         }
@@ -60,6 +64,31 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         if let enabled = row.value as? Bool {
             s.on = enabled
         }
+    case .Toggle:
+        cell.textLabel?.text = row.name
+        let checkLabel = UILabel()
+        checkLabel.text = "✓"
+        checkLabel.font = UIFont.systemFontOfSize(24)
+        checkLabel.sizeToFit()
+        cell.accessoryView = checkLabel
+        
+        if let enabled = row.value as? Bool {
+            checkLabel.text = (row.value as Bool) ? "✓" : ""
+        } else {
+            checkLabel.text = ""
+        }
+        
+        row.action = { _ in
+            println("\(row.value)")
+            if let enabled = row.value as? Bool {
+                row.value = !enabled
+            } else {
+                row.value = true
+            }
+            println("alpha alpha")
+            checkLabel.text = (row.value as Bool) ? "✓" : ""
+        }
+        
     case .Button:
         let button = UIButton(frame: cell.bounds)
         
@@ -107,8 +136,9 @@ func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField
     return textField
 }
 
-private class FormTableViewCell: UITableViewCell {
+class FormTableViewCell: UITableViewCell {
     var configured: Bool = false
+    var formRow: FormRow?
 }
 
 let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()

@@ -21,11 +21,12 @@ class ViewController: FormViewController {
                 name:"Profile"),
             Formulary.ConcreteFormSection(rows: [
                 Formulary.ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
-                Formulary.ConcreteFormRow(name:"Ice Cream?", tag: "wantsIceCream", value: false, type: .Switch),
-                Formulary.ConcreteFormRow(name:"Beer?", tag: "wantsBeer", value: true, type: .Switch),
+                Formulary.ConcreteFormRow(name:"Do you like goats?", tag: "likesGoats", value: false, type: .Switch),
                 Formulary.ConcreteFormRow(name:"Other Thoughts?", tag: "thoughts", type: .Text),],
                 name:"Preferences",
                 footerName: "Fin"),
+            Formulary.OptionSection(rowValues:["General Admission", "Stands", "VIP"], name: "Seating", singleSelect: true),
+            Formulary.OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", singleSelect: false),
             Formulary.ConcreteFormSection(rows: [
                 Formulary.ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
                     

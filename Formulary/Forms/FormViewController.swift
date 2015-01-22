@@ -122,6 +122,12 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         tableView.firstResponder()?.resignFirstResponder()
     }
+    
+    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? FormTableViewCell {
+            cell.formRow?.action?(nil)
+        }
+    }
 }
 
 extension UIView {
