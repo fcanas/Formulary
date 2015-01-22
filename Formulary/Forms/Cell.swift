@@ -17,6 +17,9 @@ public enum FormRowType: String {
     case Text    = "Text"
     case Number  = "Number"
     case Decimal = "Decimal"
+    case Email   = "Email"
+    case Twitter = "Twitter"
+    case URL     = "URL"
 }
 
 extension UITableView {
@@ -27,6 +30,9 @@ extension UITableView {
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Text.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Number.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Decimal.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Email.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Twitter.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.URL.rawValue)
     }
 }
 
@@ -74,6 +80,12 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         configureTextCell(cell, &row).keyboardType = .NumberPad
     case .Decimal:
         configureTextCell(cell, &row).keyboardType = .DecimalPad
+    case .Email:
+        configureTextCell(cell, &row).keyboardType = .EmailAddress
+    case .Twitter:
+        configureTextCell(cell, &row).keyboardType = .Twitter
+    case .URL:
+        configureTextCell(cell, &row).keyboardType = .URL
     }
     cell.selectionStyle = .None
 }
