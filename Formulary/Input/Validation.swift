@@ -69,7 +69,7 @@ public let MaximumNumber: (String, Int) -> Validation = { name, max in
     }
 }
 
-public func + (lhs: Validation, rhs: Validation) -> Validation {
+public func && (lhs: Validation, rhs: Validation) -> Validation {
     return { value in
         let lhsr = lhs(value)
         if !lhsr.valid {

@@ -20,7 +20,7 @@ class ViewController: FormViewController {
                 Formulary.ConcreteFormRow(name:"Age", tag: "age", type: .Number, validation: MinimumNumber("Age", 13))],
                 name:"Profile"),
             Formulary.ConcreteFormSection(rows: [
-                Formulary.ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal, validation: MinimumNumber("Your favorite number", 47) + MaximumNumber("Your favorite number", 47)),
+                Formulary.ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
                 Formulary.ConcreteFormRow(name:"Ice Cream?", tag: "wantsIceCream", value: false, type: .Switch),
                 Formulary.ConcreteFormRow(name:"Beer?", tag: "wantsBeer", value: true, type: .Switch),
                 Formulary.ConcreteFormRow(name:"Other Thoughts?", tag: "thoughts", type: .Text),],
