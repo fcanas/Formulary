@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E74C7DC41A709D1E00237881 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C7DC31A709D1E00237881 /* Validation.swift */; };
 		E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */; };
 		E75D08BF1A696A9D00DF5561 /* Formulary.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D08BE1A696A9D00DF5561 /* Formulary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E75D08C51A696A9D00DF5561 /* Formulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75D08B91A696A9D00DF5561 /* Formulary.framework */; };
@@ -66,6 +67,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E74C7DC31A709D1E00237881 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotification.swift; sourceTree = "<group>"; };
 		E75D08B91A696A9D00DF5561 /* Formulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Formulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75D08BD1A696A9D00DF5561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			children = (
 				E77EEE771A6B137D00AD4289 /* NamedTextField.swift */,
 				E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */,
+				E74C7DC31A709D1E00237881 /* Validation.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -419,6 +422,7 @@
 				E7F1A9611A69C2CC00FD8294 /* Cell.swift in Sources */,
 				E75D08D71A696D5400DF5561 /* FormViewController.swift in Sources */,
 				E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */,
+				E74C7DC41A709D1E00237881 /* Validation.swift in Sources */,
 				E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

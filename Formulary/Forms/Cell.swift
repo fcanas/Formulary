@@ -83,20 +83,7 @@ func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField
     textField.setTranslatesAutoresizingMaskIntoConstraints(false)
     textField.text = row.value as? String
     textField.placeholder = row.name
-    
-    if row.required {
-        textField.validation = { text in
-            if text == nil {
-                return (false, "\(row.name) can't be empty")
-            }
-            
-            if text!.isEmpty {
-                return (false, "\(row.name) can't be empty")
-            }
-            
-            return (true, "")
-        }
-    }
+    textField.validation = row.validation
     
     cell.contentView.addSubview(textField)
     

@@ -29,7 +29,7 @@ public protocol FormRow {
     
     var action: ActionClosure? { get set }
     
-    var required: Bool { get set }
+    var validation: Validation { get set }
 }
 
 // MARK: Rows
