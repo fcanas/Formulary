@@ -20,7 +20,7 @@ class NamedTextField: UITextField {
     }
     
     var topMargin :CGFloat = 4
-    var contentInset :CGFloat {
+    var marginForContent :CGFloat {
         get {
             return text.isEmpty ? 0 : 4
         }
@@ -57,7 +57,7 @@ class NamedTextField: UITextField {
         validationLabel.text = errorString
         validationLabel.sizeToFit()
         if text.isEmpty {
-            hideNameLabel(isFirstResponder())
+            hideLabel(isFirstResponder(), label: nameLabel)
             if hasEverResignedFirstResponder && !valid {
                 showLabel(true, label: validationLabel)
             } else {
@@ -81,10 +81,6 @@ class NamedTextField: UITextField {
         validate()
     }
     
-    private func showNameLabel(animated: Bool) {
-        showLabel(animated, label: nameLabel)
-    }
-    
     private func showLabel(animated: Bool, label: UILabel) {
         UIView.animateWithDuration(animated ? 0.25 : 0, animations: { () -> Void in
             var f = label.frame
@@ -92,10 +88,6 @@ class NamedTextField: UITextField {
             label.frame = f
             label.alpha = 1.0
         })
-    }
-    
-    private func hideNameLabel(animated: Bool) {
-        hideLabel(animated, label: nameLabel)
     }
     
     private func hideLabel(animated: Bool, label: UILabel) {
@@ -110,14 +102,14 @@ class NamedTextField: UITextField {
     override func textRectForBounds(bounds:CGRect) -> CGRect {
         var r = super.textRectForBounds(bounds)
         var top = ceil(nameLabel.font.lineHeight)
-        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + contentInset, 0.0, 0.0, 0.0))
+        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + marginForContent, 0.0, -marginForContent, 0.0))
         return CGRectIntegral(r)
     }
     
     override func editingRectForBounds(bounds:CGRect) -> CGRect {
         var r = super.editingRectForBounds(bounds)
         var top = ceil(nameLabel.font.lineHeight)
-        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + contentInset, 0.0, 0.0, 0.0))
+        r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + marginForContent, 0.0, -marginForContent, 0.0))
         return CGRectIntegral(r)
     }
     
@@ -151,6 +143,8 @@ class NamedTextField: UITextField {
         
         addSubview(nameLabel)
         addSubview(validationLabel)
+        
+        self.clipsToBounds = false
     }
     
 }
