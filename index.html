@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Formulary by fcanas</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Formulary</h1>
+        <h2>Declarative iOS TableView Forms in Swift</h2>
+        <a href="https://github.com/fcanas/Formulary" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>Formulary is a new library for creating dynamic, declarative, table view forms for iOS.</p>
+
+<p>Formulary is inspired by XLForm, written in Swift, and designed for developer flexibility.
+It is intended to stay small and possibly as a foundation for other libraries.</p>
+
+<p>Development-oriented features include:</p>
+
+<ul>
+<li>Form components are Swift protocols</li>
+<li>Lots of points of control to override default behavior</li>
+<li>Easy to integrate with existing model classes</li>
+</ul>
+
+<p>Other cool features:</p>
+
+<ul>
+<li>"Floating Labels" for form fields.</li>
+<li>Compose validation functions</li>
+</ul>
+
+<div class="highlight highlight-swift"><pre><span class="pl-k">self</span><span class="pl-k">.</span>form <span class="pl-k">=</span> Formulary<span class="pl-k">.</span>ConcreteForm(sections: [
+    Formulary<span class="pl-k">.</span>ConcreteFormSection(rows: [
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, type: <span class="pl-k">.</span>Text, validation: RequiredString(<span class="pl-s1"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>)),
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Email<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>email<span class="pl-pds">"</span></span>, type: <span class="pl-k">.</span>Text),
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Age<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>age<span class="pl-pds">"</span></span>, type: <span class="pl-k">.</span>Number, validation: MinimumNumber(<span class="pl-s1"><span class="pl-pds">"</span>Age<span class="pl-pds">"</span></span>, <span class="pl-c1">13</span>))],
+        name:<span class="pl-s1"><span class="pl-pds">"</span>Profile<span class="pl-pds">"</span></span>),
+    Formulary<span class="pl-k">.</span>ConcreteFormSection(rows: [
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Favorite Number<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>favoriteNumber<span class="pl-pds">"</span></span>, value: nil, type: <span class="pl-k">.</span>Decimal, validation: MinimumNumber(<span class="pl-s1"><span class="pl-pds">"</span>Your favorite number<span class="pl-pds">"</span></span>, <span class="pl-c1">47</span>) <span class="pl-k">&amp;&amp;</span> MaximumNumber(<span class="pl-s1"><span class="pl-pds">"</span>Your favorite number<span class="pl-pds">"</span></span>, <span class="pl-c1">47</span>)),
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Ice Cream?<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>wantsIceCream<span class="pl-pds">"</span></span>, value: <span class="pl-c1">false</span>, type: <span class="pl-k">.</span>Switch),
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Beer?<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>wantsBeer<span class="pl-pds">"</span></span>, value: <span class="pl-c1">true</span>, type: <span class="pl-k">.</span>Switch),
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Other Thoughts?<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>thoughts<span class="pl-pds">"</span></span>, type: <span class="pl-k">.</span>Text),],
+        name:<span class="pl-s1"><span class="pl-pds">"</span>Preferences<span class="pl-pds">"</span></span>,
+        footerName: <span class="pl-s1"><span class="pl-pds">"</span>Fin<span class="pl-pds">"</span></span>),
+    Formulary<span class="pl-k">.</span>ConcreteFormSection(rows: [
+        Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Show Values<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>show<span class="pl-pds">"</span></span>, type: <span class="pl-k">.</span>Button, action: { _ <span class="pl-k">in</span>
+
+            <span class="pl-st">let</span> data <span class="pl-k">=</span> NSJSONSerialization<span class="pl-k">.</span>dataWithJSONObject(values(<span class="pl-k">self</span><span class="pl-k">.</span>form) <span class="pl-k">as</span> NSDictionary, options: nil, error: nil)<span class="pl-k">!</span>
+            <span class="pl-st">let</span> s <span class="pl-k">=</span> NSString(data: data, encoding: NSUTF8StringEncoding)
+
+            <span class="pl-st">let</span> alert <span class="pl-k">=</span> UIAlertController(title: <span class="pl-s1"><span class="pl-pds">"</span>Form Values<span class="pl-pds">"</span></span>, message: s, preferredStyle: <span class="pl-k">.</span>Alert)
+            alert<span class="pl-k">.</span>addAction(UIAlertAction(title: <span class="pl-s1"><span class="pl-pds">"</span>Ok<span class="pl-pds">"</span></span>, style: <span class="pl-k">.</span>Default, handler: nil))
+            <span class="pl-k">self</span><span class="pl-k">.</span>presentViewController(alert, animated: <span class="pl-c1">true</span>, completion: nil)
+        })
+        ])
+    ]
+)</pre></div>
+
+<p><img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="396"></p>
+
+
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Formulary is available under the MIT license.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/fcanas/Formulary/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/fcanas/Formulary/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/fcanas/Formulary"></a> is maintained by <a href="https://github.com/fcanas">fcanas</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
