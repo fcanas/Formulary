@@ -72,20 +72,12 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         checkLabel.sizeToFit()
         cell.accessoryView = checkLabel
         
-        if let enabled = row.value as? Bool {
-            checkLabel.text = (row.value as Bool) ? "✓" : ""
-        } else {
-            checkLabel.text = ""
-        }
+        checkLabel.text = ((row.value as? Bool) ?? false) ? "✓" : ""
         
-        row.action = { _ in
-            println("\(row.value)")
-            if let enabled = row.value as? Bool {
-                row.value = !enabled
-            } else {
-                row.value = true
-            }
-            println("alpha alpha")
+        let priorAction = row.action
+        
+        row.action = { x in
+            priorAction?(x)
             checkLabel.text = (row.value as Bool) ? "✓" : ""
         }
         

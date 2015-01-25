@@ -25,8 +25,8 @@ class ViewController: FormViewController {
                 Formulary.ConcreteFormRow(name:"Other Thoughts?", tag: "thoughts", type: .Text),],
                 name:"Preferences",
                 footerName: "Fin"),
-            Formulary.OptionSection(rowValues:["General Admission", "Stands", "VIP"], name: "Seating", singleSelect: true),
-            Formulary.OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", singleSelect: false),
+            Formulary.OptionSection(rowValues:["General Admission", "Stands", "VIP"], name: "Seating", singleSelect: true, value: "Stands"),
+            Formulary.OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", singleSelect: false, value: ["Pizza", "Ice Cream"]),
             Formulary.ConcreteFormSection(rows: [
                 Formulary.ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
                     
