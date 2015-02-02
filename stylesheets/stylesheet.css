@@ -451,8 +451,8 @@ header {
   padding-top: 40px;
   padding-bottom: 40px;
   font-family: 'Helvetica Neue', Helvetica, Arial, serif;
-  background: #ffdc00; /*2e7bcf;*/
-  border-bottom: solid 1px #ff851b; /*#275da1;*/
+  background: #FFF19A; /*#ff851b#ffdc00;2e7bcf;*/
+  border-bottom: solid 1px  #ffdc00;/*#ff851b;#275da1;*/
 }
 
 header h1 {

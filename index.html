@@ -29,8 +29,11 @@
       <div class="inner clearfix">
         <section id="main-content">
         
-        <div style="float: right;"><img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="250"></div>
-          <p>Formulary is a new library for creating dynamic, declarative, table view forms for iOS.</p>
+        <div style="float: right;">
+	        <img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="250">
+        </div>
+        
+<p>Formulary is a new library for creating dynamic, declarative, table view forms for iOS.</p>
 
 <p>Formulary is inspired by <a href="https://github.com/xmartlabs/XLForm">XLForm</a>, written in Swift, and designed for developer flexibility.
 It is intended to stay small and possibly be used as a foundation for other libraries.</p>
@@ -51,7 +54,8 @@ It is intended to stay small and possibly be used as a foundation for other libr
 </ul>
 
 <div style="clear: right;"></div>
-<h2></h2>
+<h2>Example</h2>
+<p>The code below generates the example form above.</p>
 <div class="highlight highlight-swift"><pre><span class="pl-k">self</span><span class="pl-k">.</span>form <span class="pl-k">=</span> Formulary<span class="pl-k">.</span>ConcreteForm(sections: [
     Formulary<span class="pl-k">.</span>ConcreteFormSection(rows: [
         Formulary<span class="pl-k">.</span>ConcreteFormRow(name:<span class="pl-s1"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>, tag: <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>, type: <span class="pl-k">.</span>Text, validation: RequiredString(<span class="pl-s1"><span class="pl-pds">"</span>Name<span class="pl-pds">"</span></span>)),
@@ -78,13 +82,10 @@ It is intended to stay small and possibly be used as a foundation for other libr
         ])
     ]
 )</pre></div>
-
 <!-- 
 <h2>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
  -->
-
-
         </section>
       </div>
     </div>
