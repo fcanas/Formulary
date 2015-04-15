@@ -12,14 +12,10 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     
     var dataSource: FormDataSource?
     
-    public var form :Form! {
+    public var form :Form {
         didSet {
-            if form != nil {
-                dataSource = FormDataSource(form: form, tableView: tableView)
-                tableView?.dataSource = dataSource
-            } else {
-                tableView?.dataSource = nil
-            }
+            dataSource = FormDataSource(form: form, tableView: tableView)
+            tableView?.dataSource = dataSource
         }
     }
     var tableView: UITableView!
@@ -27,10 +23,11 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     
     init(form: Form) {
         self.form = form
-        super.init()
+        super.init(nibName: nil, bundle: nil)
     }
     
     required public init(coder aDecoder: NSCoder) {
+        form = ConcreteForm(sections: [])
         super.init(coder: aDecoder)
     }
     
@@ -55,10 +52,8 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         tableView.rowHeight = 60
         tableView.delegate = self
         
-        if form != nil {
-            dataSource = FormDataSource(form: form, tableView: tableView)
-            tableView.dataSource = dataSource
-        }
+        dataSource = FormDataSource(form: form, tableView: tableView)
+        tableView.dataSource = dataSource
     }
     
     public override func viewWillAppear(animated: Bool) {
@@ -73,9 +68,8 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        let cell = tableView.firstResponder()?.containingCell()
-        if let cell = cell {
-            if let selectedIndexPath = tableView.indexPathForCell(cell) {
+        if let cell = tableView.firstResponder()?.containingCell(),
+            let selectedIndexPath = tableView.indexPathForCell(cell) {
                 let keyboardInfo = KeyboardNotification(notification)
                 var keyboardEndFrame = keyboardInfo.screenFrameEnd
                 keyboardEndFrame = view.window!.convertRect(keyboardEndFrame, toView: view)
@@ -96,7 +90,6 @@ public class FormViewController: UIViewController, UITableViewDelegate {
                 tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: .None, animated: true)
                 
                 UIView.commitAnimations()
-            }
         }
     }
     
@@ -135,7 +128,7 @@ extension UIView {
         if isFirstResponder() {
             return self
         }
-        for subview in (subviews as [UIView]) {
+        for subview in (subviews as! [UIView]) {
             if let responder = subview.firstResponder() {
                 return responder
             }

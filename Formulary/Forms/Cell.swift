@@ -78,7 +78,7 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         
         row.action = { x in
             priorAction?(x)
-            checkLabel.text = (row.value as Bool) ? "✓" : ""
+            checkLabel.text = (row.value as! Bool) ? "✓" : ""
         }
         
     case .Button:

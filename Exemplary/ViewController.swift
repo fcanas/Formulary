@@ -33,8 +33,8 @@ class ViewController: FormViewController {
                     let data = NSJSONSerialization.dataWithJSONObject(values(self.form) as NSDictionary, options: nil, error: nil)!
                     let s = NSString(data: data, encoding: NSUTF8StringEncoding)
                     
-                    let alert = UIAlertController(title: "Form Values", message: s, preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+                    let alert = UIAlertController(title: "Form Values", message: s as? String, preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 })
                 ])
