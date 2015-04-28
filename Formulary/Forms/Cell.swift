@@ -66,19 +66,13 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         }
     case .Toggle:
         cell.textLabel?.text = row.name
-        let checkLabel = UILabel()
-        checkLabel.text = "✓"
-        checkLabel.font = UIFont.systemFontOfSize(24)
-        checkLabel.sizeToFit()
-        cell.accessoryView = checkLabel
-        
-        checkLabel.text = ((row.value as? Bool) ?? false) ? "✓" : ""
+        cell.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
         
         let priorAction = row.action
         
         row.action = { x in
             priorAction?(x)
-            checkLabel.text = (row.value as! Bool) ? "✓" : ""
+            cell.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
         }
         
     case .Button:
