@@ -132,7 +132,7 @@ let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()
 class ActionTarget {
     let control: UIControl
     let closure: (UIControl) -> Void
-    init(control: UIControl, controlEvents: UIControlEvents = .ValueChanged, action: (AnyObject?) -> Void) {
+    init(control: UIControl, controlEvents: UIControlEvents = .ValueChanged, action: (UIControl) -> Void) {
         self.control = control
         closure = action
         control.addTarget(self, action: Selector("action:"), forControlEvents: controlEvents)
