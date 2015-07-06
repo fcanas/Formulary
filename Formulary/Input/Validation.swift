@@ -34,16 +34,16 @@ public let RequiredString: (String) -> Validation = { name in
 public let MinimumNumber: (String, Int) -> Validation = { name, min in
     { value in
         
-        if value == nil {
-            return (false, "\(name) must be at least \(min)")
-        }
-        
-        if let number = value!.toInt() {
-            if number < min {
-                return (false, "\(name) must be at least \(min)")
+        if let value = value {
+            if let number = value.toInt() {
+                if number < min {
+                    return (false, "\(name) must be at least \(min)")
+                }
+                
+                return (true, "")
             }
-            
-            return (true, "")
+        } else {
+            return (false, "\(name) must be at least \(min)")
         }
         
         return (false, "\(name) must be a number")
@@ -53,16 +53,16 @@ public let MinimumNumber: (String, Int) -> Validation = { name, min in
 public let MaximumNumber: (String, Int) -> Validation = { name, max in
     { value in
         
-        if value == nil {
-            return (false, "\(name) must be at most \(max)")
-        }
-        
-        if let number = value!.toInt() {
-            if number > max {
-                return (false, "\(name) must be at most \(max)")
+        if let value = value {
+            if let number = value.toInt() {
+                if number > max {
+                    return (false, "\(name) must be at most \(max)")
+                }
+                
+                return (true, "")
             }
-            
-            return (true, "")
+        } else {
+            return (false, "\(name) must be at most \(max)")
         }
         
         return (false, "\(name) must be a number")

@@ -24,6 +24,8 @@ public struct ConcreteFormSection: FormSection {
     public let rows: [FormRow]
     public var footerName: String?
     
+    public var valueOverride: ((Void) -> [String: AnyObject])? = nil
+    
     public init(rows: [FormRow], name: String? = nil, footerName :String? = nil) {
         self.name = name
         self.rows = rows
@@ -44,7 +46,7 @@ public class ConcreteFormRow : FormRow {
     
     public var validation: Validation
     
-    public init(name: String, tag: String! = nil, value: AnyObject? = nil, type: FormRowType = .Plain, validation: Validation = PermissiveValidation, action: ActionClosure? = nil) {
+    public init(name: String, tag: String, value: AnyObject? = nil, type: FormRowType = .Plain, validation: Validation = PermissiveValidation, action: ActionClosure? = nil) {
         self.name = name
         self.type = type
         self.value = value

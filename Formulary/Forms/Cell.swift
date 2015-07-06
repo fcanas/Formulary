@@ -9,14 +9,18 @@
 import UIKit
 
 public enum FormRowType: String {
-    case Plain   = "Plain"
-    case Switch  = "Switch"
-    case Button  = "Button"
+    case Plain   = "Formulary.Plain"
+    case Switch  = "Formulary.Switch"
+    case Button  = "Formulary.Button"
+    case Toggle  = "Formulary.Toggle"
     
     // Text
-    case Text    = "Text"
-    case Number  = "Number"
-    case Decimal = "Decimal"
+    case Text    = "Formulary.Text"
+    case Number  = "Formulary.Number"
+    case Decimal = "Formulary.Decimal"
+    case Email   = "Formulary.Email"
+    case Twitter = "Formulary.Twitter"
+    case URL     = "Formulary.URL"
 }
 
 extension UITableView {
@@ -24,15 +28,21 @@ extension UITableView {
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Plain.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Toggle.rawValue)
+        
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Text.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Number.rawValue)
         self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Decimal.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Email.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.Twitter.rawValue)
+        self.registerClass(FormTableViewCell.self, forCellReuseIdentifier: FormRowType.URL.rawValue)
     }
 }
 
 func configureCell(cell: UITableViewCell, inout row: FormRow) {
     
     if let c = cell as? FormTableViewCell {
+        c.formRow = row
         if c.configured {
             return
         }
@@ -54,6 +64,17 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         if let enabled = row.value as? Bool {
             s.on = enabled
         }
+    case .Toggle:
+        cell.textLabel?.text = row.name
+        cell.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
+        
+        let priorAction = row.action
+        
+        row.action = { x in
+            priorAction?(x)
+            cell.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
+        }
+        
     case .Button:
         let button = UIButton(frame: cell.bounds)
         
@@ -74,6 +95,12 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         configureTextCell(cell, &row).keyboardType = .NumberPad
     case .Decimal:
         configureTextCell(cell, &row).keyboardType = .DecimalPad
+    case .Email:
+        configureTextCell(cell, &row).keyboardType = .EmailAddress
+    case .Twitter:
+        configureTextCell(cell, &row).keyboardType = .Twitter
+    case .URL:
+        configureTextCell(cell, &row).keyboardType = .URL
     }
     cell.selectionStyle = .None
 }
@@ -95,8 +122,9 @@ func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField
     return textField
 }
 
-private class FormTableViewCell: UITableViewCell {
+class FormTableViewCell: UITableViewCell {
     var configured: Bool = false
+    var formRow: FormRow?
 }
 
 let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()
@@ -104,7 +132,7 @@ let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()
 class ActionTarget {
     let control: UIControl
     let closure: (UIControl) -> Void
-    init(control: UIControl, controlEvents: UIControlEvents = .ValueChanged, action: (AnyObject?) -> Void) {
+    init(control: UIControl, controlEvents: UIControlEvents = .ValueChanged, action: (UIControl) -> Void) {
         self.control = control
         closure = action
         control.addTarget(self, action: Selector("action:"), forControlEvents: controlEvents)

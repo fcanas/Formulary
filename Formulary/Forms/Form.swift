@@ -18,6 +18,11 @@ public protocol FormSection {
     var name: String? { get }
     var rows: [FormRow] { get }
     var footerName: String? { get set }
+    
+    /// Implementers of the FormSection protocol may provide an explicit value
+    /// function. Otherwise, a section's value as determined by `value(section:)`
+    /// is the Dictionary of all the section's row's values.
+    var valueOverride: ((Void) -> [String: AnyObject])? { get }
 }
 
 public protocol FormRow {
@@ -48,24 +53,40 @@ func identifier(row: FormRow) -> String {
     return row.type.rawValue
 }
 
+// MARK: Validity
+
+public func valid(form: Form) -> Bool {
+    return form.sections.reduce(true, combine: { valid, section in
+        valid && isValid(section)
+    })
+}
+
+public func isValid(section: FormSection) -> Bool {
+    return section.rows.reduce(true, combine: { valid, row in
+        return (valid && isValid(row))
+    })
+}
+
+public func isValid(row: FormRow) -> Bool {
+    return row.validation(row.value as? String).valid
+}
+
 // MARK: Values
 
 public func values(form: Form) -> [String: AnyObject] {
-    return form.sections.reduce(Dictionary<String, AnyObject>(), combine: {vs, section in
-        var mvs = vs
-        for (k, v) in values(section) {
-            mvs[k] = v
-        }
-        return mvs
+    return form.sections.reduce(Dictionary<String, AnyObject>(), combine: {(var vs, section) in
+        for (k, v) in values(section) { vs[k] = v }
+        return vs
     })
 }
 
 func values(section: FormSection) -> [String: AnyObject] {
-    return section.rows.reduce(Dictionary<String, AnyObject>(), combine: {vs, row in
-        var mvs = vs
-        if let v: AnyObject = row.value {
-            mvs[row.tag] = v
-        }
-        return mvs
+    if let v = section.valueOverride {
+        return v()
+    }
+    
+    return section.rows.reduce(Dictionary<String, AnyObject>(), combine: {(var vs, row) in
+        if let v: AnyObject = row.value { vs[row.tag] = v }
+        return vs
     })
 }
