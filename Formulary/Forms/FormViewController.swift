@@ -19,7 +19,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     var tableView: UITableView!
-    var tableViewStyle: UITableViewStyle = .Grouped
+    public var tableViewStyle: UITableViewStyle = .Grouped
     
     init(form: Form) {
         self.form = form
