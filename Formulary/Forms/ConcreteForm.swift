@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: Form
 
-public struct ConcreteForm: Form {
+public class ConcreteForm: Form {
     public let sections: [FormSection]
     public init(sections: [FormSection]) {
         self.sections = sections
@@ -19,7 +19,7 @@ public struct ConcreteForm: Form {
 
 // MARK: Section
 
-public struct ConcreteFormSection: FormSection {
+public class ConcreteFormSection: FormSection {
     public let name: String?
     public let rows: [FormRow]
     public var footerName: String?
