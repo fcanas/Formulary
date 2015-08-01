@@ -28,7 +28,7 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var row = rowForIndexPath(indexPath, form)
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier(row)) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier(row)) as! FormTableViewCell
         configureCell(cell, &row)
         return cell
     }

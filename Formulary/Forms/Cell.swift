@@ -39,15 +39,10 @@ extension UITableView {
     }
 }
 
-func configureCell(cell: UITableViewCell, inout row: FormRow) {
+func configureCell(cell: FormTableViewCell, inout row: FormRow) {
     
-    if let c = cell as? FormTableViewCell {
-        c.formRow = row
-        if c.configured {
-            return
-        }
-        c.configured = true
-    }
+    cell.action = nil
+    cell.formRow = row
     
     switch row.type {
     case .Plain:
@@ -68,10 +63,7 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         cell.textLabel?.text = row.name
         cell.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
         
-        let priorAction = row.action
-        
-        row.action = { x in
-            priorAction?(x)
+        cell.action = { x in
             cell.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
         }
         
@@ -125,6 +117,7 @@ func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField
 class FormTableViewCell: UITableViewCell {
     var configured: Bool = false
     var formRow: FormRow?
+    var action :Action?
 }
 
 let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()
