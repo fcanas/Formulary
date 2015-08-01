@@ -46,7 +46,7 @@ public class ConcreteFormRow : FormRow {
     
     public var validation: Validation
     
-    public init(name: String, tag: String, value: AnyObject? = nil, type: FormRowType = .Plain, validation: Validation = PermissiveValidation, action: ActionClosure? = nil) {
+    public init(name: String, tag: String, value: AnyObject? = nil, type: FormRowType = .Plain, validation: Validation = PermissiveValidation, action: Action? = nil) {
         self.name = name
         self.type = type
         self.value = value

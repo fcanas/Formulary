@@ -86,7 +86,7 @@ func configureCell(cell: UITableViewCell, inout row: FormRow) {
         cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[button]-|", options: nil, metrics: nil, views: ["button":button]))
         cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[button]-|", options: nil, metrics: nil, views: ["button":button]))
         
-        var emptyAction :ActionClosure = { _ in }
+        var emptyAction :Action = { _ in }
         
         ActionTarget(control: button, controlEvents: UIControlEvents.TouchUpInside, action: row.action ?? emptyAction)
     case .Text:

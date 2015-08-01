@@ -8,7 +8,7 @@
 
 // MARK: Protocols
 
-public typealias ActionClosure = (AnyObject?) -> Void
+public typealias Action = (AnyObject?) -> Void
 
 public protocol Form {
     var sections: [FormSection] { get }
@@ -32,7 +32,7 @@ public protocol FormRow {
     var tag: String { get set }
     var value: AnyObject? { get set }
     
-    var action: ActionClosure? { get set }
+    var action: Action? { get set }
     
     var validation: Validation { get set }
 }
