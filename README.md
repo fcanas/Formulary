@@ -1,7 +1,5 @@
 # Formulary
 
-> Here be dragons 🐉
-
 Formulary is a new library for creating dynamic, declarative, table view forms for iOS.
 
 There's no lack of declarative TableView form libraries for iOS. 
