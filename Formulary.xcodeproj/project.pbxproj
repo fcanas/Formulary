@@ -90,6 +90,7 @@
 		E75D08F61A6975AE00DF5561 /* ExemplaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExemplaryTests.swift; sourceTree = "<group>"; };
 		E77EEE711A6AF8AB00AD4289 /* ConcreteForm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConcreteForm.swift; sourceTree = "<group>"; };
 		E77EEE771A6B137D00AD4289 /* NamedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamedTextField.swift; sourceTree = "<group>"; };
+		E780958F1B6EC66B00A4172A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
 		E7F1A95D1A69A34700FD8294 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 		E7F1A9601A69C2CC00FD8294 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		E75D08AF1A696A9D00DF5561 = {
 			isa = PBXGroup;
 			children = (
+				E780958F1B6EC66B00A4172A /* README.md */,
 				E75D08BB1A696A9D00DF5561 /* Formulary */,
 				E75D08C81A696A9D00DF5561 /* FormularyTests */,
 				E75D08DD1A6975AE00DF5561 /* Exemplary */,
