@@ -29,16 +29,15 @@ class ViewController: FormViewController {
             Formulary.ConcreteFormSection(rows: [
                 Formulary.ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
                     
-                    let data = NSJSONSerialization.dataWithJSONObject(values(self.form) as NSDictionary, options: nil, error: nil)!
+                    let data = NSJSONSerialization.dataWithJSONObject(values(self.form), options: nil, error: nil)!
                     let s = NSString(data: data, encoding: NSUTF8StringEncoding)
                     
                     let alert = UIAlertController(title: "Form Values", message: s as? String, preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
                 })
-                ])
-            ]
-        )
+            ])
+        ])
     }
 }
 
