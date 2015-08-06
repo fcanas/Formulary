@@ -18,7 +18,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
             tableView?.dataSource = dataSource
         }
     }
-    var tableView: UITableView!
+    public var tableView: UITableView!
     public var tableViewStyle: UITableViewStyle = .Grouped
     
     init(form: Form) {
