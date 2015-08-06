@@ -27,6 +27,7 @@
 		E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */; };
 		E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95D1A69A34700FD8294 /* Form.swift */; };
 		E7F1A9611A69C2CC00FD8294 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A9601A69C2CC00FD8294 /* Cell.swift */; };
+		E7FE09C51B72EB9F009D090C /* TraversalInputAccessory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE09C41B72EB9F009D090C /* TraversalInputAccessory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
 		E7F1A95D1A69A34700FD8294 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
 		E7F1A9601A69C2CC00FD8294 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		E7FE09C41B72EB9F009D090C /* TraversalInputAccessory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraversalInputAccessory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -246,6 +248,7 @@
 				E77EEE771A6B137D00AD4289 /* NamedTextField.swift */,
 				E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */,
 				E74C7DC31A709D1E00237881 /* Validation.swift */,
+				E7FE09C41B72EB9F009D090C /* TraversalInputAccessory.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7FE09C51B72EB9F009D090C /* TraversalInputAccessory.swift in Sources */,
 				E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */,
 				E77EEE721A6AF8AB00AD4289 /* ConcreteForm.swift in Sources */,
 				E74C7DC61A71C8F900237881 /* OptionSection.swift in Sources */,

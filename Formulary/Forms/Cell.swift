@@ -97,10 +97,13 @@ func configureCell(cell: FormTableViewCell, inout row: FormRow) {
     cell.selectionStyle = .None
 }
 
+let FormInputAccessory = TraversalInputAccessory(frame: CGRectZero)
+
 func configureTextCell(cell: FormTableViewCell, inout row: FormRow) -> UITextField {
     var textField :NamedTextField?
     if (cell.textField == nil) {
         let newTextField = NamedTextField(frame: cell.contentView.bounds)
+        newTextField.inputAccessoryView = FormInputAccessory
         newTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
         cell.contentView.addSubview(newTextField)
         cell.textField = newTextField

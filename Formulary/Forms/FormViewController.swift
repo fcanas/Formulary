@@ -73,6 +73,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
                 let keyboardInfo = KeyboardNotification(notification)
                 var keyboardEndFrame = keyboardInfo.screenFrameEnd
                 keyboardEndFrame = view.window!.convertRect(keyboardEndFrame, toView: view)
+//                keyboardEndFrame = UIEdgeInsetsInsetRect(keyboardEndFrame, UIEdgeInsetsMake(-20, 0, 0, 0))
                 
                 var contentInset = tableView.contentInset
                 var scrollIndicatorInsets = tableView.scrollIndicatorInsets
@@ -87,7 +88,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
                 tableView.contentInset = contentInset
                 tableView.scrollIndicatorInsets = scrollIndicatorInsets
                 
-                tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: .None, animated: true)
+                tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: .Bottom, animated: true)
                 
                 UIView.commitAnimations()
         }

@@ -147,4 +147,13 @@ class NamedTextField: UITextField {
         self.clipsToBounds = false
     }
     
+    // MARK: Responder Chain
+    
+    override func becomeFirstResponder() -> Bool {
+        if let traversalView = inputAccessoryView as? TraversalInputAccessory {
+            traversalView.currentControl = self;
+        }
+        return super.becomeFirstResponder()
+    }
+    
 }

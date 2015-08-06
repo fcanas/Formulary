@@ -37,10 +37,29 @@ public protocol FormRow {
     var validation: Validation { get set }
 }
 
+public func == (lhs :FormRow, rhs :FormRow) -> Bool {
+    return lhs.tag == rhs.tag
+}
+
 // MARK: Rows
 
 func rowForIndexPath(indexPath: NSIndexPath, form: Form) -> FormRow {
     return form.sections[indexPath.section].rows[indexPath.row]
+}
+
+func indexPathForRow(row: FormRow, form: Form) -> NSIndexPath? {
+    var sectionIndex = 0
+    var rowIndex = 0
+    for section in form.sections {
+        for candidateRow in section.rows {
+            if candidateRow == row {
+                return NSIndexPath(forRow: rowIndex, inSection: sectionIndex)
+            }
+            rowIndex++
+        }
+        sectionIndex++
+    }
+    return nil;
 }
 
 func allRows(form: Form) -> [FormRow] {

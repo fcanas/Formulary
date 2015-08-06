@@ -42,4 +42,5 @@ class FormDataSource: NSObject, UITableViewDataSource {
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return form.sections[section].footerName
     }
+    
 }
