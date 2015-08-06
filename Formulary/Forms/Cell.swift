@@ -97,27 +97,38 @@ func configureCell(cell: FormTableViewCell, inout row: FormRow) {
     cell.selectionStyle = .None
 }
 
-func configureTextCell(cell: UITableViewCell, inout row: FormRow) -> UITextField {
-    let textField = NamedTextField(frame: cell.contentView.bounds)
-    textField.setTranslatesAutoresizingMaskIntoConstraints(false)
-    textField.text = row.value as? String
-    textField.placeholder = row.name
-    textField.validation = row.validation
+func configureTextCell(cell: FormTableViewCell, inout row: FormRow) -> UITextField {
+    var textField :NamedTextField?
+    if (cell.textField == nil) {
+        let newTextField = NamedTextField(frame: cell.contentView.bounds)
+        newTextField.setTranslatesAutoresizingMaskIntoConstraints(false)
+        cell.contentView.addSubview(newTextField)
+        cell.textField = newTextField
+        cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: nil, metrics: nil, views: ["textField":newTextField]))
+        textField = newTextField
+    } else {
+        textField = cell.textField
+    }
     
-    cell.contentView.addSubview(textField)
+    textField?.text = row.value as? String
+    textField?.placeholder = row.name
+    textField?.validation = row.validation
     
-    cell.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: nil, metrics: nil, views: ["textField":textField]))
-    
-    ActionTarget(control: textField, controlEvents: .EditingChanged, action: { _ in
-        row.value = textField.text
+    map(textField, { (field :NamedTextField) -> ActionTarget in
+        ActionTarget.clear(field, controlEvents: .EditingChanged)
+        return ActionTarget(control: field, controlEvents: .EditingChanged, action: { _ in
+            row.value = field.text
+        })
     })
-    return textField
+    
+    return textField!
 }
 
 class FormTableViewCell: UITableViewCell {
     var configured: Bool = false
     var formRow: FormRow?
     var action :Action?
+    var textField :NamedTextField?
 }
 
 let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()
@@ -135,6 +146,12 @@ class ActionTarget {
     
     @objc func action(sender: UIControl) {
         closure(sender)
+    }
+    
+    class func clear(control :UIControl, controlEvents :UIControlEvents) {
+        if let target = objc_getAssociatedObject(control, ActionTargetControlKey) as? ActionTarget {
+            control.removeTarget(target, action: Selector("action:"), forControlEvents: controlEvents)
+        }
     }
 }
     
