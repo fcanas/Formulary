@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		24D15F3A1B766A9E00768880 /* DecimalInputTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D15F391B766A9E00768880 /* DecimalInputTextFieldDelegate.swift */; };
 		E74C7DC41A709D1E00237881 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C7DC31A709D1E00237881 /* Validation.swift */; };
 		E74C7DC61A71C8F900237881 /* OptionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C7DC51A71C8F900237881 /* OptionSection.swift */; };
 		E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */; };
@@ -68,6 +69,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		24D15F391B766A9E00768880 /* DecimalInputTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecimalInputTextFieldDelegate.swift; sourceTree = "<group>"; };
 		E74C7DC31A709D1E00237881 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
 		E74C7DC51A71C8F900237881 /* OptionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionSection.swift; sourceTree = "<group>"; };
 		E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotification.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				E77EEE771A6B137D00AD4289 /* NamedTextField.swift */,
 				E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */,
 				E74C7DC31A709D1E00237881 /* Validation.swift */,
+				24D15F391B766A9E00768880 /* DecimalInputTextFieldDelegate.swift */,
 			);
 			path = Input;
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */,
 				E74C7DC41A709D1E00237881 /* Validation.swift in Sources */,
 				E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */,
+				24D15F3A1B766A9E00768880 /* DecimalInputTextFieldDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
