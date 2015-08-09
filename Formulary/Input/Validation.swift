@@ -31,12 +31,18 @@ public let RequiredString: (String) -> Validation = { name in
     }
 }
 
+extension String {
+    func toDouble() -> Double? {
+        let trimmedValue = (self as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+        return self == trimmedValue ? (self as NSString).doubleValue : nil
+    }
+}
 public let MinimumNumber: (String, Int) -> Validation = { name, min in
     { value in
         
         if let value = value {
-            if let number = value.toInt() {
-                if number < min {
+            if let number = value.toDouble() {
+                if number < Double(min) {
                     return (false, "\(name) must be at least \(min)")
                 }
                 
@@ -54,8 +60,8 @@ public let MaximumNumber: (String, Int) -> Validation = { name, max in
     { value in
         
         if let value = value {
-            if let number = value.toInt() {
-                if number > max {
+            if let number = value.toDouble() {
+                if number > Double(max) {
                     return (false, "\(name) must be at most \(max)")
                 }
                 
