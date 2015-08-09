@@ -20,6 +20,9 @@ class FormatterAdapter :NSObject, UITextFieldDelegate {
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         let newString = (textField.text as NSString).stringByReplacingCharactersInRange(range, withString: string)
+        if newString == "" {
+            return true
+        }
         var obj :AnyObject?
         formatter.getObjectValue(&obj, forString: newString, errorDescription: nil)
         if let obj :AnyObject = obj {
