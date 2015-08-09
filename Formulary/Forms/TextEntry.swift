@@ -40,6 +40,7 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
     var action :Action?
     
     var textField :NamedTextField?
+    var formatterAdapter : FormatterAdapter?
     
     var formRow :FormRow? {
         didSet {
@@ -72,11 +73,12 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
             contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: nil, metrics: nil, views: ["textField":newTextField]))
             textField = newTextField
         }
+        formatterAdapter = map(row.formatter) { FormatterAdapter(formatter: $0) }
         
         textField?.text = row.value as? String
         textField?.placeholder = row.name
         textField?.validation = row.validation
-        textField?.setFormatter(row.formatter)
+        textField?.delegate = formatterAdapter
         
         map(textField, { (field :NamedTextField) -> ActionTarget in
             ActionTarget.clear(field, controlEvents: .EditingChanged)

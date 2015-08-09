@@ -20,7 +20,7 @@ class ViewController: FormViewController {
                 TextEntryFormRow(name:"Age", tag: "age", textType: TextEntryType.Number, validation: MinimumNumber("Age", 13))],
                 name:"Profile"),
             FormSection(rows: [
-                TextEntryFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, textType: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
+                TextEntryFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, textType: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47), formatter: NSNumberFormatter()),
                 FormRow(name:"Do you like goats?", tag: "likesGoats", type: .Switch, value: false),
                 TextEntryFormRow(name:"Other Thoughts?", tag: "thoughts", textType: .Plain),],
                 name:"Preferences",
