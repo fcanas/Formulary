@@ -27,12 +27,12 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        form = ConcreteForm(sections: [])
+        form = Form(sections: [])
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required public init(coder aDecoder: NSCoder) {
-        form = ConcreteForm(sections: [])
+        form = Form(sections: [])
         super.init(coder: aDecoder)
     }
     

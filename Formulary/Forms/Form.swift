@@ -10,31 +10,52 @@
 
 public typealias Action = (AnyObject?) -> Void
 
-public protocol Form {
-    var sections: [FormSection] { get }
+public class Form {
+    public let sections: [FormSection]
+    public init(sections: [FormSection]) {
+        self.sections = sections
+    }
 }
 
-public protocol FormSection {
-    var name: String? { get }
-    var rows: [FormRow] { get }
-    var footerName: String? { get set }
+public class FormSection {
+    var rows: [FormRow]
     
-    /// Implementers of the FormSection protocol may provide an explicit value
-    /// function. Otherwise, a section's value as determined by `value(section:)`
-    /// is the Dictionary of all the section's row's values.
-    var valueOverride: ((Void) -> [String: AnyObject])? { get }
+    var name: String?
+    var footerName: String?
+    
+    /// Subclasses of FormSection protocol may provide an explicit value
+    /// function via `valueOverride. Otherwise, a section's value as determined 
+    /// by `value(section:)` is the Dictionary of all the section's row's values.
+    var valueOverride: ((Void) -> [String: AnyObject])?
+    
+    public init(rows: [FormRow], name: String? = nil, footerName: String? = nil, valueOverride: ((Void) -> [String: AnyObject])? = nil) {
+        self.rows = rows
+        self.name = name
+        self.footerName = footerName
+        self.valueOverride = valueOverride
+    }
 }
 
-public protocol FormRow {
-    var name: String { get }
-    var type: FormRowType { get }
+public class FormRow {
+    var name: String
+    var tag: String
     
-    var tag: String { get set }
-    var value: AnyObject? { get set }
+    var type: FormRowType
     
-    var action: Action? { get set }
+    var value: AnyObject?
     
-    var validation: Validation { get set }
+    var action: Action?
+    
+    var validation: Validation
+    
+    public init(name: String, tag: String, type: FormRowType, value :AnyObject?, validation :Validation = PermissiveValidation, action :Action? = nil) {
+        self.name = name
+        self.tag = tag ?? name
+        self.type = type
+        self.value = value
+        self.validation = validation
+        self.action = action
+    }
 }
 
 // MARK: Rows
@@ -50,6 +71,9 @@ func allRows(form: Form) -> [FormRow] {
 }
 
 func identifier(row: FormRow) -> String {
+    if let textRow = row as? TextEntryFormRow {
+        return textRow.textType.rawValue
+    }
     return row.type.rawValue
 }
 

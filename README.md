@@ -2,16 +2,10 @@
 
 Formulary is a new library for creating dynamic, declarative, table view forms for iOS.
 
-There's no lack of declarative TableView form libraries for iOS. 
+Formulary is in early stages of design and development, so if you jump in now, you can have a big impact on the library's design, power, and utility.
+
                    
-Formulary is inspired by XLForm, written in Swift, and designed for developer flexibility.
-It is intended to stay small and possibly as a foundation for ther libraries.
-
-Development-oriented features include:
-
-* Form components are Swift protocols
-* Lots of points of control to override default behavior
-* Easy to integrate with existing model classes
+Formulary is inspired by XLForm, written in Swift, and designed for simplicity and development speed.
 
 Other cool features:
 
@@ -19,32 +13,31 @@ Other cool features:
 * Composable validation functions
 
 ```swift
-self.form = Formulary.ConcreteForm(sections: [
-    Formulary.ConcreteFormSection(rows: [
-        Formulary.ConcreteFormRow(name:"Name", tag: "name", type: .Text, validation: RequiredString("Name")),
-        Formulary.ConcreteFormRow(name:"Email", tag: "email", type: .Text),
-        Formulary.ConcreteFormRow(name:"Age", tag: "age", type: .Number, validation: MinimumNumber("Age", 13))],
+self.form = Form(sections: [
+    FormSection(rows: [
+        TextEntryFormRow(name:"Name", tag: "name", validation: RequiredString("Name")),
+        TextEntryFormRow(name: "Email", tag: "email", textType: TextEntryType.Email),
+        TextEntryFormRow(name:"Age", tag: "age", textType: TextEntryType.Number, validation: MinimumNumber("Age", 13))],
         name:"Profile"),
-    Formulary.ConcreteFormSection(rows: [
-        Formulary.ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
-        Formulary.ConcreteFormRow(name:"Ice Cream?", tag: "wantsIceCream", value: false, type: .Switch),
-        Formulary.ConcreteFormRow(name:"Beer?", tag: "wantsBeer", value: true, type: .Switch),
-        Formulary.ConcreteFormRow(name:"Other Thoughts?", tag: "thoughts", type: .Text),],
-        name:"Preferences",
-        footerName: "Fin"),
-    Formulary.ConcreteFormSection(rows: [
-        Formulary.ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
-            
-            let data = NSJSONSerialization.dataWithJSONObject(values(self.form) as NSDictionary, options: nil, error: nil)!
+    FormSection(rows: [
+        TextEntryFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, textType: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
+        FormRow(name:"Do you like goats?", tag: "likesGoats", type: .Switch, value: false),
+        TextEntryFormRow(name:"Other Thoughts?", tag: "thoughts", textType: .Plain),],
+    name:"Preferences",
+    footerName: "Fin"),
+    OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
+    FormSection(rows: [
+        FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in
+
+            let data = NSJSONSerialization.dataWithJSONObject(values(self.form), options: nil, error: nil)!
             let s = NSString(data: data, encoding: NSUTF8StringEncoding)
-            
-            let alert = UIAlertController(title: "Form Values", message: s, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
+
+            let alert = UIAlertController(title: "Form Values", message: s as? String, preferredStyle: UIAlertControllerStyle.Alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
         })
-        ])
-    ]
-)
+    ])
+])
 ```
 
 <img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="396" />

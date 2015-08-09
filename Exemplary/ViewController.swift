@@ -13,21 +13,21 @@ class ViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.form = Formulary.ConcreteForm(sections: [
-            Formulary.ConcreteFormSection(rows: [
-                Formulary.ConcreteFormRow(name:"Name", tag: "name", type: .Text, validation: RequiredString("Name")),
-                Formulary.ConcreteFormRow(name:"Email", tag: "email", type: .Email),
-                Formulary.ConcreteFormRow(name:"Age", tag: "age", type: .Number, validation: MinimumNumber("Age", 13))],
+        self.form = Form(sections: [
+            FormSection(rows: [
+                TextEntryFormRow(name:"Name", tag: "name", validation: RequiredString("Name")),
+                TextEntryFormRow(name: "Email", tag: "email", textType: TextEntryType.Email),
+                TextEntryFormRow(name:"Age", tag: "age", textType: TextEntryType.Number, validation: MinimumNumber("Age", 13))],
                 name:"Profile"),
-            Formulary.ConcreteFormSection(rows: [
-                Formulary.ConcreteFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, type: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
-                Formulary.ConcreteFormRow(name:"Do you like goats?", tag: "likesGoats", value: false, type: .Switch),
-                Formulary.ConcreteFormRow(name:"Other Thoughts?", tag: "thoughts", type: .Text),],
+            FormSection(rows: [
+                TextEntryFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, textType: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47)),
+                FormRow(name:"Do you like goats?", tag: "likesGoats", type: .Switch, value: false),
+                TextEntryFormRow(name:"Other Thoughts?", tag: "thoughts", textType: .Plain),],
                 name:"Preferences",
                 footerName: "Fin"),
-            Formulary.OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
-            Formulary.ConcreteFormSection(rows: [
-                Formulary.ConcreteFormRow(name:"Show Values", tag: "show", type: .Button, action: { _ in
+            OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
+            FormSection(rows: [
+                FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in
                     
                     let data = NSJSONSerialization.dataWithJSONObject(values(self.form), options: nil, error: nil)!
                     let s = NSString(data: data, encoding: NSUTF8StringEncoding)

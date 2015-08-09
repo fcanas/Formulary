@@ -7,24 +7,14 @@
 //
 
 public class OptionSection: FormSection {
-    public let name: String?
-    public var rows: [FormRow]
-    public var footerName: String?
-    
-    public var valueOverride: ((Void) -> [String: AnyObject])?
     
     public init(rowValues: [String], name: String? = nil, footerName :String? = nil, value: Any? = nil) {
-        self.name = name
-        
-        self.footerName = footerName
-        
-        rows = rowValues.map({ value  in
-            let row = ConcreteFormRow(name: value, tag: value, value: false, type: .Toggle)
-            return row
+        let rows = rowValues.map({ (value :String) -> FormRow in
+            return FormRow(name: value, tag: value, type: .Toggle, value: false)
         })
         
         let allValues: ()->[String] = {
-            let r = self.rows.filter({ row in
+            let r = rows.filter({ row in
                 return (row.value as? Bool) ?? false
             }).reduce([String](), combine: {(var vs, row) in
                 vs.append(row.name)
@@ -34,45 +24,41 @@ public class OptionSection: FormSection {
             return r
         }
         
+        super.init(rows: rows, name: name, footerName: footerName, valueOverride: nil)
+        
+        for row in rows {
+            row.action = { _ in
+                self.triggerRow(row)
+            }
+        }
+        
         valueOverride = {
             return [self.name! : allValues()]
         }
-        
-        for rowX in rows {
-            if var row = rowX as? ConcreteFormRow {
-                row.action = { _ in
-                    self.triggerRow(row)
-                }
-            }
-        }
     }
     
-    func triggerRow(row: ConcreteFormRow) {
+    func triggerRow(row: FormRow) {
         let v = row.value as? Bool ?? false
         row.value = !v
     }
     
     func deselectAll() {
         for row in rows {
-            if var r = row as? ConcreteFormRow {
-                r.value = false
-            }
+            row.value = false
         }
     }
     
-    func deselectAllBut(selectedRow: ConcreteFormRow) {
-        for rowX in rows {
-            if var row = rowX as? ConcreteFormRow {
-                row.value = false
-                row.action?(row.value)
-                println("deselecting \(row)")
-            }
+    func deselectAllBut(selectedRow: FormRow) {
+        for row in rows {
+            row.value = false
+            row.action?(row.value)
+            println("deselecting \(row)")
         }
         selectedRow.value = true
     }
 }
 
-private class SelectableRow : ConcreteFormRow {
+private class SelectableRow : FormRow {
     func deselect() {
         value = false
     }
