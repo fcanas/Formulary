@@ -31,7 +31,7 @@ public let RequiredString: (String) -> Validation = { name in
     }
 }
 
-extension String {
+private extension String {
     func toDouble() -> Double? {
         let trimmedValue = (self as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
         return self == trimmedValue ? (self as NSString).doubleValue : nil

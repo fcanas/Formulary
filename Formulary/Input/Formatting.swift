@@ -8,8 +8,6 @@
 
 import Foundation
 
-let FormattingAdapterKey :UnsafePointer<Void> = UnsafePointer<Void>()
-
 class FormatterAdapter :NSObject, UITextFieldDelegate {
     let formatter :NSFormatter
     

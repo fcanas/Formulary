@@ -93,28 +93,3 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
         selectionStyle = .None
     }
 }
-
-let ActionTargetControlKey :UnsafePointer<Void> = UnsafePointer<Void>()
-
-class ActionTarget {
-    let control: UIControl
-    let closure: (UIControl) -> Void
-    init(control: UIControl, controlEvents: UIControlEvents = .ValueChanged, action: (UIControl) -> Void) {
-        self.control = control
-        closure = action
-        control.addTarget(self, action: Selector("action:"), forControlEvents: controlEvents)
-        
-        objc_setAssociatedObject(control, ActionTargetControlKey, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
-    }
-    
-    @objc func action(sender: UIControl) {
-        closure(sender)
-    }
-    
-    class func clear(control :UIControl, controlEvents :UIControlEvents) {
-        if let target = objc_getAssociatedObject(control, ActionTargetControlKey) as? ActionTarget {
-            control.removeTarget(target, action: Selector("action:"), forControlEvents: controlEvents)
-        }
-    }
-}
-    
