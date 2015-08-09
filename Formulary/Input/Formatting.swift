@@ -23,21 +23,16 @@ class FormatterAdapter :NSObject, UITextFieldDelegate {
         var obj :AnyObject?
         formatter.getObjectValue(&obj, forString: newString, errorDescription: nil)
         if let obj :AnyObject = obj {
-            textField.text = formatter.stringForObjectValue(obj)
+            return true
         }
         return false
     }
     
-    func textFieldDidBeginEditing(textField: UITextField) {}
-    func textFieldDidEndEditing(textField: UITextField) {}
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool { return true }
-    func textFieldShouldClear(textField: UITextField) -> Bool {
-        return true
-    }
-    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
-        return true
-    }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        return true
+    func textFieldDidEndEditing(textField: UITextField) {
+        var obj :AnyObject?
+        formatter.getObjectValue(&obj, forString: textField.text, errorDescription: nil)
+        if let obj :AnyObject = obj {
+            textField.text = formatter.stringForObjectValue(obj)
+        }
     }
 }

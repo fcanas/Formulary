@@ -13,14 +13,20 @@ class ViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let decimalFormatter = NSNumberFormatter()
+        decimalFormatter.maximumFractionDigits = 5
+        
+        let integerFormatter = NSNumberFormatter()
+        
         self.form = Form(sections: [
             FormSection(rows: [
                 TextEntryFormRow(name:"Name", tag: "name", validation: RequiredString("Name")),
                 TextEntryFormRow(name: "Email", tag: "email", textType: TextEntryType.Email),
-                TextEntryFormRow(name:"Age", tag: "age", textType: TextEntryType.Number, validation: MinimumNumber("Age", 13))],
+                TextEntryFormRow(name:"Age", tag: "age", textType: TextEntryType.Number, validation: MinimumNumber("Age", 13), formatter: integerFormatter)],
                 name:"Profile"),
             FormSection(rows: [
-                TextEntryFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, textType: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47), formatter: NSNumberFormatter()),
+                TextEntryFormRow(name:"Favorite Number", tag: "favoriteNumber", value: nil, textType: .Decimal, validation: MinimumNumber("Your favorite number", 47) && MaximumNumber("Your favorite number", 47), formatter: decimalFormatter),
                 FormRow(name:"Do you like goats?", tag: "likesGoats", type: .Switch, value: false),
                 TextEntryFormRow(name:"Other Thoughts?", tag: "thoughts", textType: .Plain),],
                 name:"Preferences",
