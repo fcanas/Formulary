@@ -23,9 +23,11 @@ public enum TextEntryType: String {
 
 public class TextEntryFormRow : FormRow {
     public let textType: TextEntryType
+    public let formatter: NSFormatter?
     
-    public init(name: String, tag: String, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, action: Action? = nil) {
+    public init(name: String, tag: String, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil) {
         self.textType = textType
+        self.formatter = formatter
         super.init(name: name, tag: tag, type: .Specialized, value: value, validation: validation, action: action)
     }
 }
@@ -74,6 +76,7 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
         textField?.text = row.value as? String
         textField?.placeholder = row.name
         textField?.validation = row.validation
+        textField?.setFormatter(row.formatter)
         
         map(textField, { (field :NamedTextField) -> ActionTarget in
             ActionTarget.clear(field, controlEvents: .EditingChanged)
