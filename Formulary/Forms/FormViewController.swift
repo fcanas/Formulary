@@ -128,23 +128,3 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
 }
-
-extension UIView {
-    func firstResponder() -> UIView? {
-        if isFirstResponder() {
-            return self
-        }
-        for subview in (subviews as! [UIView]) {
-            if let responder = subview.firstResponder() {
-                return responder
-            }
-        }
-        return nil
-    }
-    func containingCell() -> UITableViewCell? {
-        if let c = self as? UITableViewCell {
-            return c
-        }
-        return superview?.containingCell()
-    }
-}
