@@ -81,6 +81,7 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
         textField?.placeholder = row.name
         textField?.validation = row.validation
         textField?.delegate = formatterAdapter
+        textField?.enabled = row.enabled
         
         map(textField, { (field :NamedTextField) -> ActionTarget in
             ActionTarget.clear(field, controlEvents: .EditingChanged)

@@ -12,6 +12,15 @@ public typealias Action = (AnyObject?) -> Void
 
 public class Form {
     public let sections: [FormSection]
+    
+    public var editingEnabled :Bool = true {
+        didSet {
+            for section in self.sections {
+                section.editingEnabled = editingEnabled
+            }
+        }
+    }
+    
     public init(sections: [FormSection]) {
         self.sections = sections
     }
@@ -23,8 +32,16 @@ public class FormSection {
     var name: String?
     var footerName: String?
     
+    public var editingEnabled :Bool = true {
+        didSet {
+            for row in self.rows {
+                row.enabled = editingEnabled
+            }
+        }
+    }
+    
     /// Subclasses of FormSection protocol may provide an explicit value
-    /// function via `valueOverride. Otherwise, a section's value as determined 
+    /// function via `valueOverride. Otherwise, a section's value as determined
     /// by `value(section:)` is the Dictionary of all the section's row's values.
     var valueOverride: ((Void) -> [String: AnyObject])?
     
@@ -47,6 +64,8 @@ public class FormRow {
     var action: Action?
     
     var validation: Validation
+    
+    var enabled: Bool = true
     
     public init(name: String, tag: String, type: FormRowType, value :AnyObject?, validation :Validation = PermissiveValidation, action :Action? = nil) {
         self.name = name

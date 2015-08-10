@@ -62,15 +62,20 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
                 row.value = s.on
             })
             
-            if let enabled = row.value as? Bool {
-                s.on = enabled
+            if let state = row.value as? Bool {
+                s.on = state
             }
+            
+            s.enabled = row.enabled
+            
         case .Toggle:
             textLabel?.text = row.name
             accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
             
-            action = { x in
-                self.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
+            if row.enabled {
+                action = { x in
+                    self.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
+                }
             }
             
         case .Button:
@@ -86,7 +91,9 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             
             var emptyAction :Action = { _ in }
             
-            ActionTarget(control: button, controlEvents: UIControlEvents.TouchUpInside, action: row.action ?? emptyAction)
+            if row.enabled {
+                ActionTarget(control: button, controlEvents: UIControlEvents.TouchUpInside, action: row.action ?? emptyAction)
+            }
         case .Specialized:
             assert(false, "Specialized cells should not be configured here.")
         }

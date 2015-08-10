@@ -14,6 +14,8 @@ class ViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = editButtonItem()
+        
         let decimalFormatter = NSNumberFormatter()
         decimalFormatter.maximumFractionDigits = 5
         
@@ -44,6 +46,12 @@ class ViewController: FormViewController {
                 })
             ])
         ])
+        setEditing(true, animated: false)
+    }
+    
+    override func setEditing(editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        editingEnabled = editing
     }
 }
 

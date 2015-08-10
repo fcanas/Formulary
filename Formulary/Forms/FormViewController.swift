@@ -21,6 +21,17 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     public var tableView: UITableView!
     public var tableViewStyle: UITableViewStyle = .Grouped
     
+    public var editingEnabled :Bool = true {
+        didSet {
+            self.form.editingEnabled = editingEnabled
+            if editing == false {
+                print("first responder when editing is changing : \(self.tableView.firstResponder())")
+                self.tableView.firstResponder()?.resignFirstResponder()
+            }
+            self.tableView.reloadData()
+        }
+    }
+    
     init(form: Form) {
         self.form = form
         super.init(nibName: nil, bundle: nil)
