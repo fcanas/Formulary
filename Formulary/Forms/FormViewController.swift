@@ -31,17 +31,17 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    init(form: Form) {
+    public init(form: Form) {
         self.form = form
         super.init(nibName: nil, bundle: nil)
     }
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         form = Form(sections: [])
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    required public init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         form = Form(sections: [])
         super.init(coder: aDecoder)
     }
