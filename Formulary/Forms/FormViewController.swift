@@ -14,6 +14,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     
     public var form :Form {
         didSet {
+            form.editingEnabled = editingEnabled
             dataSource = FormDataSource(form: form, tableView: tableView)
             tableView?.dataSource = dataSource
         }
@@ -25,9 +26,9 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         didSet {
             self.form.editingEnabled = editingEnabled
             if editing == false {
-                self.tableView.firstResponder()?.resignFirstResponder()
+                self.tableView?.firstResponder()?.resignFirstResponder()
             }
-            self.tableView.reloadData()
+            self.tableView?.reloadData()
         }
     }
     
