@@ -11,13 +11,28 @@ import Foundation
 //MARK: Sub-Types
 
 public enum TextEntryType: String {
-    case Plain   = "Formulary.Plain"
-    case Number  = "Formulary.Number"
-    case Decimal = "Formulary.Decimal"
-    case Email   = "Formulary.Email"
-    case Twitter = "Formulary.Twitter"
-    case URL     = "Formulary.URL"
+    case Plain     = "Formulary.Plain"
+    case Number    = "Formulary.Number"
+    case Decimal   = "Formulary.Decimal"
+    case Email     = "Formulary.Email"
+    case Twitter   = "Formulary.Twitter"
+    case URL       = "Formulary.URL"
+    case WebSearch = "Formulary.WebSearch"
+    case Phone     = "Formulary.Phone"
+    case NamePhone = "Formulary.PhoneName"
 }
+
+private let KeyMap :[TextEntryType : UIKeyboardType] = [
+    TextEntryType.Plain     : UIKeyboardType.Default,
+    TextEntryType.Number    : UIKeyboardType.NumberPad,
+    TextEntryType.Decimal   : UIKeyboardType.DecimalPad,
+    TextEntryType.Email     : UIKeyboardType.EmailAddress,
+    TextEntryType.Twitter   : UIKeyboardType.Twitter,
+    TextEntryType.URL       : UIKeyboardType.URL,
+    TextEntryType.WebSearch : UIKeyboardType.WebSearch,
+    TextEntryType.Phone     : UIKeyboardType.PhonePad,
+    TextEntryType.NamePhone : UIKeyboardType.NamePhonePad,
+]
 
 //MARK: Form Row
 
@@ -45,20 +60,7 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
     var formRow :FormRow? {
         didSet {
             if var formRow = formRow as? TextEntryFormRow {
-                switch formRow.textType {
-                case .Plain:
-                    configureTextField(&formRow).keyboardType = .Default
-                case .Number:
-                    configureTextField(&formRow).keyboardType = .NumberPad
-                case .Decimal:
-                    configureTextField(&formRow).keyboardType = .DecimalPad
-                case .Email:
-                    configureTextField(&formRow).keyboardType = .EmailAddress
-                case .Twitter:
-                    configureTextField(&formRow).keyboardType = .Twitter
-                case .URL:
-                    configureTextField(&formRow).keyboardType = .URL
-                }
+                configureTextField(&formRow).keyboardType = KeyMap[formRow.textType]!
             }
             selectionStyle = .None
         }
