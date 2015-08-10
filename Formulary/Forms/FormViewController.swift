@@ -25,7 +25,6 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         didSet {
             self.form.editingEnabled = editingEnabled
             if editing == false {
-                print("first responder when editing is changing : \(self.tableView.firstResponder())")
                 self.tableView.firstResponder()?.resignFirstResponder()
             }
             self.tableView.reloadData()
