@@ -22,17 +22,14 @@ public enum FormRowType: String {
 }
 
 extension UITableView {
-    func registerFormCellClasses() {
+    func registerFormCellClasses(classes :[String : String]) {
+        for (identifier, klass) in classes {
+            self.registerClass(NSClassFromString(klass), forCellReuseIdentifier: identifier)
+        }
+        
         self.registerClass(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
         self.registerClass(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
         self.registerClass(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Toggle.rawValue)
-        
-        self.registerClass(TextEntryCell.self, forCellReuseIdentifier: TextEntryType.Plain.rawValue)
-        self.registerClass(TextEntryCell.self, forCellReuseIdentifier: TextEntryType.Number.rawValue)
-        self.registerClass(TextEntryCell.self, forCellReuseIdentifier: TextEntryType.Decimal.rawValue)
-        self.registerClass(TextEntryCell.self, forCellReuseIdentifier: TextEntryType.Email.rawValue)
-        self.registerClass(TextEntryCell.self, forCellReuseIdentifier: TextEntryType.Twitter.rawValue)
-        self.registerClass(TextEntryCell.self, forCellReuseIdentifier: TextEntryType.URL.rawValue)
     }
 }
 

@@ -53,11 +53,37 @@ public class FormSection {
     }
 }
 
+/** When extending Formulary with new component types, you may need to register
+    with Formulary to access certain extension points.
+*/
+public protocol FormularyComponent :class {
+    /// Associate a reuse identifier with a UITableViewCell class
+    static func cellRegistration() -> [String : AnyClass]
+}
+
+public func registerFormularyComponent<T :FormularyComponent>(component :T.Type) {
+    for (id, cellClass) in component.cellRegistration() {
+        FormDataSource.registerClass(cellClass, forCellReuseIdentifier: id)
+    }
+}
+
 public class FormRow {
     var name: String
     var tag: String
     
     var type: FormRowType
+    
+    /** Subclasses with custom cells should override `cellIdentifier` and
+        register a cell class and reuse identifier by defining a `FormularyComponent`
+        and registering via `registerFormularyComponent`.
+
+        :See also: `registerFormularyComponent`, `FormularyComponent`
+    */
+    public var cellIdentifier: String {
+        get {
+            return type.rawValue
+        }
+    }
     
     var value: AnyObject?
     
@@ -87,13 +113,6 @@ func allRows(form: Form) -> [FormRow] {
     return form.sections.reduce(Array<FormRow>(), combine: { (rows, section) -> Array<FormRow> in
         return rows + section.rows
     })
-}
-
-func identifier(row: FormRow) -> String {
-    if let textRow = row as? TextEntryFormRow {
-        return textRow.textType.rawValue
-    }
-    return row.type.rawValue
 }
 
 // MARK: Validity

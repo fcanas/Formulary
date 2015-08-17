@@ -36,14 +36,34 @@ private let KeyMap :[TextEntryType : UIKeyboardType] = [
 
 //MARK: Form Row
 
-public class TextEntryFormRow : FormRow {
+public class TextEntryFormRow : FormRow, FormularyComponent {
     public let textType: TextEntryType
     public let formatter: NSFormatter?
+    
+    override public var cellIdentifier :String {
+        get {
+            return textType.rawValue
+        }
+    }
     
     public init(name: String, tag: String, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil) {
         self.textType = textType
         self.formatter = formatter
         super.init(name: name, tag: tag, type: .Specialized, value: value, validation: validation, action: action)
+    }
+    
+    public static func cellRegistration() -> [String : AnyClass] {
+        return [
+            TextEntryType.Plain.rawValue : TextEntryCell.self,
+            TextEntryType.Number.rawValue : TextEntryCell.self,
+            TextEntryType.Decimal.rawValue : TextEntryCell.self,
+            TextEntryType.Email.rawValue : TextEntryCell.self,
+            TextEntryType.Twitter.rawValue : TextEntryCell.self,
+            TextEntryType.URL.rawValue : TextEntryCell.self,
+            TextEntryType.WebSearch.rawValue : TextEntryCell.self,
+            TextEntryType.Phone.rawValue : TextEntryCell.self,
+            TextEntryType.NamePhone.rawValue : TextEntryCell.self,
+        ]
     }
 }
 
