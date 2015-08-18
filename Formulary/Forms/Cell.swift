@@ -8,10 +8,14 @@
 
 import UIKit
 
-protocol FormTableViewCell {
+public protocol FormTableViewCell {
     var configured: Bool { get set }
     var formRow: FormRow? { get set }
     var action :Action? { get set }
+}
+
+public protocol ControllerSpringingCell {
+    var nestedViewController :(() -> UIViewController)? { get set }
 }
 
 public enum FormRowType: String {

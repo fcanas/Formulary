@@ -133,9 +133,14 @@ public class FormViewController: UIViewController, UITableViewDelegate {
     }
     
     public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? FormTableViewCell {
+        let cell = tableView.cellForRowAtIndexPath(indexPath)
+        if let cell = cell as? FormTableViewCell {
             cell.formRow?.action?(nil)
             cell.action?(nil)
+        }
+        
+        if let cell = cell as? ControllerSpringingCell, let controller = cell.nestedViewController {
+            navigationController?.pushViewController(controller(), animated: true)
         }
     }
 }
