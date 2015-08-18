@@ -14,6 +14,9 @@ class ViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        registerFormularyComponent(TextEntryFormRow.self)
+        registerFormularyComponent(NestedFormRow.self)
+        
         navigationItem.rightBarButtonItem = editButtonItem()
         
         let decimalFormatter = NSNumberFormatter()
@@ -35,6 +38,9 @@ class ViewController: FormViewController {
                 footerName: "Fin"),
             OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
             FormSection(rows: [
+                NestedFormRow(name: "First Goat", tag: "goat", nestedForm: Goat.form())
+                ], name: "Goats"),
+            FormSection(rows: [
                 FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in
                     
                     let data = NSJSONSerialization.dataWithJSONObject(values(self.form), options: nil, error: nil)!
@@ -52,6 +58,41 @@ class ViewController: FormViewController {
     override func setEditing(editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         editingEnabled = editing
+    }
+}
+
+class Goat {
+    var name :String
+    var weight :Int
+    var color :String
+    required init(name: String, weight: Int, color: String) {
+        self.name = name
+        self.weight = weight
+        self.color = color
+    }
+}
+
+extension Goat :FormModel {
+    func form() -> Form {
+        return Form(sections:[FormSection(rows:[
+            TextEntryFormRow(name:"Name", tag: "name", value:name, validation: RequiredString("Name")),
+            TextEntryFormRow(name:"Weight", tag: "weight", value:weight, textType: TextEntryType.Number, validation: MinimumNumber("Weight", 0)),
+            TextEntryFormRow(name:"Color", tag: "color", value:color, validation: RequiredString("Color")),
+            ])])
+    }
+    static func form() -> Form {
+        return Form(sections:[FormSection(rows:[
+            TextEntryFormRow(name:"Name", tag: "name", validation: RequiredString("Name")),
+            TextEntryFormRow(name:"Weight", tag: "weight", textType: TextEntryType.Number, validation: MinimumNumber("Weight", 0)),
+            TextEntryFormRow(name:"Color", tag: "color", validation: RequiredString("Color")),
+            ])])
+    }
+    static func model(form :Form) -> Self? {
+        let formValues = values(form)
+        if let name = formValues["name"] as? String, let weight = formValues[""] as? Int, let color = formValues["color"] as? String {
+            return self(name: name, weight: weight, color: color)
+        }
+        return nil
     }
 }
 
