@@ -38,7 +38,7 @@ class ViewController: FormViewController {
                 footerName: "Fin"),
             OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
             FormSection(rows: [
-                NestedFormRow(name: "First Goat", tag: "goat", nestedForm: Goat.form())
+                NestedFormRow(name: "First Goat", tag: "goat", nestedModel: Goat())
                 ], name: "Goats"),
             FormSection(rows: [
                 FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in

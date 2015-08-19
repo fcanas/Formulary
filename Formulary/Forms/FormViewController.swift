@@ -139,8 +139,10 @@ public class FormViewController: UIViewController, UITableViewDelegate {
             cell.action?(nil)
         }
         
-        if let cell = cell as? ControllerSpringingCell, let controller = cell.nestedViewController {
-            navigationController?.pushViewController(controller(), animated: true)
+        if let cell = cell as? ControllerSpringingCell, let controllerClosure = cell.nestedViewController {
+            let controller = controllerClosure()
+            controller.setEditing(self.editing, animated: false)
+            navigationController?.pushViewController(controller, animated: true)
         }
     }
 }
