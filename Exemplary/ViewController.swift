@@ -38,7 +38,7 @@ class ViewController: FormViewController {
                 footerName: "Fin"),
             OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
             FormSection(rows: [
-                NestedFormRow(name: "First Goat", tag: "goat", nestedModel: Goat())
+                NestedFormRow(name: "First Goat", tag: "goat", modelGenerator: Goat.model, form:Goat.form())
                 ], name: "Goats"),
             FormSection(rows: [
                 FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in
@@ -61,7 +61,7 @@ class ViewController: FormViewController {
     }
 }
 
-class Goat {
+class Goat :FormModel {
     var name :String
     var weight :Int
     var color :String
@@ -70,9 +70,7 @@ class Goat {
         self.weight = weight
         self.color = color
     }
-}
-
-extension Goat :FormModel {
+    
     func form() -> Form {
         return Form(sections:[FormSection(rows:[
             TextEntryFormRow(name:"Name", tag: "name", value:name, validation: RequiredString("Name")),
@@ -89,10 +87,14 @@ extension Goat :FormModel {
     }
     static func model(form :Form) -> Self? {
         let formValues = values(form)
-        if let name = formValues["name"] as? String, let weight = formValues[""] as? Int, let color = formValues["color"] as? String {
+        if let name = formValues["name"] as? String, let weight = (formValues["weight"] as? String)?.toInt(), let color = formValues["color"] as? String {
             return self(name: name, weight: weight, color: color)
         }
         return nil
+    }
+    
+    var summary :String {
+        return "\(name) the \(weight)-pound \(color) goat"
     }
 }
 

@@ -13,4 +13,6 @@ public protocol FormModel :class {
     static func form() -> Form
     /// Given a Form, attempts to return a Model populated with the Form's fields' values
     static func model(form: Form) -> Self?
+    /// A single string summarizing the model
+    var summary :String { get }
 }
