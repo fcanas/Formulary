@@ -8,6 +8,8 @@
 
 // MARK: Protocols
 
+import FFCTextField
+
 public typealias Action = (AnyObject?) -> Void
 
 public class Form {

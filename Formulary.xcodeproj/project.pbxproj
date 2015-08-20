@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E74C7DC41A709D1E00237881 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C7DC31A709D1E00237881 /* Validation.swift */; };
+		E709AB881B85724C00F3238E /* FFCTextField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E709AB871B85724C00F3238E /* FFCTextField.framework */; };
+		E709AB891B8573EC00F3238E /* FFCTextField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E709AB871B85724C00F3238E /* FFCTextField.framework */; };
+		E709AB8A1B8573EC00F3238E /* FFCTextField.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E709AB871B85724C00F3238E /* FFCTextField.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E74C7DC61A71C8F900237881 /* OptionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C7DC51A71C8F900237881 /* OptionSection.swift */; };
 		E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */; };
 		E75D08BF1A696A9D00DF5561 /* Formulary.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D08BE1A696A9D00DF5561 /* Formulary.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,7 +25,6 @@
 		E75D09041A6977E300DF5561 /* Formulary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75D08B91A696A9D00DF5561 /* Formulary.framework */; };
 		E75D09051A6977E300DF5561 /* Formulary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E75D08B91A696A9D00DF5561 /* Formulary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E77EEE721A6AF8AB00AD4289 /* TextEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77EEE711A6AF8AB00AD4289 /* TextEntry.swift */; };
-		E77EEE781A6B137D00AD4289 /* NamedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77EEE771A6B137D00AD4289 /* NamedTextField.swift */; };
 		E784ECDD1B780F780083D78F /* UIControlEventAcion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784ECDC1B780F780083D78F /* UIControlEventAcion.swift */; };
 		E784ECDF1B78E6E70083D78F /* ResponderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784ECDE1B78E6E70083D78F /* ResponderChain.swift */; };
 		E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */; };
@@ -63,6 +64,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				E709AB8A1B8573EC00F3238E /* FFCTextField.framework in Embed Frameworks */,
 				E75D09051A6977E300DF5561 /* Formulary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -71,7 +73,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E74C7DC31A709D1E00237881 /* Validation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
+		E709AB871B85724C00F3238E /* FFCTextField.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FFCTextField.framework; path = Carthage/Build/iOS/FFCTextField.framework; sourceTree = "<group>"; };
 		E74C7DC51A71C8F900237881 /* OptionSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionSection.swift; sourceTree = "<group>"; };
 		E74FCA091A70314000C8BB8A /* KeyboardNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardNotification.swift; sourceTree = "<group>"; };
 		E75D08B91A696A9D00DF5561 /* Formulary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Formulary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +94,6 @@
 		E75D08F51A6975AE00DF5561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E75D08F61A6975AE00DF5561 /* ExemplaryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExemplaryTests.swift; sourceTree = "<group>"; };
 		E77EEE711A6AF8AB00AD4289 /* TextEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEntry.swift; sourceTree = "<group>"; };
-		E77EEE771A6B137D00AD4289 /* NamedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NamedTextField.swift; sourceTree = "<group>"; };
 		E780958F1B6EC66B00A4172A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E784ECDC1B780F780083D78F /* UIControlEventAcion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControlEventAcion.swift; sourceTree = "<group>"; };
 		E784ECDE1B78E6E70083D78F /* ResponderChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderChain.swift; sourceTree = "<group>"; };
@@ -107,6 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E709AB881B85724C00F3238E /* FFCTextField.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +124,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E709AB891B8573EC00F3238E /* FFCTextField.framework in Frameworks */,
 				E75D09041A6977E300DF5561 /* Formulary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +148,7 @@
 				E75D08DD1A6975AE00DF5561 /* Exemplary */,
 				E75D08F31A6975AE00DF5561 /* ExemplaryTests */,
 				E75D08BA1A696A9D00DF5561 /* Products */,
+				E709AB871B85724C00F3238E /* FFCTextField.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -250,8 +254,6 @@
 		E77EEE761A6B133E00AD4289 /* Input */ = {
 			isa = PBXGroup;
 			children = (
-				E77EEE771A6B137D00AD4289 /* NamedTextField.swift */,
-				E74C7DC31A709D1E00237881 /* Validation.swift */,
 				E7FE09C61B77AAEF009D090C /* Formatting.swift */,
 			);
 			path = Input;
@@ -443,11 +445,9 @@
 				E77EEE721A6AF8AB00AD4289 /* TextEntry.swift in Sources */,
 				E74C7DC61A71C8F900237881 /* OptionSection.swift in Sources */,
 				E784ECDF1B78E6E70083D78F /* ResponderChain.swift in Sources */,
-				E77EEE781A6B137D00AD4289 /* NamedTextField.swift in Sources */,
 				E7F1A9611A69C2CC00FD8294 /* Cell.swift in Sources */,
 				E75D08D71A696D5400DF5561 /* FormViewController.swift in Sources */,
 				E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */,
-				E74C7DC41A709D1E00237881 /* Validation.swift in Sources */,
 				E784ECDD1B780F780083D78F /* UIControlEventAcion.swift in Sources */,
 				E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */,
 			);
@@ -611,8 +611,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Formulary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -628,8 +633,13 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Formulary/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -671,11 +681,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = Exemplary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -686,7 +701,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Exemplary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

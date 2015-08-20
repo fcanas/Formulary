@@ -8,11 +8,14 @@
 
 import UIKit
 import Formulary
+import FFCTextField
 
 class ViewController: FormViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        registerFormularyComponent(TextEntryFormRow.self)
         
         navigationItem.rightBarButtonItem = editButtonItem()
         

@@ -1,6 +1,10 @@
 # Xcode
 #
+## Build generated
 build/
+DerivedData
+
+## Various settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -10,9 +14,15 @@ build/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata
+
+## Other
 *.xccheckout
 *.moved-aside
-DerivedData
+*.xcuserstate
+*.xcscmblueprint
+
 *.hmap
 *.ipa
-*.xcuserstate
+
+Carthage/Checkouts
+Carthage/Build

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FFCTextField
 
 //MARK: Sub-Types
 
