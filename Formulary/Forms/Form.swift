@@ -27,7 +27,7 @@ public class Form {
 }
 
 public class FormSection {
-    var rows: [FormRow]
+    public var rows: [FormRow]
     
     var name: String?
     var footerName: String?
