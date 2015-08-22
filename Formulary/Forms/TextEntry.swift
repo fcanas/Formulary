@@ -46,7 +46,14 @@ public class TextEntryFormRow : FormRow, FormularyComponent {
         }
     }
     
+    static var registrationToken :Int = 0
+    
     public init(name: String, tag: String, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil) {
+        
+        dispatch_once(&TextEntryFormRow.registrationToken, { () -> Void in
+            registerFormularyComponent(TextEntryFormRow.self)
+        })
+        
         self.textType = textType
         self.formatter = formatter
         super.init(name: name, tag: tag, type: .Specialized, value: value, validation: validation, action: action)
