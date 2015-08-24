@@ -85,7 +85,7 @@ public class FormRow {
         }
     }
     
-    var value: AnyObject?
+    public var value: AnyObject?
     
     var action: Action?
     
