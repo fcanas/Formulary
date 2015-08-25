@@ -43,7 +43,7 @@ public class FormSection {
     /// Subclasses of FormSection protocol may provide an explicit value
     /// function via `valueOverride. Otherwise, a section's value as determined
     /// by `value(section:)` is the Dictionary of all the section's row's values.
-    var valueOverride: ((Void) -> [String: AnyObject])?
+    public var valueOverride: ((Void) -> [String: AnyObject])?
     
     public init(rows: [FormRow], name: String? = nil, footerName: String? = nil, valueOverride: ((Void) -> [String: AnyObject])? = nil) {
         self.rows = rows
