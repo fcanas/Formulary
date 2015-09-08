@@ -30,6 +30,9 @@ class FormDataSource: NSObject, UITableViewDataSource {
         var row = rowForIndexPath(indexPath, form)
         var cell = tableView.dequeueReusableCellWithIdentifier(row.cellIdentifier) as! FormTableViewCell
         cell.formRow = row
+        if let _ = cell as? ControllerSpringingCell, let cell = cell as? UITableViewCell {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }
         return cell as! UITableViewCell
     }
     
