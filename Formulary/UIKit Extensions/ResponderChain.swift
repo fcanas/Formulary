@@ -13,7 +13,7 @@ extension UIView {
         if isFirstResponder() {
             return self
         }
-        for subview in (subviews as! [UIView]) {
+        for subview in subviews {
             if let responder = subview.firstResponder() {
                 return responder
             }

@@ -52,7 +52,7 @@ public class OptionSection: FormSection {
         for row in rows {
             row.value = false
             row.action?(row.value)
-            println("deselecting \(row)")
+            print("deselecting \(row)")
         }
         selectedRow.value = true
     }

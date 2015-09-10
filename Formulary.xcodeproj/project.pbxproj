@@ -360,6 +360,8 @@
 		E75D08B01A696A9D00DF5561 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Fabian Canas";
 				TargetAttributes = {

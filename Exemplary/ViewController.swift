@@ -37,7 +37,7 @@ class ViewController: FormViewController {
             FormSection(rows: [
                 FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in
                     
-                    let data = NSJSONSerialization.dataWithJSONObject(values(self.form), options: nil, error: nil)!
+                    let data = try! NSJSONSerialization.dataWithJSONObject(values(self.form), options: [])
                     let s = NSString(data: data, encoding: NSUTF8StringEncoding)
                     
                     let alert = UIAlertController(title: "Form Values", message: s as? String, preferredStyle: UIAlertControllerStyle.Alert)
