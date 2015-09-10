@@ -13,7 +13,7 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     init(form: Form, tableView: UITableView) {
         self.form = form
-        tableView.registerFormCellClasses()
+        tableView.registerFormCellClasses(FormDataSource.cellRegistry)
     }
     
     // MARK: Data
@@ -28,8 +28,11 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var row = rowForIndexPath(indexPath, form)
-        var cell = tableView.dequeueReusableCellWithIdentifier(identifier(row)) as! FormTableViewCell
+        var cell = tableView.dequeueReusableCellWithIdentifier(row.cellIdentifier) as! FormTableViewCell
         cell.formRow = row
+        if let _ = cell as? ControllerSpringingCell, let cell = cell as? UITableViewCell {
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }
         return cell as! UITableViewCell
     }
     
@@ -41,5 +44,16 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return form.sections[section].footerName
+    }
+    
+    // MARK: Cell Registration
+    
+    // Key: reuseidentifier, Value: Class Name
+    // Currently, this isn't stored as [String : AnyClass] due to ObjC interop
+    // issues. If you can get it to work with that, please make the change
+    static var cellRegistry :[String : String] = [:]
+    
+    class func registerClass(cellClass :AnyClass, forCellReuseIdentifier identifier: String) {
+        cellRegistry[identifier] = NSStringFromClass(cellClass)
     }
 }
