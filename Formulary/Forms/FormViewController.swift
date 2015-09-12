@@ -42,7 +42,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    public required init(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         form = Form(sections: [])
         super.init(coder: aDecoder)
     }
@@ -57,7 +57,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         
         if tableView == nil {
             tableView = UITableView(frame: view.bounds, style: tableViewStyle)
-            tableView.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+            tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         }
         if tableView.superview == nil {
             view.addSubview(tableView)

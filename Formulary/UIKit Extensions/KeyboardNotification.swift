@@ -19,7 +19,7 @@ struct KeyboardNotification {
     
     /// Initializer
     ///
-    /// :param: notification Keyboard-related notification
+    /// - parameter notification: Keyboard-related notification
     init(_ notification: NSNotification) {
         self.notification = notification
         if let userInfo = notification.userInfo {
@@ -74,16 +74,16 @@ struct KeyboardNotification {
     
     /// Start frame of the keyboard in coordinates of specified view
     ///
-    /// :param: view UIView to whose coordinate system the frame will be converted
-    /// :returns: frame rectangle in view's coordinate system
+    /// - parameter view: UIView to whose coordinate system the frame will be converted
+    /// - returns: frame rectangle in view's coordinate system
     func frameBeginForView(view: UIView) -> CGRect {
         return view.convertRect(screenFrameBegin, fromView: view.window)
     }
     
     /// Start frame of the keyboard in coordinates of specified view
     ///
-    /// :param: view UIView to whose coordinate system the frame will be converted
-    /// :returns: frame rectangle in view's coordinate system
+    /// - parameter view: UIView to whose coordinate system the frame will be converted
+    /// - returns: frame rectangle in view's coordinate system
     func frameEndForView(view: UIView) -> CGRect {
         return view.convertRect(screenFrameEnd, fromView: view.window)
     }

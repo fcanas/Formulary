@@ -22,7 +22,7 @@ class NamedTextField: UITextField {
     var topMargin :CGFloat = 4
     var marginForContent :CGFloat {
         get {
-            return text.isEmpty ? 0 : 4
+            return (text ?? "").isEmpty ? 0 : 4
         }
     }
     
@@ -56,7 +56,7 @@ class NamedTextField: UITextField {
         let (valid, errorString) = validation(text)
         validationLabel.text = errorString
         validationLabel.sizeToFit()
-        if text.isEmpty {
+        if (text ?? "").isEmpty {
             hideLabel(isFirstResponder(), label: nameLabel)
             if hasEverResignedFirstResponder && !valid {
                 showLabel(true, label: validationLabel)
@@ -101,14 +101,14 @@ class NamedTextField: UITextField {
     
     override func textRectForBounds(bounds:CGRect) -> CGRect {
         var r = super.textRectForBounds(bounds)
-        var top = ceil(nameLabel.font.lineHeight)
+        let top = ceil(nameLabel.font.lineHeight)
         r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + marginForContent, 0.0, -marginForContent, 0.0))
         return CGRectIntegral(r)
     }
     
     override func editingRectForBounds(bounds:CGRect) -> CGRect {
         var r = super.editingRectForBounds(bounds)
-        var top = ceil(nameLabel.font.lineHeight)
+        let top = ceil(nameLabel.font.lineHeight)
         r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + marginForContent, 0.0, -marginForContent, 0.0))
         return CGRectIntegral(r)
     }
@@ -122,7 +122,7 @@ class NamedTextField: UITextField {
     
     // MARK: Initialize
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         sharedInit()
     }

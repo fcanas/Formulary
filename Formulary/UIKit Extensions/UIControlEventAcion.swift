@@ -19,7 +19,7 @@ class ActionTarget {
         closure = action
         control.addTarget(self, action: Selector("action:"), forControlEvents: controlEvents)
         
-        objc_setAssociatedObject(control, ActionTargetControlKey, self, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN_NONATOMIC))
+        objc_setAssociatedObject(control, ActionTargetControlKey, self, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     
     @objc func action(sender: UIControl) {

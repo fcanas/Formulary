@@ -85,15 +85,21 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             button.setTitle(row.name, forState: .Normal)
             button.setTitleColor(tintColor, forState: .Normal)
             
-            button.setTranslatesAutoresizingMaskIntoConstraints(false)
+            button.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(button)
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[button]-|", options: nil, metrics: nil, views: ["button":button]))
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[button]-|", options: nil, metrics: nil, views: ["button":button]))
+            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[button]-|", options: [], metrics: nil, views: ["button":button]))
+            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[button]-|", options: [], metrics: nil, views: ["button":button]))
             
-            var emptyAction :Action = { _ in }
+            let action :Action
+            
+            if let rowAction = row.action {
+                action = rowAction
+            } else {
+                action = { _ in }
+            }
             
             if row.enabled {
-                ActionTarget(control: button, controlEvents: UIControlEvents.TouchUpInside, action: row.action ?? emptyAction)
+                ActionTarget(control: button, controlEvents: UIControlEvents.TouchUpInside, action: action)
             }
         case .Specialized:
             assert(false, "Specialized cells should not be configured here.")
