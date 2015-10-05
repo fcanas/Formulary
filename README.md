@@ -55,9 +55,9 @@ Before a 1.0.0 release, this project follows a modified [SemVer](http://semver.o
 
 > Major version zero (0.y.z) is for initial development. Anything may change at any time. The public API should not be considered stable.
 
-Reasonable effort is put forth to use Patch version Z (x.y.Z | x > 0) when new, backwards compatible functionality is introduced to the public API. And for Minor version Y (x.Y.z | x > 0) when any backwards incompatible changes are introduced to the public API.
+Reasonable effort is put forth to use Patch version Z (x.y.Z | x = 0) when new, backwards compatible functionality is introduced to the public API. And for Minor version Y (x.Y.z | x = 0) when any backwards incompatible changes are introduced to the public API.
 
-I intend to release a 1.0.0 early and have the major version number jump quickly than to keep releasing 0.y.z releases. Check Formulary's [pulse](https://github.com/fcanas/Formulary/pulse) if you're wondering about the health of the project.
+I intend to release a 1.0.0 early and have the major version number jump quickly rather than continuing with 0.y.z releases. Check Formulary's [pulse](https://github.com/fcanas/Formulary/pulse) if you're wondering about the health of the project.
 
 ## Author
 
