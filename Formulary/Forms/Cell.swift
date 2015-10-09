@@ -59,7 +59,7 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             textLabel?.text = row.name
             let s = UISwitch()
             accessoryView = s
-            ActionTarget(control: s, action: { _ in
+            bind(s, action: { _ in
                 row.value = s.on
             })
             
@@ -99,7 +99,7 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             }
             
             if row.enabled {
-                ActionTarget(control: button, controlEvents: UIControlEvents.TouchUpInside, action: action)
+                bind(button, controlEvents: UIControlEvents.TouchUpInside, action: action)
             }
         case .Specialized:
             assert(false, "Specialized cells should not be configured here.")
