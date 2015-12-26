@@ -8,10 +8,31 @@
 
 import UIKit
 
+/**
+ * `FormViewController` is a descendent of `UIViewController` used to display 
+ * a `Form` in a UIKit application.
+ *
+ * In order to show a `Form` to a user, you will typically create a `Form`,
+ * instantiate a `FormViewController`, set the `FormViewController`'s `form` 
+ * property, and present the `FormViewController`.
+ *
+ * Where a `Form` refers to both the schema and data an application wishes to
+ * obtain from a user, the `FormViewController` is an adapter that manages the
+ * visual presentation of a `Form`, manages the lifecycle of interaction with 
+ * the `Form`, and is a key point of interaction with the rest of an iOS 
+ * application.
+ *
+ * - seealso: `Form`
+ */
 public class FormViewController: UIViewController, UITableViewDelegate {
     
-    var dataSource: FormDataSource?
+    private var dataSource: FormDataSource?
     
+    /**
+     * The `Form` that the `FormViewController` presents to the user
+     *
+     * - seealso: `Form`
+     */
     public var form :Form {
         didSet {
             form.editingEnabled = editingEnabled
@@ -19,9 +40,32 @@ public class FormViewController: UIViewController, UITableViewDelegate {
             tableView?.dataSource = dataSource
         }
     }
+    
+    /**
+     * The UITableView instance the `FormViewController` will populate with 
+     * `Form` data.
+     *
+     * If this property is `nil` when `viewDidLoad` is called, the
+     * `FormViewController` will create a `UITableView` and add it to its view
+     * hierarchy.
+     */
     public var tableView: UITableView!
+    
+    /**
+     * The style of `tableView` to create in `viewDidLoad` if no `tableView` 
+     * exists.
+     *
+     * Setting `tableViewStyle` only has an effect if set before `viewDidLoad` 
+     * is called and the `FormViewController` does not yet have a `tableView`.
+     * Otherwise its value is never read.
+     *
+     * - seealso: tableView
+     */
     public var tableViewStyle: UITableViewStyle = .Grouped
     
+    /**
+     * Enables or disables editing of the represented `Form`.
+     */
     public var editingEnabled :Bool = true {
         didSet {
             self.form.editingEnabled = editingEnabled
@@ -47,7 +91,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         super.init(coder: aDecoder)
     }
     
-    func link(form: Form, table: UITableView) {
+    private func link(form: Form, table: UITableView) {
         dataSource = FormDataSource(form: form, tableView: tableView)
         tableView.dataSource = dataSource
     }
