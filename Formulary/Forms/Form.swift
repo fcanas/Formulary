@@ -32,7 +32,7 @@ public class Form {
      */
     public let sections: [FormSection]
     
-    public var editingEnabled :Bool = true {
+    internal var editingEnabled :Bool = true {
         didSet {
             for section in self.sections {
                 section.editingEnabled = editingEnabled
