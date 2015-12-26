@@ -1,0 +1,49 @@
+TextEntry.swift
+	public enum TextEntryType: String
+	case Plain     = "Formulary.Plain"
+	case Number    = "Formulary.Number"
+	case Decimal   = "Formulary.Decimal"
+	case Email     = "Formulary.Email"
+	case Twitter   = "Formulary.Twitter"
+	case URL       = "Formulary.URL"
+	case WebSearch = "Formulary.WebSearch"
+	case Phone     = "Formulary.Phone"
+	case NamePhone = "Formulary.PhoneName"
+	public class TextEntryFormRow : FormRow, FormularyComponent
+	public let textType: TextEntryType
+	public let formatter: NSFormatter?
+	override public var cellIdentifier :String
+	public init(name: String, tag: String, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil)
+	public static func cellRegistration() -> [String : AnyClass]
+OptionSection.swift
+	public class OptionSection: FormSection
+	public init(rowValues: [String], name: String? = nil, footerName :String? = nil, value: Any? = nil)
+Cell.swift
+	public protocol FormTableViewCell
+	var configured: Bool { get set }
+	var formRow: FormRow? { get set }
+	var action :Action? { get set }
+	public protocol ControllerSpringingCell
+	var nestedViewController :(() -> UIViewController)? { get set }
+	public enum FormRowType: String
+	case Switch  = "Formulary.Switch"
+	case Button  = "Formulary.Button"
+	case Toggle  = "Formulary.Toggle"
+	case Specialized = "__Formulary.Specialized"
+FormViewController.swift
+	public init(form: Form)
+	public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?)
+	public required init?(coder aDecoder: NSCoder)
+	override public func viewDidLoad()
+	public override func viewWillAppear(animated: Bool)
+	public override func viewWillDisappear(animated: Bool)
+	public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool)
+	public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+Form.swift
+	public func values(form: Form) -> [String: AnyObject]
+Validation.swift
+	public let PermissiveValidation: Validation = { _ in (true, "")}
+	public let RequiredString: (String) -> Validation = { name in
+	public let MinimumNumber: (String, Int) -> Validation = { name, min in
+	public let MaximumNumber: (String, Int) -> Validation = { name, max in
+	public func && (lhs: Validation, rhs: Validation) -> Validation
