@@ -1,0 +1,6 @@
+module_name: Formulary
+author_name: Fabian Canas
+author_url: http://www.fabiancanas.com
+github_url: https://github.com/fcanas/Formulary
+min_acl: public
+swift_version: 2.1.1
