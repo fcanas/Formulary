@@ -4,3 +4,37 @@ author_url: http://www.fabiancanas.com
 github_url: https://github.com/fcanas/Formulary
 min_acl: public
 swift_version: 2.1.1
+custom_categories:
+  - name: Forms
+    children:
+    - Form
+    - FormSection
+    - FormRow
+    - FormRowType
+    - 'values(_:)'
+  - name: TextEntry
+    children:
+    - TextEntryType
+    - TextEntryFormRow
+  - name: UIKit Integration
+    children:
+    - ControllerSpringingCell
+    - FormTableViewCell
+    - FormViewController
+  - name: Validations
+    children:
+    - Validation
+    - PermissiveValidation
+    - RequiredString
+    - MinimumNumber
+    - MaximumNumber
+    - '&&(_:_:)'
+    - isValid(_:)
+    - valid(_:)
+  - name: Customization
+    children:
+    - FormularyComponent
+    - registerFormularyComponent(_:)
+  - name: Select From Options
+    children:
+    - OptionSection

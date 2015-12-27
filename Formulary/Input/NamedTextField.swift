@@ -8,9 +8,15 @@
 
 import UIKit
 
+/**
+ * A subclass of `UITextField` whose placeholder text animated to a label.
+ *
+ * `NamedTextField` can take a Validation which will take the field's text value
+ * as input, and show failure reasons on the field's label.
+ */
 class NamedTextField: UITextField {
     
-    let nameLabel = UILabel()
+    private let nameLabel = UILabel()
     
     var nameFont :UIFont = UIFont.systemFontOfSize(12) {
         didSet {
@@ -35,14 +41,14 @@ class NamedTextField: UITextField {
     
     // MARK: Validation
     
-    var hasEverResignedFirstResponder = false
+    internal var hasEverResignedFirstResponder = false
     
     override func resignFirstResponder() -> Bool {
         hasEverResignedFirstResponder = true
         return super.resignFirstResponder()
     }
     
-    let validationLabel = UILabel()
+    internal let validationLabel = UILabel()
     
     var validationColor: UIColor = UIColor.redColor() {
         didSet {
@@ -50,7 +56,7 @@ class NamedTextField: UITextField {
         }
     }
     
-    var validation: (String?) -> (Bool, String) = { _ in (true, "") }
+    var validation: (String?) -> (Bool, String) = PermissiveValidation
     
     private func validate() {
         let (valid, errorString) = validation(text)

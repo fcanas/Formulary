@@ -24,7 +24,7 @@ import UIKit
  *
  * - seealso: `Form`
  */
-public class FormViewController: UIViewController, UITableViewDelegate {
+public class FormViewController: UIViewController {
     
     private var dataSource: FormDataSource?
     
@@ -76,6 +76,10 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     
+    lazy private var tableViewDelegate :FormViewControllerTableDelegate = {
+        return FormViewControllerTableDelegate(formViewController: self)
+    }()
+    
     public init(form: Form) {
         self.form = form
         super.init(nibName: nil, bundle: nil)
@@ -110,7 +114,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = 60
-        tableView.delegate = self
+        tableView.delegate = tableViewDelegate
         
         dataSource = FormDataSource(form: form, tableView: tableView)
         tableView.dataSource = dataSource
@@ -126,8 +130,10 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    func keyboardWillShow(notification: NSNotification) {
+}
+
+private extension FormViewController {
+    @objc func keyboardWillShow(notification: NSNotification) {
         if let cell = tableView.firstResponder()?.containingCell(),
             let selectedIndexPath = tableView.indexPathForCell(cell) {
                 let keyboardInfo = KeyboardNotification(notification)
@@ -153,7 +159,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         let keyboardInfo = KeyboardNotification(notification)
         
         var contentInset = tableView.contentInset
@@ -171,12 +177,22 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         
         UIView.commitAnimations()
     }
+}
+
+private class FormViewControllerTableDelegate :NSObject, UITableViewDelegate {
     
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        tableView.firstResponder()?.resignFirstResponder()
+    weak var formViewController :FormViewController?
+    
+    init(formViewController :FormViewController) {
+        super.init()
+        self.formViewController = formViewController
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    @objc func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        formViewController?.tableView.firstResponder()?.resignFirstResponder()
+    }
+    
+    @objc func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         if let cell = cell as? FormTableViewCell {
             cell.formRow?.action?(nil)
@@ -184,7 +200,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
         
         if let cell = cell as? ControllerSpringingCell, let controller = cell.nestedViewController {
-            navigationController?.pushViewController(controller(), animated: true)
+            formViewController?.navigationController?.pushViewController(controller(), animated: true)
         }
     }
 }
