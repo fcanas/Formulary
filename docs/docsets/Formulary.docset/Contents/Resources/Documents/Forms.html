@@ -12,7 +12,7 @@
     <a title="Forms  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">Formulary Docs</a> (43% documented)</p>
+        <p><a href="index.html">Formulary Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/fcanas/Formulary"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -72,31 +72,34 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="Validation.html">Validation</a>
+            <a href="Validations.html">Validations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Validation.html#/s:v9Formulary20PermissiveValidationFGSqSS_T5validSb6reasonSS_">PermissiveValidation</a>
+                <a href="Validations.html#/s:9Formulary10Validation">Validation</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:v9Formulary14RequiredStringFSSFGSqSS_T5validSb6reasonSS_">RequiredString</a>
+                <a href="Validations.html#/s:v9Formulary20PermissiveValidationFGSqSS_T5validSb6reasonSS_">PermissiveValidation</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:v9Formulary13MinimumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MinimumNumber</a>
+                <a href="Validations.html#/s:v9Formulary14RequiredStringFSSFGSqSS_T5validSb6reasonSS_">RequiredString</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:v9Formulary13MaximumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MaximumNumber</a>
+                <a href="Validations.html#/s:v9Formulary13MinimumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MinimumNumber</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:ZF9Formularyoi2aaFTFGSqSS_T5validSb6reasonSS_FGSqSS_T5validSb6reasonSS__FGSqSS_T5validSb6reasonSS_">&amp;&amp;(_:_:)</a>
+                <a href="Validations.html#/s:v9Formulary13MaximumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MaximumNumber</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:F9Formulary7isValidFCS_11FormSectionSb">isValid(_:)</a>
+                <a href="Validations.html#/s:ZF9Formularyoi2aaFTFGSqSS_T5validSb6reasonSS_FGSqSS_T5validSb6reasonSS__FGSqSS_T5validSb6reasonSS_">&amp;&amp;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:F9Formulary7isValidFCS_7FormRowSb">isValid(_:)</a>
+                <a href="Validations.html#/s:F9Formulary7isValidFCS_11FormSectionSb">isValid(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="Validation.html#/s:F9Formulary5validFCS_4FormSb">valid(_:)</a>
+                <a href="Validations.html#/s:F9Formulary7isValidFCS_7FormRowSb">isValid(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Validations.html#/s:F9Formulary5validFCS_4FormSb">valid(_:)</a>
               </li>
             </ul>
           </li>
@@ -116,14 +119,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Classes/OptionSection.html">OptionSection</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other Typealiases.html">Other Typealiases</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Other Typealiases.html#/s:9Formulary10Validation">Validation</a>
               </li>
             </ul>
           </li>
@@ -263,9 +258,17 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The type of FormRow.</p>
 
                         <a href="Enums/FormRowType.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">FormRowType</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -294,8 +297,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Returns the Key-Value Pairs of the data representing the Form</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">values</span><span class="p">(</span><span class="nv">form</span><span class="p">:</span> <span class="kt">Form</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">AnyObject</span><span class="p">]</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -305,7 +316,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="http://www.fabiancanas.com" target="_blank" rel="external">Fabian Canas</a>. All rights reserved. (Last updated: 2015-12-26)</p>
+          <p>&copy; 2015 <a class="link" href="http://www.fabiancanas.com" target="_blank" rel="external">Fabian Canas</a>. All rights reserved. (Last updated: 2015-12-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

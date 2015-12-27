@@ -13,7 +13,7 @@
     <a title="TextEntryType Enum Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Formulary Docs</a> (43% documented)</p>
+        <p><a href="../index.html">Formulary Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/fcanas/Formulary"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -73,31 +73,34 @@
             </ul>
           </li>
           <li class="nav-group-name">
-            <a href="../Validation.html">Validation</a>
+            <a href="../Validations.html">Validations</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:v9Formulary20PermissiveValidationFGSqSS_T5validSb6reasonSS_">PermissiveValidation</a>
+                <a href="../Validations.html#/s:9Formulary10Validation">Validation</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:v9Formulary14RequiredStringFSSFGSqSS_T5validSb6reasonSS_">RequiredString</a>
+                <a href="../Validations.html#/s:v9Formulary20PermissiveValidationFGSqSS_T5validSb6reasonSS_">PermissiveValidation</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:v9Formulary13MinimumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MinimumNumber</a>
+                <a href="../Validations.html#/s:v9Formulary14RequiredStringFSSFGSqSS_T5validSb6reasonSS_">RequiredString</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:v9Formulary13MaximumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MaximumNumber</a>
+                <a href="../Validations.html#/s:v9Formulary13MinimumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MinimumNumber</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:ZF9Formularyoi2aaFTFGSqSS_T5validSb6reasonSS_FGSqSS_T5validSb6reasonSS__FGSqSS_T5validSb6reasonSS_">&amp;&amp;(_:_:)</a>
+                <a href="../Validations.html#/s:v9Formulary13MaximumNumberFTSSSi_FGSqSS_T5validSb6reasonSS_">MaximumNumber</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:F9Formulary7isValidFCS_11FormSectionSb">isValid(_:)</a>
+                <a href="../Validations.html#/s:ZF9Formularyoi2aaFTFGSqSS_T5validSb6reasonSS_FGSqSS_T5validSb6reasonSS__FGSqSS_T5validSb6reasonSS_">&amp;&amp;(_:_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:F9Formulary7isValidFCS_7FormRowSb">isValid(_:)</a>
+                <a href="../Validations.html#/s:F9Formulary7isValidFCS_11FormSectionSb">isValid(_:)</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Validation.html#/s:F9Formulary5validFCS_4FormSb">valid(_:)</a>
+                <a href="../Validations.html#/s:F9Formulary7isValidFCS_7FormRowSb">isValid(_:)</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Validations.html#/s:F9Formulary5validFCS_4FormSb">valid(_:)</a>
               </li>
             </ul>
           </li>
@@ -120,21 +123,20 @@
               </li>
             </ul>
           </li>
-          <li class="nav-group-name">
-            <a href="../Other Typealiases.html">Other Typealiases</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Other Typealiases.html#/s:9Formulary10Validation">Validation</a>
-              </li>
-            </ul>
-          </li>
         </ul>
       </nav>
       <article class="main-content">
         <section>
           <section class="section">
             <h1>TextEntryType</h1>
-            <p>Undocumented</p>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">TextEntryType</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                </div>
+              </div>
+            <p>The type of text entry for a TextEntryFormRow.
+Determines the type of keyboard shown when the user is editing the row&rsquo;s value.</p>
 
           </section>
           <section class="section task-group-section">
@@ -153,8 +155,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies the default keyboard for the current input method.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Plain</span>     <span class="o">=</span> <span class="s">"Formulary.Plain"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -176,8 +186,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a numeric keypad designed for PIN entry. This keyboard type prominently features the numbers 0 through 9.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Number</span>    <span class="o">=</span> <span class="s">"Formulary.Number"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -199,8 +217,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keyboard with numbers and a decimal point.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Decimal</span>   <span class="o">=</span> <span class="s">"Formulary.Decimal"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -222,8 +248,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keyboard optimized for entering email addresses. This keyboard type prominently features the at (“@”), period (“.”) and space characters.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Email</span>     <span class="o">=</span> <span class="s">"Formulary.Email"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -245,8 +279,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keyboard optimized for Twitter text entry, with easy access to the at (“@”) and hash (“#”) characters.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Twitter</span>   <span class="o">=</span> <span class="s">"Formulary.Twitter"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -268,8 +310,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keyboard optimized for URL entry. This keyboard type prominently features the period (“.”) and slash (“/”) characters and the “.com” string.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">URL</span>       <span class="o">=</span> <span class="s">"Formulary.URL"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -291,8 +341,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keyboard optimized for web search terms and URL entry. This keyboard type prominently features the space and period (“.”) characters.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">WebSearch</span> <span class="o">=</span> <span class="s">"Formulary.WebSearch"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -314,8 +372,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keypad designed for entering telephone numbers. This keyboard type prominently features the numbers 0 through 9 and the “*” and “#” characters.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">Phone</span>     <span class="o">=</span> <span class="s">"Formulary.Phone"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -337,8 +403,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Specifies a keypad designed for entering a person’s name or phone number.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight"><code><span class="k">case</span> <span class="kt">NamePhone</span> <span class="o">=</span> <span class="s">"Formulary.PhoneName"</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -348,7 +422,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="http://www.fabiancanas.com" target="_blank" rel="external">Fabian Canas</a>. All rights reserved. (Last updated: 2015-12-26)</p>
+          <p>&copy; 2015 <a class="link" href="http://www.fabiancanas.com" target="_blank" rel="external">Fabian Canas</a>. All rights reserved. (Last updated: 2015-12-27)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -6,8 +6,11 @@
 //  Copyright (c) 2015 Fabian Canas. All rights reserved.
 //
 
+/// A FormSection of items that can be selected among. 
+/// Allows for multiple selection.
 public class OptionSection: FormSection {
     
+    /// Construct an OptionSection with an array of Strings for options
     public init(rowValues: [String], name: String? = nil, footerName :String? = nil, value: Any? = nil) {
         let rows = rowValues.map({ (value :String) -> FormRow in
             return FormRow(name: value, tag: value, type: .Toggle, value: false)
