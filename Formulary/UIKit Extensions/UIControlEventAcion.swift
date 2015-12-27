@@ -24,7 +24,7 @@ func clear(control :UIControl, controlEvents :UIControlEvents) {
 
 /// Allows attaching a closure to a UIControlEvent on a UIControl
 private class ActionTarget {
-    let control: UIControl
+    weak var control: UIControl?
     let closure: (UIControl) -> Void
     init(control: UIControl, action: (UIControl) -> Void, controlEvents: UIControlEvents) {
         self.control = control

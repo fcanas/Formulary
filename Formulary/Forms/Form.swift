@@ -32,7 +32,7 @@ public class Form {
      */
     public let sections: [FormSection]
     
-    public var editingEnabled :Bool = true {
+    internal var editingEnabled :Bool = true {
         didSet {
             for section in self.sections {
                 section.editingEnabled = editingEnabled
@@ -212,6 +212,7 @@ func allRows(form: Form) -> [FormRow] {
 
 /**
  * Performs all validations on a `Form` and returns `true` if they all pass.
+ *
  * - parameters:
  *   - form: the `Form` to validate
  * - returns: `true` if all of `form`'s sections are valid.
@@ -241,7 +242,8 @@ public func isValid(section: FormSection) -> Bool {
 /**
  * Performs validation on a `FormRow` and returns `true` if they pass.
  *
- * - parameter section: The `FormRow` to validate
+ * - parameters:
+ *   - section: The `FormRow` to validate
  * - returns: `true` if `row`'s value is valid
  * - seealso: `valid(form:)`, `isValid(section:)`
  */
@@ -251,6 +253,9 @@ public func isValid(row: FormRow) -> Bool {
 
 // MARK: Values
 
+/** 
+ * Returns the Key-Value Pairs of the data representing the Form
+ */
 public func values(form: Form) -> [String: AnyObject] {
     return form.sections.reduce(Dictionary<String, AnyObject>(), combine: {(var vs, section) in
         for (k, v) in values(section) { vs[k] = v }
@@ -258,6 +263,9 @@ public func values(form: Form) -> [String: AnyObject] {
     })
 }
 
+/**
+ * Returns the Key-Value Pairs of the data representing the FormSection
+ */
 func values(section: FormSection) -> [String: AnyObject] {
     if let v = section.valueOverride {
         return v()

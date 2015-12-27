@@ -24,7 +24,7 @@ import UIKit
  *
  * - seealso: `Form`
  */
-public class FormViewController: UIViewController, UITableViewDelegate {
+public class FormViewController: UIViewController {
     
     private var dataSource: FormDataSource?
     
@@ -76,16 +76,51 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    public init(form: Form) {
-        self.form = form
-        super.init(nibName: nil, bundle: nil)
-    }
+    lazy private var tableViewDelegate :FormViewControllerTableDelegate = {
+        return FormViewControllerTableDelegate(formViewController: self)
+    }()
     
-    public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        form = Form(sections: [])
+    /**
+     * Returns a newly initialized form view controller with the nib file in the
+     * specified bundle and ready to represent the specified Form.
+     *
+     * - parameters:
+     *   - form: The Form to show in the FormViewController
+     *   - nibName: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
+     *   - nibBundle: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
+     */
+    public init(form: Form = Form(sections: []), nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        self.form = form
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
+    /**
+     * Returns a newly initialized FormViewController with a Form
+     *
+     * - parameter: form The Form to show in the FormViewController
+     */
+    public convenience init(form: Form) {
+        self.init(form: form, nibName: nil, bundle: nil)
+    }
+    
+    /**
+     * Returns a newly initialized FormViewController with an empty Form.
+     *
+     * Use this convenience initializer for compatibility with generic UIKit
+     * view controllers. It is perfectly acceptable to create a Form and assign 
+     * it to the FormViewController after initialization.
+     */
+    public override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        self.init(form: Form(sections: []), nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
+    /**
+     * Returns a newly initialized FormViewController with an empty Form.
+     *
+     * Use this convenience initializer for compatibility with generic UIKit
+     * view controllers. It is perfectly acceptable to create a Form and assign
+     * it to the FormViewController after initialization.
+     */
     public required init?(coder aDecoder: NSCoder) {
         form = Form(sections: [])
         super.init(coder: aDecoder)
@@ -96,6 +131,18 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         tableView.dataSource = dataSource
     }
     
+    /**
+     * Called by UIKit after the controller's view is loaded into memory.
+     *
+     * FormViewController implements custom logic to ensure that a Form can be 
+     * correctly displayed regarless of how it was constructed. This includes 
+     * creating and configuring a Table View and constructing a private data
+     * source for the table view.
+     *
+     * You typically will not need to override -viewDidLoad in subclasses of
+     * FormViewController. But if you do, things will work better if you invoke
+     * the superclass's implementation first.
+     */
     override public func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,24 +157,34 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = 60
-        tableView.delegate = self
+        tableView.delegate = tableViewDelegate
         
         dataSource = FormDataSource(form: form, tableView: tableView)
         tableView.dataSource = dataSource
     }
     
+    /**
+     * If you override this method, you must call super at some point in your 
+     * implementation.
+     */
     public override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    /**
+     * If you override this method, you must call super at some point in your 
+     * implementation.
+     */
     public override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
-    func keyboardWillShow(notification: NSNotification) {
+}
+
+private extension FormViewController {
+    @objc func keyboardWillShow(notification: NSNotification) {
         if let cell = tableView.firstResponder()?.containingCell(),
             let selectedIndexPath = tableView.indexPathForCell(cell) {
                 let keyboardInfo = KeyboardNotification(notification)
@@ -153,7 +210,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
     }
     
-    func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(notification: NSNotification) {
         let keyboardInfo = KeyboardNotification(notification)
         
         var contentInset = tableView.contentInset
@@ -171,12 +228,22 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         
         UIView.commitAnimations()
     }
+}
+
+private class FormViewControllerTableDelegate :NSObject, UITableViewDelegate {
     
-    public func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        tableView.firstResponder()?.resignFirstResponder()
+    weak var formViewController :FormViewController?
+    
+    init(formViewController :FormViewController) {
+        super.init()
+        self.formViewController = formViewController
     }
     
-    public func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    @objc func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        formViewController?.tableView.firstResponder()?.resignFirstResponder()
+    }
+    
+    @objc func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         if let cell = cell as? FormTableViewCell {
             cell.formRow?.action?(nil)
@@ -184,7 +251,7 @@ public class FormViewController: UIViewController, UITableViewDelegate {
         }
         
         if let cell = cell as? ControllerSpringingCell, let controller = cell.nestedViewController {
-            navigationController?.pushViewController(controller(), animated: true)
+            formViewController?.navigationController?.pushViewController(controller(), animated: true)
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class FormatterAdapter :NSObject, UITextFieldDelegate {
+internal class FormatterAdapter :NSObject, UITextFieldDelegate {
     let formatter :NSFormatter
     
     required init(formatter: NSFormatter) {
