@@ -59,6 +59,7 @@ class NamedTextField: UITextField {
     var validation: (String?) -> (Bool, String) = PermissiveValidation
     
     private func validate() {
+        var accessibilityString = "\(placeholder ?? "")"
         let (valid, errorString) = validation(text)
         validationLabel.text = errorString
         validationLabel.sizeToFit()
@@ -66,18 +67,24 @@ class NamedTextField: UITextField {
             hideLabel(isFirstResponder(), label: nameLabel)
             if hasEverResignedFirstResponder && !valid {
                 showLabel(true, label: validationLabel)
+                accessibilityString += " \(errorString)"
             } else {
                 hideLabel(isFirstResponder(), label: validationLabel)
             }
         } else {
+            if let text = text {
+                accessibilityString += ", \(text)"
+            }
             if hasEverResignedFirstResponder && !valid {
                 showLabel(true, label: validationLabel)
+                accessibilityString += ", \(errorString)"
                 hideLabel(true, label: nameLabel)
             } else {
                 showLabel(isFirstResponder(), label: nameLabel)
                 hideLabel(isFirstResponder(), label: validationLabel)
             }
         }
+        accessibilityLabel = accessibilityString
     }
     
     // MARK: Layout
