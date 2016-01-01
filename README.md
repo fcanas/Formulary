@@ -21,6 +21,10 @@ let formViewController = FormViewController(form: form)
 presentViewController(formViewController, animated: true, completion: nil)
 ```
 
+<img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/formulary_basic.gif" alt="Screen-Capture of Basic Example Form" width="396" />
+<!--![](/Screenshots/formulary_basic.gif)-->
+
+
 #### NSFormatters in Text Entry 
 
 `NSFormatter`s can be injected to format text entry or enforce valid text. In this example the number formatter will prevent the user from entering more than two decimal places, more than one decimal point, or any non-numeric characters.
