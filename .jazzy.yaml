@@ -29,6 +29,7 @@ custom_categories:
     - MinimumNumber
     - MaximumNumber
     - '&&(_:_:)'
+    - '||(_:_:)'
     - isValid(_:)
     - valid(_:)
   - name: Customization
@@ -38,3 +39,4 @@ custom_categories:
   - name: Select From Options
     children:
     - OptionSection
+    - PickerFormRow
