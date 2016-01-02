@@ -44,6 +44,7 @@ Some Validations are provided such as `MaximumNumber`, `MinimumNumber`, and `Req
 
 ```swift
 TextEntryFormRow(name:"Name", validation: RequiredString("Name"))
+TextEntryFormRow(name:"Age", textType: TextEntryType.Number, validation:MinimumNumber("Age", 13))
 ```
 
 A Validation is any function that accepts a `String` and returns a tuple indicating the validity of the input and any reason for it.
@@ -53,6 +54,9 @@ typealias Validation = (String?) -> (valid: Bool, reason: String)
 ```
 
 This allows for powerful and flexible composition of Validations, which Formulary facilitates with logical operations on Validations.
+
+<img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/formulary_validations.gif" alt="Screen-Capture of a Form with Validations" width="396" />
+<!--![](/Screenshots/formulary_validations.gif)-->
 
 ### Other Row Types
 
