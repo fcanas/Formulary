@@ -90,7 +90,7 @@ public class TextEntryFormRow : FormRow, FormularyComponent {
     /**
      * Returns an initialized text entry form row with the specified parameters.
      */
-    public init(name: String, tag: String, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil) {
+    public init(name: String, tag: String? = nil, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil) {
         
         dispatch_once(&TextEntryFormRow.registrationToken, { () -> Void in
             registerFormularyComponent(TextEntryFormRow.self)

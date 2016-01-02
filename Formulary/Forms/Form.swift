@@ -186,7 +186,7 @@ public class FormRow {
     /**
      * Construct a FormRow
      */
-    public init(name: String, tag: String, type: FormRowType, value :AnyObject?, validation :Validation = PermissiveValidation, action :Action? = nil) {
+    public init(name: String, tag: String? = nil, type: FormRowType, value :AnyObject?, validation :Validation = PermissiveValidation, action :Action? = nil) {
         self.name = name
         self.tag = tag ?? name
         self.type = type

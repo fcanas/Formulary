@@ -1,15 +1,91 @@
 # Formulary
 
-Formulary is a new library for creating dynamic, declarative, table view forms for iOS.
+Formulary is a Swift library for creating dynamic, declarative, table view forms for iOS.
 
-Formulary is in early stages of design and development, so if you jump in now, you can have a big impact on the library's design, power, and utility.
+Formulary is in early stages of design and development, so if you jump in now, you can have a big impact on its design, power, and utility.
 
 Formulary is inspired by XLForm, written in Swift, and designed for simplicity and development speed.
 
-Other cool features:
+## Basic Use
 
-* "Floating Labels" for form fields.
-* Composable validation functions
+### Text Entry
+
+A basic text entry form shows Formulary's simple declarative style. A row's name is shown as placeholder text and as a label for the row. A row may also specify the kind of text entry it expects, controlling the keyboard style.
+
+```swift
+let form = Form(sections: [FormSection(rows: [TextEntryFormRow(name:"Name"),
+                                              TextEntryFormRow(name: "Email", textType: TextEntryType.Email),
+                                              TextEntryFormRow(name:"Age", textType: TextEntryType.Number)],
+                                       name:"Profile")])
+let formViewController = FormViewController(form: form)
+presentViewController(formViewController, animated: true, completion: nil)
+```
+
+<img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/formulary_basic.gif" alt="Screen-Capture of Basic Example Form" width="396" />
+<!--![](/Screenshots/formulary_basic.gif)-->
+
+
+#### NSFormatters in Text Entry 
+
+`NSFormatter`s can be injected to format text entry or enforce valid text. In this example the number formatter will prevent the user from entering more than two decimal places, more than one decimal point, or any non-numeric characters.
+
+```swift
+let decimalFormatter = NSNumberFormatter()
+decimalFormatter.maximumFractionDigits = 2
+
+TextEntryFormRow(name:"Age", textType: .Decimal, formatter: decimalFormatter)
+```
+
+#### Validations
+
+Text entry rows can have validations. Validations are assertions about the value of a row. 
+Validations show users error messages. Validation results for individual rows are aggregated to validate the overall Form.
+Some Validations are provided such as `MaximumNumber`, `MinimumNumber`, and `RequiredString`. 
+
+```swift
+TextEntryFormRow(name:"Name", validation: RequiredString("Name"))
+TextEntryFormRow(name:"Age", textType: TextEntryType.Number, validation:MinimumNumber("Age", 13))
+```
+
+A Validation is any function that accepts a `String` and returns a tuple indicating the validity of the input and any reason for it.
+
+```swift
+typealias Validation = (String?) -> (valid: Bool, reason: String)
+```
+
+This allows for powerful and flexible composition of Validations, which Formulary facilitates with logical operations on Validations.
+
+<img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/formulary_validations.gif" alt="Screen-Capture of a Form with Validations" width="396" />
+<!--![](/Screenshots/formulary_validations.gif)-->
+
+### Other Row Types
+
+#### Toggle Switch
+
+```swift
+FormRow(name:"Do you like goats?", type: .Switch)
+```
+
+#### Buttons
+
+```swift
+FormRow(name:"Show an Alert", type: .Button, action: { _ in
+    let alert = UIAlertController(title: "Hi!", message: "Somebody pressed a button.", preferredStyle: UIAlertControllerStyle.Alert)
+    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+    self.presentViewController(alert, animated: true, completion: nil)
+})
+```
+
+#### Options
+
+```swift
+OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food")
+```
+
+## Example
+
+<img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="396" />
+<!--![](/Screenshots/animated-capture.gif)-->
 
 ```swift
 let decimalFormatter = NSNumberFormatter()
@@ -43,9 +119,6 @@ self.form = Form(sections: [
     ])
 ])
 ```
-
-<img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="396" />
-<!--![](/Screenshots/animated-capture.gif)-->
 
 ## Development Status
 
