@@ -130,18 +130,68 @@
             
             <a href='#formulary' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h1 id='formulary'>Formulary</h1>
 
-<p>Formulary is a new library for creating dynamic, declarative, table view forms for iOS.</p>
+<p>Formulary is a Swift library for creating dynamic, declarative, table view forms for iOS.</p>
 
-<p>Formulary is in early stages of design and development, so if you jump in now, you can have a big impact on the library&rsquo;s design, power, and utility.</p>
+<p>Formulary is in early stages of design and development, so if you jump in now, you can have a big impact on its design, power, and utility.</p>
 
 <p>Formulary is inspired by XLForm, written in Swift, and designed for simplicity and development speed.</p>
+<a href='#basic_use' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='basic_use'>Basic Use</h2>
+<a href='#text_entry' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='text_entry'>Text Entry</h3>
 
-<p>Other cool features:</p>
+<p>A basic text entry form shows Formulary&rsquo;s simple declarative style. A row&rsquo;s name is shown as placeholder text and as a label for the row. A row may also specify the kind of text entry it expects, controlling the keyboard style.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">form</span> <span class="o">=</span> <span class="kt">Form</span><span class="p">(</span><span class="nv">sections</span><span class="p">:</span> <span class="p">[</span><span class="kt">FormSection</span><span class="p">(</span><span class="nv">rows</span><span class="p">:</span> <span class="p">[</span><span class="kt">TextEntryFormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Name"</span><span class="p">),</span>
+                                              <span class="kt">TextEntryFormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span> <span class="s">"Email"</span><span class="p">,</span> <span class="nv">textType</span><span class="p">:</span> <span class="kt">TextEntryType</span><span class="o">.</span><span class="kt">Email</span><span class="p">),</span>
+                                              <span class="kt">TextEntryFormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Age"</span><span class="p">,</span> <span class="nv">textType</span><span class="p">:</span> <span class="kt">TextEntryType</span><span class="o">.</span><span class="kt">Number</span><span class="p">)],</span>
+                                       <span class="nv">name</span><span class="p">:</span><span class="s">"Profile"</span><span class="p">)])</span>
+<span class="k">let</span> <span class="nv">formViewController</span> <span class="o">=</span> <span class="kt">FormViewController</span><span class="p">(</span><span class="nv">form</span><span class="p">:</span> <span class="n">form</span><span class="p">)</span>
+<span class="nf">presentViewController</span><span class="p">(</span><span class="n">formViewController</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+</code></pre>
 
-<ul>
-<li><q>Floating Labels</q> for form fields.</li>
-<li>Composable validation functions</li>
-</ul>
+<p><img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/formulary_basic.gif" alt="Screen-Capture of Basic Example Form" width="396" />
+&lt;!&ndash;<img src="/Screenshots/formulary_basic.gif" alt="">&ndash;&gt;</p>
+<a href='#nsformatters_in_text_entry' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='nsformatters_in_text_entry'>NSFormatters in Text Entry</h4>
+
+<p><code>NSFormatter</code>s can be injected to format text entry or enforce valid text. In this example the number formatter will prevent the user from entering more than two decimal places, more than one decimal point, or any non-numeric characters.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">decimalFormatter</span> <span class="o">=</span> <span class="kt">NSNumberFormatter</span><span class="p">()</span>
+<span class="n">decimalFormatter</span><span class="o">.</span><span class="n">maximumFractionDigits</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="kt">TextEntryFormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Age"</span><span class="p">,</span> <span class="nv">textType</span><span class="p">:</span> <span class="o">.</span><span class="kt">Decimal</span><span class="p">,</span> <span class="nv">formatter</span><span class="p">:</span> <span class="n">decimalFormatter</span><span class="p">)</span>
+</code></pre>
+<a href='#validations' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='validations'>Validations</h4>
+
+<p>Text entry rows can have validations. Validations are assertions about the value of a row. 
+Validations show users error messages. Validation results for individual rows are aggregated to validate the overall Form.
+Some Validations are provided such as <code>MaximumNumber</code>, <code>MinimumNumber</code>, and <code>RequiredString</code>. </p>
+<pre class="highlight swift"><code><span class="kt">TextEntryFormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Name"</span><span class="p">,</span> <span class="nv">validation</span><span class="p">:</span> <span class="kt">RequiredString</span><span class="p">(</span><span class="s">"Name"</span><span class="p">))</span>
+<span class="kt">TextEntryFormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Age"</span><span class="p">,</span> <span class="nv">textType</span><span class="p">:</span> <span class="kt">TextEntryType</span><span class="o">.</span><span class="kt">Number</span><span class="p">,</span> <span class="nv">validation</span><span class="p">:</span><span class="kt">MinimumNumber</span><span class="p">(</span><span class="s">"Age"</span><span class="p">,</span> <span class="mi">13</span><span class="p">))</span>
+</code></pre>
+
+<p>A Validation is any function that accepts a <code>String</code> and returns a tuple indicating the validity of the input and any reason for it.</p>
+<pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">Validation</span> <span class="o">=</span> <span class="p">(</span><span class="kt">String</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nv">valid</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">reason</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+</code></pre>
+
+<p>This allows for powerful and flexible composition of Validations, which Formulary facilitates with logical operations on Validations.</p>
+
+<p><img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/formulary_validations.gif" alt="Screen-Capture of a Form with Validations" width="396" />
+&lt;!&ndash;<img src="/Screenshots/formulary_validations.gif" alt="">&ndash;&gt;</p>
+<a href='#other_row_types' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h3 id='other_row_types'>Other Row Types</h3>
+<a href='#toggle_switch' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='toggle_switch'>Toggle Switch</h4>
+<pre class="highlight swift"><code><span class="kt">FormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Do you like goats?"</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="o">.</span><span class="kt">Switch</span><span class="p">)</span>
+</code></pre>
+<a href='#buttons' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='buttons'>Buttons</h4>
+<pre class="highlight swift"><code><span class="kt">FormRow</span><span class="p">(</span><span class="nv">name</span><span class="p">:</span><span class="s">"Show an Alert"</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="o">.</span><span class="kt">Button</span><span class="p">,</span> <span class="nv">action</span><span class="p">:</span> <span class="p">{</span> <span class="n">_</span> <span class="k">in</span>
+    <span class="k">let</span> <span class="nv">alert</span> <span class="o">=</span> <span class="kt">UIAlertController</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Hi!"</span><span class="p">,</span> <span class="nv">message</span><span class="p">:</span> <span class="s">"Somebody pressed a button."</span><span class="p">,</span> <span class="nv">preferredStyle</span><span class="p">:</span> <span class="kt">UIAlertControllerStyle</span><span class="o">.</span><span class="kt">Alert</span><span class="p">)</span>
+    <span class="n">alert</span><span class="o">.</span><span class="nf">addAction</span><span class="p">(</span><span class="kt">UIAlertAction</span><span class="p">(</span><span class="nv">title</span><span class="p">:</span> <span class="s">"Ok"</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="kt">UIAlertActionStyle</span><span class="o">.</span><span class="kt">Default</span><span class="p">,</span> <span class="nv">handler</span><span class="p">:</span> <span class="kc">nil</span><span class="p">))</span>
+    <span class="k">self</span><span class="o">.</span><span class="nf">presentViewController</span><span class="p">(</span><span class="n">alert</span><span class="p">,</span> <span class="nv">animated</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nv">completion</span><span class="p">:</span> <span class="kc">nil</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre>
+<a href='#options' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h4 id='options'>Options</h4>
+<pre class="highlight swift"><code><span class="kt">OptionSection</span><span class="p">(</span><span class="nv">rowValues</span><span class="p">:[</span><span class="s">"Ice Cream"</span><span class="p">,</span> <span class="s">"Pizza"</span><span class="p">,</span> <span class="s">"Beer"</span><span class="p">],</span> <span class="nv">name</span><span class="p">:</span> <span class="s">"Food"</span><span class="p">)</span>
+</code></pre>
+<a href='#example' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='example'>Example</h2>
+
+<p><img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="396" />
+&lt;!&ndash;<img src="/Screenshots/animated-capture.gif" alt="">&ndash;&gt;</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">decimalFormatter</span> <span class="o">=</span> <span class="kt">NSNumberFormatter</span><span class="p">()</span>
 <span class="n">decimalFormatter</span><span class="o">.</span><span class="n">maximumFractionDigits</span> <span class="o">=</span> <span class="mi">5</span>
 
@@ -173,9 +223,6 @@
     <span class="p">])</span>
 <span class="p">])</span>
 </code></pre>
-
-<p><img src="https://raw.github.com/fcanas/Formulary/master/Screenshots/animated-capture.gif" alt="Screen-Capture of Example Form" width="396" />
-&lt;!&ndash;<img src="/Screenshots/animated-capture.gif" alt="">&ndash;&gt;</p>
 <a href='#development_status' class='anchor' aria-hidden=true><span class="header-anchor"></span></a><h2 id='development_status'>Development Status</h2>
 
 <p>I&rsquo;m using this in production, and the way I&rsquo;m using works fine. YMMV.</p>
@@ -199,7 +246,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2015 <a class="link" href="http://www.fabiancanas.com" target="_blank" rel="external">Fabian Canas</a>. All rights reserved. (Last updated: 2015-12-27)</p>
+          <p>&copy; 2016 <a class="link" href="http://www.fabiancanas.com" target="_blank" rel="external">Fabian Canas</a>. All rights reserved. (Last updated: 2016-01-02)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.4.1</a>, a <a class="link" href="http://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

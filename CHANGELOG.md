@@ -10,6 +10,12 @@ Reasonable effort is put forth to use Patch version Z (x.y.Z | x > 0) when new, 
 
 ----
 
+## Pending Release
+
+* `tag` parameter is now optional for FormRow
+
+----
+
 ## 0.3.1
 [fcanas](https://github.com/fcanas) released this on Dec 31, 2015
 
