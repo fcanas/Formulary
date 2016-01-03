@@ -34,7 +34,7 @@ class ViewController: FormViewController {
                 name:"Preferences",
                 footerName: "Fin"),
             OptionSection(rowValues:["Ice Cream", "Pizza", "Beer"], name: "Food", value: ["Pizza", "Ice Cream"]),
-            FormSection(rows: [PickerFormRow(name: "House", options: ["Gryffindor", "Ravenclaw", "Slytheryn", "Hufflepuff"])], name: "House"),
+            FormSection(rows: [PickerFormRow(name: "House", options: ["Gryffindor", "Ravenclaw", "Slytherin", "Hufflepuff"])], name: "House"),
             FormSection(rows: [
                 FormRow(name:"Show Values", tag: "show", type: .Button, value: nil, action: { _ in
                     
