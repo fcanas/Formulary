@@ -156,7 +156,6 @@ public class FormViewController: UIViewController {
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60
-        tableView.rowHeight = 60
         tableView.delegate = tableViewDelegate
         
         dataSource = FormDataSource(form: form, tableView: tableView)

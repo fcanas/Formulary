@@ -147,6 +147,7 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
             contentView.addSubview(newTextField)
             textField = newTextField
             contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: [], metrics: nil, views: ["textField":newTextField]))
+            contentView.addConstraints([NSLayoutConstraint(item: contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 60.0)])
             textField = newTextField
         }
         formatterAdapter = row.formatter.map { FormatterAdapter(formatter: $0) }

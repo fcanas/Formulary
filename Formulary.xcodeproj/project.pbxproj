@@ -25,6 +25,7 @@
 		E77EEE781A6B137D00AD4289 /* NamedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E77EEE771A6B137D00AD4289 /* NamedTextField.swift */; };
 		E784ECDD1B780F780083D78F /* UIControlEventAcion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784ECDC1B780F780083D78F /* UIControlEventAcion.swift */; };
 		E784ECDF1B78E6E70083D78F /* ResponderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784ECDE1B78E6E70083D78F /* ResponderChain.swift */; };
+		E7C5B4F21C36218500BEC3F3 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C5B4F11C36218500BEC3F3 /* Picker.swift */; };
 		E7E30FC11C307EA400E37C7A /* TestValidations.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E30FC01C307EA400E37C7A /* TestValidations.m */; };
 		E7E30FC31C34D59F00E37C7A /* TestFullSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E30FC21C34D59F00E37C7A /* TestFullSuite.m */; };
 		E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */; };
@@ -94,6 +95,7 @@
 		E780958F1B6EC66B00A4172A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		E784ECDC1B780F780083D78F /* UIControlEventAcion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControlEventAcion.swift; sourceTree = "<group>"; };
 		E784ECDE1B78E6E70083D78F /* ResponderChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponderChain.swift; sourceTree = "<group>"; };
+		E7C5B4F11C36218500BEC3F3 /* Picker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
 		E7E30FB51C306E0000E37C7A /* ExemplaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExemplaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E30FB91C306E0000E37C7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7E30FBF1C307EA400E37C7A /* ExemplaryUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExemplaryUITests-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				E7F1A9601A69C2CC00FD8294 /* Cell.swift */,
 				E77EEE711A6AF8AB00AD4289 /* TextEntry.swift */,
 				E74C7DC51A71C8F900237881 /* OptionSection.swift */,
+				E7C5B4F11C36218500BEC3F3 /* Picker.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				E7F1A9611A69C2CC00FD8294 /* Cell.swift in Sources */,
 				E75D08D71A696D5400DF5561 /* FormViewController.swift in Sources */,
 				E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */,
+				E7C5B4F21C36218500BEC3F3 /* Picker.swift in Sources */,
 				E74C7DC41A709D1E00237881 /* Validation.swift in Sources */,
 				E784ECDD1B780F780083D78F /* UIControlEventAcion.swift in Sources */,
 				E74FCA0A1A70314000C8BB8A /* KeyboardNotification.swift in Sources */,

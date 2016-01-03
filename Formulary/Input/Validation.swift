@@ -135,3 +135,32 @@ public func && (lhs: Validation, rhs: Validation) -> Validation {
         return (true, "")
     }
 }
+
+/**
+ * Logical OR of two Validations
+ *
+ * Combines two Validations into one Validation where either sub-validation must
+ * succeed for the resultant Validation to succeed. In the case of a failure,
+ * only one error message is returned. The LHS error is favored when both could
+ * be returned.
+ *
+ * - parameters:
+ *   - lhs: the first Validation. When both fail, this Validation's message will be returned
+ *   - rhs: the second Validation
+ * - returns: A new Validation that validates if either parameter Validations pass.
+ */
+public func || (lhs: Validation, rhs: Validation) -> Validation {
+    return { value in
+        let lhsr = lhs(value)
+        if lhsr.valid {
+            return lhsr
+        }
+        
+        let rhsr = rhs(value)
+        if rhsr.valid {
+            return rhsr
+        }
+        
+        return (false, lhsr.reason + " or " + rhsr.reason)
+    }
+}
