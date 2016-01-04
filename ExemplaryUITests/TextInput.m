@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface TestValidations : XCTestCase
+@interface TextInput : XCTestCase
 @property (nonatomic) XCUIElementQuery *tablesQuery;
 @end
 
-@implementation TestValidations
+@implementation TextInput
 
 - (void)setUp {
     [super setUp];

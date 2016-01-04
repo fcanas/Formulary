@@ -159,10 +159,9 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
         textField?.enabled = row.enabled
         
         if let field = textField {
-            clear(field, controlEvents: .EditingChanged)
-            bind(field, controlEvents: .EditingChanged, action: { _ in
-                row.value = field.text
-            })
+            let events :UIControlEvents = [.ValueChanged, .EditingChanged, .EditingDidEnd, .EditingDidEndOnExit]
+            clear(field, controlEvents: events)
+            bind(field, controlEvents: events, action: { _ in row.value = field.text })
         }
         
         configured = true

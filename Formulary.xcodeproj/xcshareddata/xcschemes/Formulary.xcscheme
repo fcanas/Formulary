@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E75D08C31A696A9D00DF5561"
-               BuildableName = "FormularyTests.xctest"
-               BlueprintName = "FormularyTests"
+               BlueprintIdentifier = "E7E30FB41C306E0000E37C7A"
+               BuildableName = "ExemplaryUITests.xctest"
+               BlueprintName = "ExemplaryUITests"
                ReferencedContainer = "container:Formulary.xcodeproj">
             </BuildableReference>
          </TestableReference>
