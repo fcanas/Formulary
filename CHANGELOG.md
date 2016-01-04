@@ -12,9 +12,10 @@ Reasonable effort is put forth to use Patch version Z (x.y.Z | x > 0) when new, 
 
 ## Pending Release
 
-* `tag` parameter is now optional for FormRow
-* Form row heights are dynamically determined by autolayout. This makes arbitrary-sized custom rows easier to implement.
 * Add picker form row type
+* Form row heights are dynamically determined by autolayout. This makes arbitrary-sized and resizing custom rows easier to implement.
+* `tag` parameter is now optional for FormRow
+* Fixed a bug so text entry respects autocomplete
 
 ----
 

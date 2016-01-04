@@ -24,7 +24,7 @@
 		E784ECDD1B780F780083D78F /* UIControlEventAcion.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784ECDC1B780F780083D78F /* UIControlEventAcion.swift */; };
 		E784ECDF1B78E6E70083D78F /* ResponderChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = E784ECDE1B78E6E70083D78F /* ResponderChain.swift */; };
 		E7C5B4F21C36218500BEC3F3 /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7C5B4F11C36218500BEC3F3 /* Picker.swift */; };
-		E7E30FC11C307EA400E37C7A /* TestValidations.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E30FC01C307EA400E37C7A /* TestValidations.m */; };
+		E7E30FC11C307EA400E37C7A /* TextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E30FC01C307EA400E37C7A /* TextInput.m */; };
 		E7E30FC31C34D59F00E37C7A /* TestFullSuite.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E30FC21C34D59F00E37C7A /* TestFullSuite.m */; };
 		E7F1A95C1A69A30500FD8294 /* FormDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */; };
 		E7F1A95E1A69A34700FD8294 /* Form.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F1A95D1A69A34700FD8294 /* Form.swift */; };
@@ -87,7 +87,7 @@
 		E7E30FB51C306E0000E37C7A /* ExemplaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExemplaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7E30FB91C306E0000E37C7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7E30FBF1C307EA400E37C7A /* ExemplaryUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExemplaryUITests-Bridging-Header.h"; sourceTree = "<group>"; };
-		E7E30FC01C307EA400E37C7A /* TestValidations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestValidations.m; sourceTree = "<group>"; };
+		E7E30FC01C307EA400E37C7A /* TextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextInput.m; sourceTree = "<group>"; };
 		E7E30FC21C34D59F00E37C7A /* TestFullSuite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestFullSuite.m; sourceTree = "<group>"; };
 		E7F1A95B1A69A30500FD8294 /* FormDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormDataSource.swift; sourceTree = "<group>"; };
 		E7F1A95D1A69A34700FD8294 /* Form.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Form.swift; sourceTree = "<group>"; };
@@ -221,7 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				E7E30FB91C306E0000E37C7A /* Info.plist */,
-				E7E30FC01C307EA400E37C7A /* TestValidations.m */,
+				E7E30FC01C307EA400E37C7A /* TextInput.m */,
 				E7E30FBF1C307EA400E37C7A /* ExemplaryUITests-Bridging-Header.h */,
 				E7E30FC21C34D59F00E37C7A /* TestFullSuite.m */,
 			);
@@ -401,7 +401,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7E30FC11C307EA400E37C7A /* TestValidations.m in Sources */,
+				E7E30FC11C307EA400E37C7A /* TextInput.m in Sources */,
 				E7E30FC31C34D59F00E37C7A /* TestFullSuite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
