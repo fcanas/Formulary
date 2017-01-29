@@ -56,15 +56,19 @@
     [tablesQuery.staticTexts[@"Ice Cream"] tap];
     [tablesQuery.staticTexts[@"Ice Cream"] pressForDuration:0 thenDragToElement:tablesQuery.switches[@"Do you like goats?"]];
     
+    [app.tables.staticTexts[@"House"] swipeUp]; // swipe up on inocuous text
+    
     [tablesQuery.pickerWheels.element adjustToPickerWheelValue:@"Ravenclaw"];
+    
+    [app.tables.staticTexts[@"House"] swipeUp]; // swipe up on inocuous text
     
     [[tablesQuery.cells containingType:XCUIElementTypeButton identifier:@"Show Values"].element tap];
     
     XCUIElement *formValuesAlert = app.alerts[@"Form Values"];
-    XCUIElement *staticTextResult = formValuesAlert.staticTexts[@"{\"likesGoats\":true,\"Food\":[\"Ice Cream\",\"Pizza\"],\"age\":\"28\",\"favoriteNumber\":\"12\",\"House\":\"Ravenclaw\",\"email\":\"Test@example.com\",\"thoughts\":\"Some thoughts\",\"name\":\"Testy\"}"];
+    XCUIElement *staticTextResult = formValuesAlert.staticTexts[@"{\"name\":\"Testy\",\"likesGoats\":true,\"email\":\"Test@example.com\",\"thoughts\":\"Some thoughts\",\"favoriteNumber\":\"12\",\"Food\":[\"Ice Cream\",\"Pizza\"],\"House\":\"Ravenclaw\",\"age\":\"28\"}"];
     XCTAssertTrue(staticTextResult.exists);
     
-    [formValuesAlert.collectionViews.buttons[@"Ok"] tap];
+    [formValuesAlert.buttons[@"Ok"] tap];
 }
 
 @end

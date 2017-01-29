@@ -46,7 +46,7 @@ public let RequiredString: (String) -> Validation = { name in
 
 private extension String {
     func toDouble() -> Double? {
-        let trimmedValue = (self as NSString).stringByTrimmingCharactersInSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet)
+        let trimmedValue = (self as NSString).trimmingCharacters(in: CharacterSet.decimalDigits.inverted)
         return self == trimmedValue ? (self as NSString).doubleValue : nil
     }
 }
@@ -120,7 +120,7 @@ public let MaximumNumber: (String, Int) -> Validation = { name, max in
  *   - rhs: the second Validation
  * - returns: A new Validation that validates iff both parameter Validations pass.
  */
-public func && (lhs: Validation, rhs: Validation) -> Validation {
+public func && (lhs: @escaping Validation, rhs: @escaping Validation) -> Validation {
     return { value in
         let lhsr = lhs(value)
         if !lhsr.valid {
@@ -149,7 +149,7 @@ public func && (lhs: Validation, rhs: Validation) -> Validation {
  *   - rhs: the second Validation
  * - returns: A new Validation that validates if either parameter Validations pass.
  */
-public func || (lhs: Validation, rhs: Validation) -> Validation {
+public func || (lhs: @escaping Validation, rhs: @escaping Validation) -> Validation {
     return { value in
         let lhsr = lhs(value)
         if lhsr.valid {

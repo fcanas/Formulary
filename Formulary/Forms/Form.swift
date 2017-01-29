@@ -26,11 +26,11 @@ public typealias Action = (AnyObject?) -> Void
  *
  * - seealso: FormSection, FormViewController
  */
-public class Form {
+open class Form {
     /**
      * An array of `FormSection`s that belong to the `Form`
      */
-    public let sections: [FormSection]
+    open let sections: [FormSection]
     
     internal var editingEnabled :Bool = true {
         didSet {
@@ -51,9 +51,9 @@ public class Form {
 /**
  * A FormSection is a collection of `FormRow`s
  */
-public class FormSection {
+open class FormSection {
     /// The rows that constitute the FormSection
-    public var rows: [FormRow]
+    open var rows: [FormRow]
     
     /**
      * The display name of the `FormSection`.
@@ -71,7 +71,7 @@ public class FormSection {
      */
     var footerName: String?
     
-    private var editingEnabled :Bool = true {
+    fileprivate var editingEnabled :Bool = true {
         didSet {
             for row in self.rows {
                 row.enabled = editingEnabled
@@ -85,7 +85,7 @@ public class FormSection {
      * by `value(section:)` is the `Dictionary` of all the `FormSection`'s 
      * `FormRow`'s values.
      */
-    public var valueOverride: ((Void) -> [String: AnyObject])?
+    open var valueOverride: ((Void) -> [String: AnyObject])?
     
     /**
      * Creates a FormSection
@@ -121,7 +121,7 @@ public protocol FormularyComponent :class {
  * instantiate a `FormViewController` with a `Form` that uses those custom 
  * components.
  */
-public func registerFormularyComponent<T :FormularyComponent>(component :T.Type) {
+public func registerFormularyComponent<T :FormularyComponent>(_ component :T.Type) {
     for (id, cellClass) in component.cellRegistration() {
         FormDataSource.registerClass(cellClass, forCellReuseIdentifier: id)
     }
@@ -130,7 +130,7 @@ public func registerFormularyComponent<T :FormularyComponent>(component :T.Type)
 /**
  * Represents a single Row in a form.
  */
-public class FormRow {
+open class FormRow {
     /// The name of the FormRow
     var name: String
     
@@ -157,7 +157,7 @@ public class FormRow {
      *
      * - seealso: `registerFormularyComponent`, `FormularyComponent`
      */
-    public var cellIdentifier: String {
+    open var cellIdentifier: String {
         get {
             return type.rawValue
         }
@@ -169,7 +169,7 @@ public class FormRow {
      *
      * Different types of FormRows may generate values of different types.
      */
-    public var value: AnyObject?
+    open var value: AnyObject?
     
     /**
      * An Action to be assiciated with the FormRow.
@@ -186,7 +186,7 @@ public class FormRow {
     /**
      * Construct a FormRow
      */
-    public init(name: String, tag: String? = nil, type: FormRowType, value :AnyObject?, validation :Validation = PermissiveValidation, action :Action? = nil) {
+    public init(name: String, tag: String? = nil, type: FormRowType, value :AnyObject?, validation :@escaping Validation = PermissiveValidation, action :Action? = nil) {
         self.name = name
         self.tag = tag ?? name
         self.type = type
@@ -198,12 +198,12 @@ public class FormRow {
 
 // MARK: Rows
 
-func rowForIndexPath(indexPath: NSIndexPath, form: Form) -> FormRow {
+func rowForIndexPath(_ indexPath: IndexPath, form: Form) -> FormRow {
     return form.sections[indexPath.section].rows[indexPath.row]
 }
 
-func allRows(form: Form) -> [FormRow] {
-    return form.sections.reduce(Array<FormRow>(), combine: { (rows, section) -> Array<FormRow> in
+func allRows(_ form: Form) -> [FormRow] {
+    return form.sections.reduce(Array<FormRow>(), { (rows, section) -> Array<FormRow> in
         return rows + section.rows
     })
 }
@@ -218,8 +218,8 @@ func allRows(form: Form) -> [FormRow] {
  * - returns: `true` if all of `form`'s sections are valid.
  * - seealso: `isValid(section:)`
  */
-public func valid(form: Form) -> Bool {
-    return form.sections.reduce(true, combine: { valid, section in
+public func valid(_ form: Form) -> Bool {
+    return form.sections.reduce(true, { valid, section in
         valid && isValid(section)
     })
 }
@@ -233,8 +233,8 @@ public func valid(form: Form) -> Bool {
  * - returns: `true` if all of `sections`'s rows are valid.
  * - seealso: `valid(form:)`, `isValid(row:)`
  */
-public func isValid(section: FormSection) -> Bool {
-    return section.rows.reduce(true, combine: { valid, row in
+public func isValid(_ section: FormSection) -> Bool {
+    return section.rows.reduce(true, { valid, row in
         return (valid && isValid(row))
     })
 }
@@ -247,7 +247,7 @@ public func isValid(section: FormSection) -> Bool {
  * - returns: `true` if `row`'s value is valid
  * - seealso: `valid(form:)`, `isValid(section:)`
  */
-public func isValid(row: FormRow) -> Bool {
+public func isValid(_ row: FormRow) -> Bool {
     return row.validation(row.value as? String).valid
 }
 
@@ -256,23 +256,27 @@ public func isValid(row: FormRow) -> Bool {
 /** 
  * Returns the Key-Value Pairs of the data representing the Form
  */
-public func values(form: Form) -> [String: AnyObject] {
-    return form.sections.reduce(Dictionary<String, AnyObject>(), combine: {(var vs, section) in
-        for (k, v) in values(section) { vs[k] = v }
-        return vs
+public func values(_ form: Form) -> [String: AnyObject] {
+    return form.sections.reduce(Dictionary<String, AnyObject>(), {(vs, section) in
+        var mvs = vs
+        for (k, v) in values(section) { mvs[k] = v }
+        return mvs
     })
 }
 
 /**
  * Returns the Key-Value Pairs of the data representing the FormSection
  */
-func values(section: FormSection) -> [String: AnyObject] {
+func values(_ section: FormSection) -> [String: AnyObject] {
     if let v = section.valueOverride {
         return v()
     }
     
-    return section.rows.reduce(Dictionary<String, AnyObject>(), combine: {(var vs, row) in
-        if let v: AnyObject = row.value { vs[row.tag] = v }
-        return vs
+    return section.rows.reduce(Dictionary<String, AnyObject>(), {(vs, row) in
+        var mvs = vs
+        if let v: AnyObject = row.value {
+            mvs[row.tag] = v
+        }
+        return mvs
     })
 }

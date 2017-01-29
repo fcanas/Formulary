@@ -18,16 +18,20 @@
 *
 * - seealso: `FormRow`
 */
-public class PickerFormRow : FormRow, FormularyComponent {
+open class PickerFormRow : FormRow, FormularyComponent {
     
-    private static var registrationToken :Int = 0
-    private static let CellIdentifier = "Formulary.Picker"
+    private static var __once: () = { () -> Void in
+            registerFormularyComponent(PickerFormRow.self)
+        }()
+    
+    fileprivate static var registrationToken :Int = 0
+    fileprivate static let CellIdentifier = "Formulary.Picker"
     
     /**
      * A cell reuse identifier used by Formulary to create table view cells that
      * correspond to the picker form row.
      */
-    override public var cellIdentifier :String {
+    override open var cellIdentifier :String {
         get {
             return PickerFormRow.CellIdentifier
         }
@@ -40,11 +44,11 @@ public class PickerFormRow : FormRow, FormularyComponent {
      * is done automatically once the first time a Picker cell is
      * created. There is no need to use this function.
      */
-    public static func cellRegistration() -> [String : AnyClass] {
+    open static func cellRegistration() -> [String : AnyClass] {
         return [PickerFormRow.CellIdentifier : PickerCell.self]
     }
     
-    private let options: [String]
+    fileprivate let options: [String]
     
     /**
      * Initialized a Picker Form Row with the provided options.
@@ -54,9 +58,7 @@ public class PickerFormRow : FormRow, FormularyComponent {
      */
     public init(name: String, tag: String? = nil, options: [String], action :Action? = nil) {
         
-        dispatch_once(&PickerFormRow.registrationToken, { () -> Void in
-            registerFormularyComponent(PickerFormRow.self)
-        })
+        _ = PickerFormRow.__once
         
         self.options = options
         super.init(name: name, tag: tag, type: .Specialized, value: nil)
@@ -70,7 +72,7 @@ class PickerCell: UITableViewCell, FormTableViewCell {
     /// Indicates whether the cell has been configured
     var configured: Bool = false
     
-    private var pickerAdapter :PickerAdapter?
+    fileprivate var pickerAdapter :PickerAdapter?
     
     /// The FormRow model object the cell represents, if any
     var formRow: FormRow? {
@@ -80,15 +82,15 @@ class PickerCell: UITableViewCell, FormTableViewCell {
                 return
             }
             pickerAdapter = PickerAdapter(options: formRow.options) { (value) -> Void in
-                formRow.value = value
+                formRow.value = value as AnyObject?
             }
             pickerControl.delegate = pickerAdapter
             pickerControl.dataSource = pickerAdapter
             if !configured {
                 pickerControl.translatesAutoresizingMaskIntoConstraints = false
                 contentView.addSubview(pickerControl)
-                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[pickerControl]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pickerControl":pickerControl]))
-                contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[pickerControl]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pickerControl":pickerControl]))
+                contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[pickerControl]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pickerControl":pickerControl]))
+                contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[pickerControl]|", options: NSLayoutFormatOptions(), metrics: nil, views: ["pickerControl":pickerControl]))
                 configured = true
             }
         }
@@ -102,24 +104,24 @@ private class PickerAdapter : NSObject, UIPickerViewDataSource, UIPickerViewDele
     
     let options :[String]
 
-    private let changeAction :((String)->Void)
+    fileprivate let changeAction :((String)->Void)
     
-    init(options: [String], changeAction: (String) -> Void) {
+    init(options: [String], changeAction: @escaping (String) -> Void) {
         self.options = options
         self.changeAction = changeAction
         super.init()
     }
     
-    @objc func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    @objc func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return options[row]
     }
-    @objc func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    @objc func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return options.count
     }
-    @objc func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    @objc func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    @objc func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    @objc func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         changeAction(options[row])
     }
 }

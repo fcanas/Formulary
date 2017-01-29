@@ -18,31 +18,31 @@ class FormDataSource: NSObject, UITableViewDataSource {
     
     // MARK: Data
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return form.sections.count
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return form.sections[section].rows.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let row = rowForIndexPath(indexPath, form: form)
-        var cell = tableView.dequeueReusableCellWithIdentifier(row.cellIdentifier) as! FormTableViewCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: row.cellIdentifier) as! FormTableViewCell
         cell.formRow = row
         if let _ = cell as? ControllerSpringingCell, let cell = cell as? UITableViewCell {
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
         return cell as! UITableViewCell
     }
     
     // MARK: Headers and Footers
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return form.sections[section].name
     }
     
-    func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         return form.sections[section].footerName
     }
     
@@ -53,7 +53,7 @@ class FormDataSource: NSObject, UITableViewDataSource {
     // issues. If you can get it to work with that, please make the change
     static var cellRegistry :[String : String] = [:]
     
-    class func registerClass(cellClass :AnyClass, forCellReuseIdentifier identifier: String) {
+    class func registerClass(_ cellClass :AnyClass, forCellReuseIdentifier identifier: String) {
         cellRegistry[identifier] = NSStringFromClass(cellClass)
     }
 }

@@ -34,15 +34,15 @@ public enum TextEntryType: String {
 }
 
 private let KeyMap :[TextEntryType : UIKeyboardType] = [
-    TextEntryType.Plain     : UIKeyboardType.Default,
-    TextEntryType.Number    : UIKeyboardType.NumberPad,
-    TextEntryType.Decimal   : UIKeyboardType.DecimalPad,
-    TextEntryType.Email     : UIKeyboardType.EmailAddress,
-    TextEntryType.Twitter   : UIKeyboardType.Twitter,
+    TextEntryType.Plain     : UIKeyboardType.default,
+    TextEntryType.Number    : UIKeyboardType.numberPad,
+    TextEntryType.Decimal   : UIKeyboardType.decimalPad,
+    TextEntryType.Email     : UIKeyboardType.emailAddress,
+    TextEntryType.Twitter   : UIKeyboardType.twitter,
     TextEntryType.URL       : UIKeyboardType.URL,
-    TextEntryType.WebSearch : UIKeyboardType.WebSearch,
-    TextEntryType.Phone     : UIKeyboardType.PhonePad,
-    TextEntryType.NamePhone : UIKeyboardType.NamePhonePad,
+    TextEntryType.WebSearch : UIKeyboardType.webSearch,
+    TextEntryType.Phone     : UIKeyboardType.phonePad,
+    TextEntryType.NamePhone : UIKeyboardType.namePhonePad,
 ]
 
 //MARK: Form Row
@@ -60,26 +60,29 @@ private let KeyMap :[TextEntryType : UIKeyboardType] = [
  *
  * - seealso: `FormRow`
  */
-public class TextEntryFormRow : FormRow, FormularyComponent {
+open class TextEntryFormRow : FormRow, FormularyComponent {
+    private static var __once: () = { () -> Void in
+            registerFormularyComponent(TextEntryFormRow.self)
+        }()
     /** 
      * The type of text entry the form row supports
      *
      * - seealso: `TextEntryType`
      */
-    public let textType: TextEntryType
+    open let textType: TextEntryType
     
     /**
      * An NSFormatter that transforms the text in the form row as the user types
      * into it.
      */
-    public let formatter: NSFormatter?
+    open let formatter: Formatter?
     
     /**
      * A cell reuse udentifier used by Formulary.
      * It generally corresponds to the type of cell and the type of input it is
      * capable of receiving.
      */
-    override public var cellIdentifier :String {
+    override open var cellIdentifier :String {
         get {
             return textType.rawValue
         }
@@ -90,11 +93,9 @@ public class TextEntryFormRow : FormRow, FormularyComponent {
     /**
      * Returns an initialized text entry form row with the specified parameters.
      */
-    public init(name: String, tag: String? = nil, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: Validation = PermissiveValidation, formatter: NSFormatter? = nil, action: Action? = nil) {
+    public init(name: String, tag: String? = nil, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: @escaping Validation = PermissiveValidation, formatter: Formatter? = nil, action: Action? = nil) {
         
-        dispatch_once(&TextEntryFormRow.registrationToken, { () -> Void in
-            registerFormularyComponent(TextEntryFormRow.self)
-        })
+        _ = TextEntryFormRow.__once
         
         self.textType = textType
         self.formatter = formatter
@@ -106,7 +107,7 @@ public class TextEntryFormRow : FormRow, FormularyComponent {
      * as a `FormularyComponent`. This tells Formulary how to show a 
      * `TextEntryFormRow` within a Form.
      */
-    public static func cellRegistration() -> [String : AnyClass] {
+    open static func cellRegistration() -> [String : AnyClass] {
         return [
             TextEntryType.Plain.rawValue : TextEntryCell.self,
             TextEntryType.Number.rawValue : TextEntryCell.self,
@@ -136,18 +137,18 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
             if var formRow = formRow as? TextEntryFormRow {
                 configureTextField(&formRow).keyboardType = KeyMap[formRow.textType]!
             }
-            selectionStyle = .None
+            selectionStyle = .none
         }
     }
     
-    func configureTextField(inout row: TextEntryFormRow) -> UITextField {
+    func configureTextField(_ row: inout TextEntryFormRow) -> UITextField {
         if (textField == nil) {
             let newTextField = NamedTextField(frame: contentView.bounds)
             newTextField.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(newTextField)
             textField = newTextField
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-15-[textField]-|", options: [], metrics: nil, views: ["textField":newTextField]))
-            contentView.addConstraints([NSLayoutConstraint(item: contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 60.0)])
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-15-[textField]-|", options: [], metrics: nil, views: ["textField":newTextField]))
+            contentView.addConstraints([NSLayoutConstraint(item: contentView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 60.0)])
             textField = newTextField
         }
         formatterAdapter = row.formatter.map { FormatterAdapter(formatter: $0) }
@@ -156,12 +157,12 @@ class TextEntryCell: UITableViewCell, FormTableViewCell {
         textField?.placeholder = row.name
         textField?.validation = row.validation
         textField?.delegate = formatterAdapter
-        textField?.enabled = row.enabled
+        textField?.isEnabled = row.enabled
         
         if let field = textField {
-            let events :UIControlEvents = [.ValueChanged, .EditingChanged, .EditingDidEnd, .EditingDidEndOnExit]
+            let events :UIControlEvents = [.valueChanged, .editingChanged, .editingDidEnd, .editingDidEndOnExit]
             clear(field, controlEvents: events)
-            bind(field, controlEvents: events, action: { _ in row.value = field.text })
+            bind(field, controlEvents: events, action: { [row] _ in row.value = field.text as AnyObject? })
         }
         
         configured = true

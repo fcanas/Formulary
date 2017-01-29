@@ -16,9 +16,9 @@ import UIKit
  */
 class NamedTextField: UITextField {
     
-    private let nameLabel = UILabel()
+    fileprivate let nameLabel = UILabel()
     
-    var nameFont :UIFont = UIFont.systemFontOfSize(12) {
+    var nameFont :UIFont = UIFont.systemFont(ofSize: 12) {
         didSet {
             nameLabel.font = nameFont
             validationLabel.font = nameFont
@@ -50,7 +50,7 @@ class NamedTextField: UITextField {
     
     internal let validationLabel = UILabel()
     
-    var validationColor: UIColor = UIColor.redColor() {
+    var validationColor: UIColor = UIColor.red {
         didSet {
             validationLabel.textColor = validationColor
         }
@@ -58,18 +58,18 @@ class NamedTextField: UITextField {
     
     var validation: (String?) -> (Bool, String) = PermissiveValidation
     
-    private func validate() {
+    fileprivate func validate() {
         var accessibilityString = "\(placeholder ?? "")"
         let (valid, errorString) = validation(text)
         validationLabel.text = errorString
         validationLabel.sizeToFit()
         if (text ?? "").isEmpty {
-            hideLabel(isFirstResponder(), label: nameLabel)
+            hideLabel(isFirstResponder, label: nameLabel)
             if hasEverResignedFirstResponder && !valid {
                 showLabel(true, label: validationLabel)
                 accessibilityString += " \(errorString)"
             } else {
-                hideLabel(isFirstResponder(), label: validationLabel)
+                hideLabel(isFirstResponder, label: validationLabel)
             }
         } else {
             if let text = text {
@@ -80,8 +80,8 @@ class NamedTextField: UITextField {
                 accessibilityString += ", \(errorString)"
                 hideLabel(true, label: nameLabel)
             } else {
-                showLabel(isFirstResponder(), label: nameLabel)
-                hideLabel(isFirstResponder(), label: validationLabel)
+                showLabel(isFirstResponder, label: nameLabel)
+                hideLabel(isFirstResponder, label: validationLabel)
             }
         }
         accessibilityLabel = accessibilityString
@@ -94,8 +94,8 @@ class NamedTextField: UITextField {
         validate()
     }
     
-    private func showLabel(animated: Bool, label: UILabel) {
-        UIView.animateWithDuration(animated ? 0.25 : 0, animations: { () -> Void in
+    fileprivate func showLabel(_ animated: Bool, label: UILabel) {
+        UIView.animate(withDuration: animated ? 0.25 : 0, animations: { () -> Void in
             var f = label.frame
             f.origin.y = 3
             label.frame = f
@@ -103,8 +103,8 @@ class NamedTextField: UITextField {
         })
     }
     
-    private func hideLabel(animated: Bool, label: UILabel) {
-        UIView.animateWithDuration(animated ? 0.25 : 0, animations: { () -> Void in
+    fileprivate func hideLabel(_ animated: Bool, label: UILabel) {
+        UIView.animate(withDuration: animated ? 0.25 : 0, animations: { () -> Void in
             var f = label.frame
             f.origin.y = self.nameLabel.font.lineHeight
             label.frame = f
@@ -112,18 +112,18 @@ class NamedTextField: UITextField {
         })
     }
     
-    override func textRectForBounds(bounds:CGRect) -> CGRect {
-        var r = super.textRectForBounds(bounds)
+    override func textRect(forBounds bounds:CGRect) -> CGRect {
+        var r = super.textRect(forBounds: bounds)
         let top = ceil(nameLabel.font.lineHeight)
         r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + marginForContent, 0.0, -marginForContent, 0.0))
-        return CGRectIntegral(r)
+        return r.integral
     }
     
-    override func editingRectForBounds(bounds:CGRect) -> CGRect {
-        var r = super.editingRectForBounds(bounds)
+    override func editingRect(forBounds bounds:CGRect) -> CGRect {
+        var r = super.editingRect(forBounds: bounds)
         let top = ceil(nameLabel.font.lineHeight)
         r = UIEdgeInsetsInsetRect(r, UIEdgeInsetsMake(top + topMargin + marginForContent, 0.0, -marginForContent, 0.0))
-        return CGRectIntegral(r)
+        return r.integral
     }
     
     // MARK: Appearance
@@ -145,7 +145,7 @@ class NamedTextField: UITextField {
         sharedInit()
     }
     
-    private func sharedInit() {
+    fileprivate func sharedInit() {
         nameLabel.alpha = 0
         nameLabel.textColor = tintColor
         nameLabel.font = nameFont

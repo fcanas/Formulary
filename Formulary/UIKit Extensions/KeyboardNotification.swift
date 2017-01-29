@@ -14,16 +14,16 @@ import UIKit
 
 struct KeyboardNotification {
     
-    let notification: NSNotification
+    let notification: Notification
     let userInfo: NSDictionary
     
     /// Initializer
     ///
     /// - parameter notification: Keyboard-related notification
-    init(_ notification: NSNotification) {
+    init(_ notification: Notification) {
         self.notification = notification
         if let userInfo = notification.userInfo {
-            self.userInfo = userInfo
+            self.userInfo = userInfo as NSDictionary
         }
         else {
             self.userInfo = NSDictionary()
@@ -33,20 +33,20 @@ struct KeyboardNotification {
     /// Start frame of the keyboard in screen coordinates
     var screenFrameBegin: CGRect {
         if let value = userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue {
-            return value.CGRectValue()
+            return value.cgRectValue
         }
         else {
-            return CGRectZero
+            return CGRect.zero
         }
     }
     
     /// End frame of the keyboard in screen coordinates
     var screenFrameEnd: CGRect {
         if let value = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            return value.CGRectValue()
+            return value.cgRectValue
         }
         else {
-            return CGRectZero
+            return CGRect.zero
         }
     }
     
@@ -67,24 +67,24 @@ struct KeyboardNotification {
     /// this returns the value 7.
     var animationCurve: Int {
         if let number = userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber {
-            return number.integerValue
+            return number.intValue
         }
-        return UIViewAnimationCurve.EaseInOut.rawValue
+        return UIViewAnimationCurve.easeInOut.rawValue
     }
     
     /// Start frame of the keyboard in coordinates of specified view
     ///
     /// - parameter view: UIView to whose coordinate system the frame will be converted
     /// - returns: frame rectangle in view's coordinate system
-    func frameBeginForView(view: UIView) -> CGRect {
-        return view.convertRect(screenFrameBegin, fromView: view.window)
+    func frameBeginForView(_ view: UIView) -> CGRect {
+        return view.convert(screenFrameBegin, from: view.window)
     }
     
     /// Start frame of the keyboard in coordinates of specified view
     ///
     /// - parameter view: UIView to whose coordinate system the frame will be converted
     /// - returns: frame rectangle in view's coordinate system
-    func frameEndForView(view: UIView) -> CGRect {
-        return view.convertRect(screenFrameEnd, fromView: view.window)
+    func frameEndForView(_ view: UIView) -> CGRect {
+        return view.convert(screenFrameEnd, from: view.window)
     }
 }

@@ -24,16 +24,16 @@ import UIKit
  *
  * - seealso: `Form`
  */
-public class FormViewController: UIViewController {
+open class FormViewController: UIViewController {
     
-    private var dataSource: FormDataSource?
+    fileprivate var dataSource: FormDataSource?
     
     /**
      * The `Form` that the `FormViewController` presents to the user
      *
      * - seealso: `Form`
      */
-    public var form :Form {
+    open var form :Form {
         didSet {
             form.editingEnabled = editingEnabled
             dataSource = FormDataSource(form: form, tableView: tableView)
@@ -49,7 +49,7 @@ public class FormViewController: UIViewController {
      * `FormViewController` will create a `UITableView` and add it to its view
      * hierarchy.
      */
-    public var tableView: UITableView!
+    open var tableView: UITableView!
     
     /**
      * The style of `tableView` to create in `viewDidLoad` if no `tableView` 
@@ -61,22 +61,22 @@ public class FormViewController: UIViewController {
      *
      * - seealso: tableView
      */
-    public var tableViewStyle: UITableViewStyle = .Grouped
+    open var tableViewStyle: UITableViewStyle = .grouped
     
     /**
      * Enables or disables editing of the represented `Form`.
      */
-    public var editingEnabled :Bool = true {
+    open var editingEnabled :Bool = true {
         didSet {
             self.form.editingEnabled = editingEnabled
-            if editing == false {
+            if isEditing == false {
                 self.tableView?.firstResponder()?.resignFirstResponder()
             }
             self.tableView?.reloadData()
         }
     }
     
-    lazy private var tableViewDelegate :FormViewControllerTableDelegate = {
+    lazy fileprivate var tableViewDelegate :FormViewControllerTableDelegate = {
         return FormViewControllerTableDelegate(formViewController: self)
     }()
     
@@ -89,7 +89,7 @@ public class FormViewController: UIViewController {
      *   - nibName: The name of the nib file to associate with the view controller. The nib file name should not contain any leading path information. If you specify nil, the nibName property is set to nil.
      *   - nibBundle: The bundle in which to search for the nib file. This method looks for the nib file in the bundle's language-specific project directories first, followed by the Resources directory. If this parameter is nil, the method uses the heuristics described below to locate the nib file.
      */
-    public init(form: Form = Form(sections: []), nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public init(form: Form = Form(sections: []), nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.form = form
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
@@ -110,7 +110,7 @@ public class FormViewController: UIViewController {
      * view controllers. It is perfectly acceptable to create a Form and assign 
      * it to the FormViewController after initialization.
      */
-    public override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    public override convenience init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.init(form: Form(sections: []), nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
@@ -126,7 +126,7 @@ public class FormViewController: UIViewController {
         super.init(coder: aDecoder)
     }
     
-    private func link(form: Form, table: UITableView) {
+    fileprivate func link(_ form: Form, table: UITableView) {
         dataSource = FormDataSource(form: form, tableView: tableView)
         tableView.dataSource = dataSource
     }
@@ -143,12 +143,12 @@ public class FormViewController: UIViewController {
      * FormViewController. But if you do, things will work better if you invoke
      * the superclass's implementation first.
      */
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         if tableView == nil {
             tableView = UITableView(frame: view.bounds, style: tableViewStyle)
-            tableView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+            tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         }
         if tableView.superview == nil {
             view.addSubview(tableView)
@@ -166,29 +166,29 @@ public class FormViewController: UIViewController {
      * If you override this method, you must call super at some point in your 
      * implementation.
      */
-    public override func viewWillAppear(animated: Bool) {
+    open override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillShow:"), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillHide:"), name: UIKeyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FormViewController.keyboardWillShow(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FormViewController.keyboardWillHide(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
     
     /**
      * If you override this method, you must call super at some point in your 
      * implementation.
      */
-    public override func viewWillDisappear(animated: Bool) {
+    open override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 private extension FormViewController {
-    @objc func keyboardWillShow(notification: NSNotification) {
+    @objc func keyboardWillShow(_ notification: Notification) {
         if let cell = tableView.firstResponder()?.containingCell(),
-            let selectedIndexPath = tableView.indexPathForCell(cell) {
+            let selectedIndexPath = tableView.indexPath(for: cell) {
                 let keyboardInfo = KeyboardNotification(notification)
                 var keyboardEndFrame = keyboardInfo.screenFrameEnd
-                keyboardEndFrame = view.window!.convertRect(keyboardEndFrame, toView: view)
+                keyboardEndFrame = view.window!.convert(keyboardEndFrame, to: view)
                 
                 var contentInset = tableView.contentInset
                 var scrollIndicatorInsets = tableView.scrollIndicatorInsets
@@ -197,19 +197,19 @@ private extension FormViewController {
                 scrollIndicatorInsets.bottom = tableView.frame.origin.y + self.tableView.frame.size.height - keyboardEndFrame.origin.y
                 
                 UIView.beginAnimations("keyboardAnimation", context: nil)
-                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: keyboardInfo.animationCurve) ?? .EaseInOut)
+                UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: keyboardInfo.animationCurve) ?? .easeInOut)
                 UIView.setAnimationDuration(keyboardInfo.animationDuration)
                 
                 tableView.contentInset = contentInset
                 tableView.scrollIndicatorInsets = scrollIndicatorInsets
                 
-                tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: .None, animated: true)
+                tableView.scrollToRow(at: selectedIndexPath, at: .none, animated: true)
                 
                 UIView.commitAnimations()
         }
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
+    @objc func keyboardWillHide(_ notification: Notification) {
         let keyboardInfo = KeyboardNotification(notification)
         
         var contentInset = tableView.contentInset
@@ -219,7 +219,7 @@ private extension FormViewController {
         scrollIndicatorInsets.bottom = 0
         
         UIView.beginAnimations("keyboardAnimation", context: nil)
-        UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: keyboardInfo.animationCurve) ?? .EaseInOut)
+        UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: keyboardInfo.animationCurve) ?? .easeInOut)
         UIView.setAnimationDuration(keyboardInfo.animationDuration)
         
         tableView.contentInset = contentInset
@@ -238,12 +238,12 @@ private class FormViewControllerTableDelegate :NSObject, UITableViewDelegate {
         self.formViewController = formViewController
     }
     
-    @objc func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    @objc func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         formViewController?.tableView.firstResponder()?.resignFirstResponder()
     }
     
-    @objc func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)
+    @objc func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)
         if let cell = cell as? FormTableViewCell {
             cell.formRow?.action?(nil)
             cell.action?(nil)

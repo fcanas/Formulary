@@ -54,14 +54,14 @@ public enum FormRowType: String {
 }
 
 extension UITableView {
-    func registerFormCellClasses(classes :[String : String]) {
+    func registerFormCellClasses(_ classes :[String : String]) {
         for (identifier, klass) in classes {
-            self.registerClass(NSClassFromString(klass), forCellReuseIdentifier: identifier)
+            self.register(NSClassFromString(klass), forCellReuseIdentifier: identifier)
         }
         
-        self.registerClass(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
-        self.registerClass(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
-        self.registerClass(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Toggle.rawValue)
+        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
+        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
+        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Toggle.rawValue)
     }
 }
 
@@ -78,46 +78,46 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
         }
     }
     
-    func configureCell(inout row: FormRow) {
+    func configureCell(_ row: inout FormRow) {
         
         action = nil
-        contentView.addConstraints([NSLayoutConstraint(item: contentView, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Height, multiplier: 1.0, constant: 60.0)])
+        contentView.addConstraints([NSLayoutConstraint(item: contentView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 60.0)])
         
         switch row.type {
         case .Switch:
             textLabel?.text = row.name
             let s = UISwitch()
             accessoryView = s
-            bind(s, action: { _ in
-                row.value = s.on
+            bind(s, action: { [s, row] _ in
+                row.value = s.isOn as AnyObject?
             })
             
             if let state = row.value as? Bool {
-                s.on = state
+                s.isOn = state
             }
             
-            s.enabled = row.enabled
+            s.isEnabled = row.enabled
             
         case .Toggle:
             textLabel?.text = row.name
-            accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
+            accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.checkmark : .none
             
             if row.enabled {
-                action = { x in
-                    self.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.Checkmark : .None
+                action = { [row] x in
+                    self.accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.checkmark : .none
                 }
             }
             
         case .Button:
             let button = UIButton(frame: bounds)
             
-            button.setTitle(row.name, forState: .Normal)
-            button.setTitleColor(tintColor, forState: .Normal)
+            button.setTitle(row.name, for: UIControlState())
+            button.setTitleColor(tintColor, for: UIControlState())
             
             button.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(button)
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-[button]-|", options: [], metrics: nil, views: ["button":button]))
-            contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-[button]-|", options: [], metrics: nil, views: ["button":button]))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[button]-|", options: [], metrics: nil, views: ["button":button]))
+            contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[button]-|", options: [], metrics: nil, views: ["button":button]))
             
             let action :Action
             
@@ -128,11 +128,11 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             }
             
             if row.enabled {
-                bind(button, controlEvents: UIControlEvents.TouchUpInside, action: action)
+                bind(button, controlEvents: UIControlEvents.touchUpInside, action: action)
             }
         case .Specialized:
             assert(false, "Specialized cells should not be configured here.")
         }
-        selectionStyle = .None
+        selectionStyle = .none
     }
 }

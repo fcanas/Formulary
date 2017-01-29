@@ -8,20 +8,21 @@
 
 /// A FormSection of items that can be selected among. 
 /// Allows for multiple selection.
-public class OptionSection: FormSection {
+open class OptionSection: FormSection {
     
     /// Construct an OptionSection with an array of Strings for options
     public init(rowValues: [String], name: String? = nil, footerName :String? = nil, value: Any? = nil) {
         let rows = rowValues.map({ (value :String) -> FormRow in
-            return FormRow(name: value, tag: value, type: .Toggle, value: false)
+            return FormRow(name: value, tag: value, type: .Toggle, value: false as AnyObject?)
         })
         
         let allValues: ()->[String] = {
             let r = rows.filter({ row in
                 return (row.value as? Bool) ?? false
-            }).reduce([String](), combine: {(var vs, row) in
-                vs.append(row.name)
-                return vs
+            }).reduce([String](), {(vs, row) in
+                var v = vs
+                v.append(row.name)
+                return v
             })
             
             return r
@@ -36,34 +37,34 @@ public class OptionSection: FormSection {
         }
         
         valueOverride = {
-            return [self.name! : allValues()]
+            return [self.name! : allValues() as AnyObject]
         }
     }
     
-    func triggerRow(row: FormRow) {
+    func triggerRow(_ row: FormRow) {
         let v = row.value as? Bool ?? false
-        row.value = !v
+        row.value = !v as AnyObject?
     }
     
     func deselectAll() {
         for row in rows {
-            row.value = false
+            row.value = false as AnyObject?
         }
     }
     
-    func deselectAllBut(selectedRow: FormRow) {
+    func deselectAllBut(_ selectedRow: FormRow) {
         for row in rows {
-            row.value = false
+            row.value = false as AnyObject?
             row.action?(row.value)
             print("deselecting \(row)")
         }
-        selectedRow.value = true
+        selectedRow.value = true as AnyObject?
     }
 }
 
 private class SelectableRow : FormRow {
     func deselect() {
-        value = false
+        value = false as AnyObject?
     }
     
     var cell :UITableViewCell?
