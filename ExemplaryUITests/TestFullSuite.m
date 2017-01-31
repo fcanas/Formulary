@@ -27,7 +27,10 @@
     XCUIElementQuery *tablesQuery = app.tables;
     [tablesQuery.textFields[@"Name"] tap];
     [tablesQuery.textFields[@"Name"] typeText:@"Testy"];
-    XCTAssertTrue(tablesQuery.textFields[@"Name, Testy"].exists);
+    
+    [[[XCUIApplication alloc] init].keyboards.otherElements[@"Typing Predictions"].otherElements[@"\u201cTesty\u201d"] tap];
+    
+    XCTAssertTrue(tablesQuery.textFields[@"Name, Testy "].exists);
     
     [tablesQuery.textFields[@"Email"] tap];
 
@@ -65,7 +68,7 @@
     [[tablesQuery.cells containingType:XCUIElementTypeButton identifier:@"Show Values"].element tap];
     
     XCUIElement *formValuesAlert = app.alerts[@"Form Values"];
-    XCUIElement *staticTextResult = formValuesAlert.staticTexts[@"{\"name\":\"Testy\",\"likesGoats\":true,\"email\":\"Test@example.com\",\"thoughts\":\"Some thoughts\",\"favoriteNumber\":\"12\",\"Food\":[\"Ice Cream\",\"Pizza\"],\"House\":\"Ravenclaw\",\"age\":\"28\"}"];
+    XCUIElement *staticTextResult = formValuesAlert.staticTexts[@"{\"name\":\"Testy \",\"likesGoats\":true,\"email\":\"Test@example.com\",\"thoughts\":\"Some thoughts\",\"favoriteNumber\":\"12\",\"Food\":[\"Ice Cream\",\"Pizza\"],\"House\":\"Ravenclaw\",\"age\":\"28\"}"];
     XCTAssertTrue(staticTextResult.exists);
     
     [formValuesAlert.buttons[@"Ok"] tap];

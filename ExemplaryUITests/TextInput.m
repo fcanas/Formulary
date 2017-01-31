@@ -39,10 +39,12 @@
     
     [textField typeText:@"Joe"];
 
+    [[[XCUIApplication alloc] init].keyboards.otherElements[@"Typing Predictions"].otherElements[@"\u201cJoe\u201d"] tap];
+    
     // Drag to lose focus
     [[[self.tablesQuery childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0] pressForDuration:0 thenDragToElement:[[self.tablesQuery childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:1]];
 
-    XCTAssertTrue(self.tablesQuery.textFields[@"Name, Joe"].exists);
+    XCTAssertTrue(self.tablesQuery.textFields[@"Name, Joe "].exists);
 }
 
 - (void)testMaxMinNumericValidations
