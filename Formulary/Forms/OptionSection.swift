@@ -38,7 +38,7 @@ open class OptionSection: FormSection {
         
         valueOverride = {
             return [self.name! : allValues() as AnyObject]
-        }
+        } as (() -> [String : AnyObject])
     }
     
     func triggerRow(_ row: FormRow) {

@@ -85,7 +85,7 @@ open class FormSection {
      * by `value(section:)` is the `Dictionary` of all the `FormSection`'s 
      * `FormRow`'s values.
      */
-    open var valueOverride: ((Void) -> [String: AnyObject])?
+    open var valueOverride: (() -> [String: AnyObject])?
     
     /**
      * Creates a FormSection
@@ -96,7 +96,7 @@ open class FormSection {
      *   - footerName An optional footerName for the FormSection. Defaults to `nil`
      *   - valueOverride An optional function to serve as a value adapter for the FormSection. Defaults to `nil`
      */
-    public init(rows: [FormRow], name: String? = nil, footerName: String? = nil, valueOverride: ((Void) -> [String: AnyObject])? = nil) {
+    public init(rows: [FormRow], name: String? = nil, footerName: String? = nil, valueOverride: (() -> [String: AnyObject])? = nil) {
         self.rows = rows
         self.name = name
         self.footerName = footerName
