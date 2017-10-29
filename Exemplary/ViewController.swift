@@ -41,7 +41,7 @@ class ViewController: FormViewController {
                     let data = try! JSONSerialization.data(withJSONObject: values(self.form), options: [])
                     let s = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
                     
-                    let alert = UIAlertController(title: "Form Values", message: s as? String, preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = UIAlertController(title: "Form Values", message: s as String?, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 })
