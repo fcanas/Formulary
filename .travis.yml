@@ -1,3 +1,4 @@
 osx_image: xcode9.1
 language: objective-c
-script: xcodebuild -project Formulary.xcodeproj/ -scheme Formulary -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.2' test
+script:
+  - xcodebuild -project Formulary.xcodeproj/ -scheme Formulary -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 6,OS=11.1' test

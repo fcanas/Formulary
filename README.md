@@ -1,4 +1,4 @@
-# Formulary
+# Formulary [![Build Status](https://travis-ci.org/fcanas/Formulary.svg?branch=master)](https://travis-ci.org/fcanas/Formulary)
 
 Formulary is a Swift library for creating dynamic, declarative, table view forms for iOS.
 
@@ -25,7 +25,7 @@ presentViewController(formViewController, animated: true, completion: nil)
 <!--![](/Screenshots/formulary_basic.gif)-->
 
 
-#### NSFormatters in Text Entry 
+#### NSFormatters in Text Entry
 
 `NSFormatter`s can be injected to format text entry or enforce valid text. In this example the number formatter will prevent the user from entering more than two decimal places, more than one decimal point, or any non-numeric characters.
 
@@ -38,9 +38,9 @@ TextEntryFormRow(name:"Age", textType: .Decimal, formatter: decimalFormatter)
 
 #### Validations
 
-Text entry rows can have validations. Validations are assertions about the value of a row. 
+Text entry rows can have validations. Validations are assertions about the value of a row.
 Validations show users error messages. Validation results for individual rows are aggregated to validate the overall Form.
-Some Validations are provided such as `MaximumNumber`, `MinimumNumber`, and `RequiredString`. 
+Some Validations are provided such as `MaximumNumber`, `MinimumNumber`, and `RequiredString`.
 
 ```swift
 TextEntryFormRow(name:"Name", validation: RequiredString("Name"))

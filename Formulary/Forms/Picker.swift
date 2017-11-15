@@ -61,7 +61,7 @@ open class PickerFormRow : FormRow, FormularyComponent {
         _ = PickerFormRow.__once
         
         self.options = options
-        super.init(name: name, tag: tag, type: .Specialized, value: nil)
+        super.init(name: name, tag: tag, type: .specialized, value: nil)
     }
 
 }
