@@ -13,7 +13,7 @@ open class OptionSection: FormSection {
     /// Construct an OptionSection with an array of Strings for options
     public init(rowValues: [String], name: String? = nil, footerName :String? = nil, value: Any? = nil) {
         let rows = rowValues.map({ (value :String) -> FormRow in
-            return FormRow(name: value, tag: value, type: .Toggle, value: false as AnyObject?)
+            return FormRow(name: value, tag: value, type: .toggle, value: false as AnyObject?)
         })
         
         let allValues: ()->[String] = {

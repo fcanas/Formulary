@@ -14,35 +14,35 @@ import Foundation
 /// Determines the type of keyboard shown when the user is editing the row's value.
 public enum TextEntryType: String {
     /// Specifies the default keyboard for the current input method.
-    case Plain     = "Formulary.Plain"
+    case plain     = "Formulary.Plain"
     /// Specifies a numeric keypad designed for PIN entry. This keyboard type prominently features the numbers 0 through 9.
-    case Number    = "Formulary.Number"
+    case number    = "Formulary.Number"
     /// Specifies a keyboard with numbers and a decimal point.
-    case Decimal   = "Formulary.Decimal"
+    case decimal   = "Formulary.Decimal"
     /// Specifies a keyboard optimized for entering email addresses. This keyboard type prominently features the at (“@”), period (“.”) and space characters.
-    case Email     = "Formulary.Email"
+    case email     = "Formulary.Email"
     /// Specifies a keyboard optimized for Twitter text entry, with easy access to the at (“@”) and hash (“#”) characters.
-    case Twitter   = "Formulary.Twitter"
+    case twitter   = "Formulary.Twitter"
     /// Specifies a keyboard optimized for URL entry. This keyboard type prominently features the period (“.”) and slash (“/”) characters and the “.com” string.
-    case URL       = "Formulary.URL"
+    case url       = "Formulary.URL"
     /// Specifies a keyboard optimized for web search terms and URL entry. This keyboard type prominently features the space and period (“.”) characters.
-    case WebSearch = "Formulary.WebSearch"
+    case webSearch = "Formulary.WebSearch"
     /// Specifies a keypad designed for entering telephone numbers. This keyboard type prominently features the numbers 0 through 9 and the “*” and “#” characters.
-    case Phone     = "Formulary.Phone"
+    case phone     = "Formulary.Phone"
     /// Specifies a keypad designed for entering a person’s name or phone number.
-    case NamePhone = "Formulary.PhoneName"
+    case namePhone = "Formulary.PhoneName"
 }
 
 private let KeyMap :[TextEntryType : UIKeyboardType] = [
-    TextEntryType.Plain     : UIKeyboardType.default,
-    TextEntryType.Number    : UIKeyboardType.numberPad,
-    TextEntryType.Decimal   : UIKeyboardType.decimalPad,
-    TextEntryType.Email     : UIKeyboardType.emailAddress,
-    TextEntryType.Twitter   : UIKeyboardType.twitter,
-    TextEntryType.URL       : UIKeyboardType.URL,
-    TextEntryType.WebSearch : UIKeyboardType.webSearch,
-    TextEntryType.Phone     : UIKeyboardType.phonePad,
-    TextEntryType.NamePhone : UIKeyboardType.namePhonePad,
+    TextEntryType.plain     : UIKeyboardType.default,
+    TextEntryType.number    : UIKeyboardType.numberPad,
+    TextEntryType.decimal   : UIKeyboardType.decimalPad,
+    TextEntryType.email     : UIKeyboardType.emailAddress,
+    TextEntryType.twitter   : UIKeyboardType.twitter,
+    TextEntryType.url       : UIKeyboardType.URL,
+    TextEntryType.webSearch : UIKeyboardType.webSearch,
+    TextEntryType.phone     : UIKeyboardType.phonePad,
+    TextEntryType.namePhone : UIKeyboardType.namePhonePad,
 ]
 
 //MARK: Form Row
@@ -93,13 +93,13 @@ open class TextEntryFormRow : FormRow, FormularyComponent {
     /**
      * Returns an initialized text entry form row with the specified parameters.
      */
-    public init(name: String, tag: String? = nil, textType: TextEntryType = .Plain, value: AnyObject? = nil, validation: @escaping Validation = PermissiveValidation, formatter: Formatter? = nil, action: Action? = nil) {
+    public init(name: String, tag: String? = nil, textType: TextEntryType = .plain, value: AnyObject? = nil, validation: @escaping Validation = PermissiveValidation, formatter: Formatter? = nil, action: Action? = nil) {
         
         _ = TextEntryFormRow.__once
         
         self.textType = textType
         self.formatter = formatter
-        super.init(name: name, tag: tag, type: .Specialized, value: value, validation: validation, action: action)
+        super.init(name: name, tag: tag, type: .specialized, value: value, validation: validation, action: action)
     }
     
     /**
@@ -109,15 +109,15 @@ open class TextEntryFormRow : FormRow, FormularyComponent {
      */
     open static func cellRegistration() -> [String : AnyClass] {
         return [
-            TextEntryType.Plain.rawValue : TextEntryCell.self,
-            TextEntryType.Number.rawValue : TextEntryCell.self,
-            TextEntryType.Decimal.rawValue : TextEntryCell.self,
-            TextEntryType.Email.rawValue : TextEntryCell.self,
-            TextEntryType.Twitter.rawValue : TextEntryCell.self,
-            TextEntryType.URL.rawValue : TextEntryCell.self,
-            TextEntryType.WebSearch.rawValue : TextEntryCell.self,
-            TextEntryType.Phone.rawValue : TextEntryCell.self,
-            TextEntryType.NamePhone.rawValue : TextEntryCell.self,
+            TextEntryType.plain.rawValue : TextEntryCell.self,
+            TextEntryType.number.rawValue : TextEntryCell.self,
+            TextEntryType.decimal.rawValue : TextEntryCell.self,
+            TextEntryType.email.rawValue : TextEntryCell.self,
+            TextEntryType.twitter.rawValue : TextEntryCell.self,
+            TextEntryType.url.rawValue : TextEntryCell.self,
+            TextEntryType.webSearch.rawValue : TextEntryCell.self,
+            TextEntryType.phone.rawValue : TextEntryCell.self,
+            TextEntryType.namePhone.rawValue : TextEntryCell.self,
         ]
     }
 }

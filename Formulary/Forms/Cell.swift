@@ -43,14 +43,14 @@ public protocol ControllerSpringingCell {
  * The type of FormRow.
  */
 public enum FormRowType: String {
-    /// A FormRow shoing a Boolean switch
-    case Switch  = "Formulary.Switch"
+    /// A FormRow showing a Boolean switch
+    case toggleSwitch  = "Formulary.toggleSwitch"
     /// A FormRow representing a Button to perform an action
-    case Button  = "Formulary.Button"
+    case button  = "Formulary.button"
     /// A FormRow whose state is toggled when pressed
-    case Toggle  = "Formulary.Toggle"
+    case toggle  = "Formulary.toggle"
     /// All other types of FormRows, including Number and Text Entry
-    case Specialized = "__Formulary.Specialized"
+    case specialized = "__Formulary.specialized"
 }
 
 extension UITableView {
@@ -59,9 +59,9 @@ extension UITableView {
             self.register(NSClassFromString(klass), forCellReuseIdentifier: identifier)
         }
         
-        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Switch.rawValue)
-        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Button.rawValue)
-        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.Toggle.rawValue)
+        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.toggleSwitch.rawValue)
+        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.button.rawValue)
+        self.register(BasicFormCell.self, forCellReuseIdentifier: FormRowType.toggle.rawValue)
     }
 }
 
@@ -84,7 +84,7 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
         contentView.addConstraints([NSLayoutConstraint(item: contentView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.height, multiplier: 1.0, constant: 60.0)])
         
         switch row.type {
-        case .Switch:
+        case .toggleSwitch:
             textLabel?.text = row.name
             let s = UISwitch()
             accessoryView = s
@@ -98,7 +98,7 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             
             s.isEnabled = row.enabled
             
-        case .Toggle:
+        case .toggle:
             textLabel?.text = row.name
             accessoryType = ((row.value as? Bool) ?? false) ? UITableViewCellAccessoryType.checkmark : .none
             
@@ -108,7 +108,7 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
                 }
             }
             
-        case .Button:
+        case .button:
             let button = UIButton(frame: bounds)
             
             button.setTitle(row.name, for: UIControlState())
@@ -130,7 +130,7 @@ class BasicFormCell :UITableViewCell, FormTableViewCell {
             if row.enabled {
                 bind(button, controlEvents: UIControlEvents.touchUpInside, action: action)
             }
-        case .Specialized:
+        case .specialized:
             assert(false, "Specialized cells should not be configured here.")
         }
         selectionStyle = .none
