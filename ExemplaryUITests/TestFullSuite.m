@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 
 @interface TestFullSuite : XCTestCase
-
+@property (nonatomic) XCUIApplication *app;
 @end
 
 @implementation TestFullSuite
@@ -18,12 +18,13 @@
 {
     [super setUp];
     self.continueAfterFailure = NO;
-    [[[XCUIApplication alloc] init] launch];
+    self.app = [[XCUIApplication alloc] init];
+    [self.app launch];
 }
 
 - (void)testFullExampleForm
 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = self.app;
     XCUIElementQuery *tablesQuery = app.tables;
     [tablesQuery.textFields[@"Name"] tap];
     [tablesQuery.textFields[@"Name"] typeText:@"Testy"];
@@ -63,12 +64,9 @@
     [app.tables.staticTexts[@"House"] swipeUp]; // swipe up on inocuous text
     
     [[tablesQuery.cells containingType:XCUIElementTypeButton identifier:@"Show Values"].element tap];
-    
-    XCUIElement *formValuesAlert = app.alerts[@"Form Values"];
-    XCUIElement *staticTextResult = formValuesAlert.staticTexts[@"{\"name\":\"Testy\",\"likesGoats\":true,\"email\":\"Test@example.com\",\"thoughts\":\"Some thoughts\",\"favoriteNumber\":\"12\",\"Food\":[\"Ice Cream\",\"Pizza\"],\"House\":\"Ravenclaw\",\"age\":\"28\"}"];
-    XCTAssertTrue(staticTextResult.exists);
-    
-    [formValuesAlert.buttons[@"Ok"] tap];
+
+    XCUIElement *element = [[app.alerts.staticTexts matchingPredicate:[NSPredicate predicateWithFormat:@"label = %@", @"{\"name\":\"Testy\",\"likesGoats\":true,\"email\":\"Test@example.com\",\"thoughts\":\"Some thoughts\",\"favoriteNumber\":\"12\",\"Food\":[\"Ice Cream\",\"Pizza\"],\"House\":\"Ravenclaw\",\"age\":\"28\"}"]] element];
+    XCTAssertTrue(element.exists);
 }
 
 @end
